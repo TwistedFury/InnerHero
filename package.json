@@ -1,5 +1,5 @@
 {
-  "name": "0-capstone-innerhero",
+  "name": "innerhero",
   "version": "1.0.0",
   "main": "index.ts",
   "dependencies": {

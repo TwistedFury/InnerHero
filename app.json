@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "0-Capstone-InnerHero",
-    "slug": "0-Capstone-InnerHero",
+    "name": "InnerHero",
+    "slug": "InnerHero",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
