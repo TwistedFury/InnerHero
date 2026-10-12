@@ -1,7 +1,11 @@
 import { useRouter } from 'expo-router'
 import { StyleSheet, Text, View, Pressable, TextInput, Button } from 'react-native';
-import { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
+
+import quests from "../src/data/quests.json";
+import type { Quest } from "../src/types";
+
+const sampleQuest: Quest = quests[0];
 
 export default function Page() {
   // Navigation:
@@ -32,11 +36,21 @@ export default function Page() {
           <Text style={styles.questsButtonText}>Go to Quests</Text>
         </Pressable>
 
-        <Pressable style={styles.questPgButton} onPress={() => router.navigate('/quests')}>
+        <Pressable
+          style={styles.sampleQuestButton}
+          onPress={() => router.navigate({
+            pathname: '/quests/[questCode]',
+            params: { questCode: sampleQuest.id },
+          })}
+        >
+          <Text style={styles.sampleQuestButtonText}>Open Sample Quest</Text>
+        </Pressable>
+
+        <Pressable style={styles.questPgButton} onPress={() => router.navigate('/quest-progress')}>
           <Text style={styles.questPgButtonText}>Go to Quest Progress</Text>
         </Pressable>
 
-        <Pressable style={styles.questCompButton} onPress={() => router.navigate('/quests')}>
+        <Pressable style={styles.questCompButton} onPress={() => router.navigate('/quest-complete')}>
           <Text style={styles.questCompButtonText}>Go to Quest Complete</Text>
         </Pressable>
 
@@ -104,6 +118,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   questsButtonText: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  sampleQuestButton: {
+    backgroundColor: "#b8f2e6",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    alignItems: "center",
+  },
+  sampleQuestButtonText: {
     color: "#000",
     fontSize: 16,
     fontWeight: "600",
