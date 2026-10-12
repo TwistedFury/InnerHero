@@ -3,18 +3,29 @@
         "id": "sample",
         "name": "Sample Quest",
         "theory": "Sample Theory et al",
-        "quest_path": "Sample Path",
-        "chain": true,
-        "total_chain": 4,
-        "place_in_chain": 0
+        "quest_path": "sample_path",
+        "chain_id": "sample_chain",
+        "chain_index": 0,
+        "prerequisites": []
     },
     {
         "id": "cbt-1",
         "name": "Cognitive Behavior Theory - 1",
         "theory": "CBT-1 et al",
         "quest_path": "Taking Space",
-        "chain": false,
-        "total_chain": 1,
-        "place_in_chain": 0
+        "chain_id": "ts-1",
+        "chain_index": 0,
+        "prerequisites": []
+    },
+    {
+        "id": "cbt-2",
+        "name": "Cognitive Behavior Theory - 2",
+        "theory": "CBT-1 et al",
+        "quest_path": "Taking Space",
+        "chain_id": "ts-1",
+        "chain_index": 0,
+        "prerequisites": [
+            "cbt-1"
+        ]
     }
 ]

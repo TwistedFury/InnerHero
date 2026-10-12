@@ -1,9 +1,22 @@
 import { useRouter } from 'expo-router'
 import { StyleSheet, Text, View, Pressable, TextInput, Button } from 'react-native';
 import { useForm, Controller } from 'react-hook-form'
-
 import quests from "../src/data/quests.json";
 import type { Quest } from "../src/types";
+
+import { useEffect, useState } from "react";
+import { useProgress } from "../src/storage/questStorage"
+
+import ChainScreen from './(quests)/quest-controller';
+
+function useHydrated() {
+  const [hydrated, setHydrated] = useState(useProgress.persist.hasHydrated());
+  useEffect(() => {
+    const unsub = useProgress.persist.onFinishHydration(() => setHydrated(true));
+    return unsub;
+  }, []);
+  return hydrated;
+}
 
 const sampleQuest: Quest = quests[0];
 
@@ -22,6 +35,12 @@ export default function Page() {
       questCode: data.questCode
     },
   });
+
+  // Wait for quests to saturate
+  const hydrated = useHydrated();
+  if (!hydrated) return null;
+
+  const cs = <ChainScreen chainId="ts-1" />;
 
   return (
     <View style={styles.container}>
@@ -72,6 +91,11 @@ export default function Page() {
 
           <Button title="Submit" onPress={handleSubmit(onSubmit)} />
       </View>
+
+      <View>
+        {cs}
+      </View>
+      
     </View>
   );
 }

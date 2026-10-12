@@ -3,7 +3,7 @@ export interface Quest {
     name: string;
     theory: string;
     quest_path: string;
-    chain: boolean;
-    total_chain: number;
-    place_in_chain: number;
+    chain_id: string;
+    chain_index: number;
+    prerequisites: string[];
 }
