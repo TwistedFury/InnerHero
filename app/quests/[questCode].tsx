@@ -17,7 +17,7 @@ export default function QC()
                     <Text>Code: {quest.id}</Text>
                     <Text>Theory: {quest.theory}</Text>
                     <Text>Path: {quest.quest_path}</Text>
-                    <Text>Prerequisites: {quest.prerequisites}</Text>
+                    <Text>Prerequisites: {quest.prerequisites.join(", ")}</Text>
                 </>
             ) : (
                 <Text>No quest found for code: {questCode}</Text>

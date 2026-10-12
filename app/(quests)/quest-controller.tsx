@@ -1,4 +1,4 @@
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 import { useProgress } from '../../src/storage/questStorage';
 import { getChain, getCurrentQuest } from '../../src/helper/chainUtils';
 
@@ -18,7 +18,7 @@ export default function ChainScreen({ chainId }: { chainId: string }) {
     .at(-1);
 
   return (
-    <View>
+    <View style={styles.chainScreen}>
       <Text>Quest {doneCount + 1} of {chain.length}</Text>
       <Text>{current.name}</Text>
 
@@ -29,3 +29,11 @@ export default function ChainScreen({ chainId }: { chainId: string }) {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+    chainScreen: {
+        padding: 20,
+        marginTop: 100,
+        backgroundColor: "#bebdbd87"
+    }
+});

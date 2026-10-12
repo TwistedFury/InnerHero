@@ -23,9 +23,34 @@
         "theory": "CBT-1 et al",
         "quest_path": "Taking Space",
         "chain_id": "ts-1",
-        "chain_index": 0,
+        "chain_index": 1,
         "prerequisites": [
             "cbt-1"
+        ]
+    },
+    {
+        "id": "cbt-3",
+        "name": "Cognitive Behavior Theory - 3",
+        "theory": "CBT-1 et al",
+        "quest_path": "Taking Space",
+        "chain_id": "ts-1",
+        "chain_index": 2,
+        "prerequisites": [
+            "cbt-1",
+            "cbt-2"
+        ]
+    },
+    {
+        "id": "cbt-4",
+        "name": "Cognitive Behavior Theory - 4",
+        "theory": "CBT-1 et al",
+        "quest_path": "Taking Space",
+        "chain_id": "ts-1",
+        "chain_index": 3,
+        "prerequisites": [
+            "cbt-1",
+            "cbt-2",
+            "cbt-3"
         ]
     }
 ]
