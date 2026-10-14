@@ -6,7 +6,10 @@
         "quest_path": "sample_path",
         "chain_id": "sample_chain",
         "chain_index": 0,
-        "prerequisites": []
+        "prerequisites": [],
+        "tag": "Sample Tag",
+        "description": "Sample description",
+        "icon": "footprints"
     },
     {
         "id": "cbt-1",
@@ -15,7 +18,10 @@
         "quest_path": "Taking Space",
         "chain_id": "ts-1",
         "chain_index": 0,
-        "prerequisites": []
+        "prerequisites": [],
+        "tag": "CBT · Thought record",
+        "description": "Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
+        "icon": "notebook-pen"
     },
     {
         "id": "cbt-2",
@@ -26,7 +32,10 @@
         "chain_index": 1,
         "prerequisites": [
             "cbt-1"
-        ]
+        ],
+        "tag": "CBT · Thought record",
+        "description": "Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
+        "icon": "notebook-pen"
     },
     {
         "id": "cbt-3",

@@ -7,7 +7,7 @@ import type { Quest } from "../../src/types";
 export default function QC()
 {
     const { questCode } = useLocalSearchParams<{ questCode: string }>();
-    const quest: Quest | undefined = quests.find(({ id }) => id === questCode);
+    const quest = (quests as Quest[]).find(({ id }) => id === questCode);
 
     return (
         <View>

@@ -6,4 +6,7 @@ export interface Quest {
     chain_id: string;
     chain_index: number;
     prerequisites: string[];
+    tag: string;
+    description: string;
+    icon: any;
 }
