@@ -9,7 +9,13 @@
         "prerequisites": [],
         "tag": "Sample Tag",
         "description": "Sample description",
-        "icon": "footprints"
+        "icon": "footprints",
+        "version": "v1.0",
+        "steps": [
+            "text", "slider", "mood-pick"
+        ],
+        "estimated_minutes": 10,
+        "repeatable": false
     },
     {
         "id": "cbt-1",
@@ -21,7 +27,10 @@
         "prerequisites": [],
         "tag": "CBT · Thought record",
         "description": "Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
-        "icon": "notebook-pen"
+        "icon": "notebook-pen",
+        "version": "v1.0",
+        "estimated_minutes": 15,
+        "repeatable": true
     },
     {
         "id": "cbt-2",
@@ -35,7 +44,10 @@
         ],
         "tag": "CBT · Thought record",
         "description": "Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
-        "icon": "notebook-pen"
+        "icon": "notebook-pen",
+        "version":"v1.0",
+        "estimated_minutes": 5,
+        "repeatable": true
     },
     {
         "id": "cbt-3",
@@ -50,7 +62,10 @@
         ],
         "tag":"CBT · Thought record",
         "description":"Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
-        "icon": "calendar-check"
+        "icon": "calendar-check",
+        "version": "v1.0",
+        "estimated_minutes": 5,
+        "repeatable": true
     },
     {
         "id": "cbt-4",
@@ -66,6 +81,9 @@
         ],
         "tag":"Sample Tag",
         "description":"Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
-        "icon": "arrow-up-right"
+        "icon": "arrow-up-right",
+        "version":"v1.0",
+        "estimated_minutes": 10,
+        "repeatable": true
     }
 ]

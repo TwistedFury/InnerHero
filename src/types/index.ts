@@ -10,3 +10,18 @@ export interface Quest {
     description: string;
     icon: any;
 }
+
+type QuestProgress = {
+    status: 'in_progress' | 'completed' | 'skipped';
+    startedAt: string;      // ISO
+    completedAt?: string;
+    completions: number;    // For repeatable quests
+    questVersion: number;
+}
+
+type ThoughtRecord = {
+    questId: string;
+    stepId: string;
+    answer: any;
+    createdAt: string;      // ISO
+}
