@@ -47,7 +47,10 @@
         "prerequisites": [
             "cbt-1",
             "cbt-2"
-        ]
+        ],
+        "tag":"CBT · Thought record",
+        "description":"Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
+        "icon": "calendar-check"
     },
     {
         "id": "cbt-4",
@@ -60,6 +63,9 @@
             "cbt-1",
             "cbt-2",
             "cbt-3"
-        ]
+        ],
+        "tag":"Sample Tag",
+        "description":"Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
+        "icon": "arrow-up-right"
     }
 ]

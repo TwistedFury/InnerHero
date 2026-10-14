@@ -4,7 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import quests from "../../src/data/quests.json";
 import type { Quest } from "../../src/types";
 
-export default function QC()
+export default function QuestDisplay()
 {
     const { questCode } = useLocalSearchParams<{ questCode: string }>();
     const quest = (quests as Quest[]).find(({ id }) => id === questCode);

@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router'
-import { StyleSheet, Text, View, Pressable, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, Button } from 'react-native';
 import { useForm, Controller } from 'react-hook-form'
 import quests from "../src/data/quests.json";
 import type { Quest } from "../src/types";
@@ -7,7 +7,7 @@ import type { Quest } from "../src/types";
 import { useEffect, useState } from "react";
 import { useProgress } from "../src/storage/questStorage"
 
-import ChainScreen from './(quests)/quest-controller';
+import ChainScreen from '../src/components/QuestController';
 
 function useHydrated() {
   const [hydrated, setHydrated] = useState(useProgress.persist.hasHydrated());
@@ -18,7 +18,7 @@ function useHydrated() {
   return hydrated;
 }
 
-const sampleQuest: Quest = quests[0];
+const sampleQuest = quests[0] as Quest;
 
 export default function Page() {
   // Navigation:
@@ -44,6 +44,7 @@ export default function Page() {
 
   return (
     <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.main}>
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
@@ -96,6 +97,7 @@ export default function Page() {
         {cs}
       </View>
       
+    </ScrollView>
     </View>
   );
 }
@@ -103,11 +105,14 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  contentContainer: {
+    flexGrow: 1,
     alignItems: "center",
     padding: 24,
   },
   main: {
-    flex: 1,
+    width: "100%",
     justifyContent: "center",
     maxWidth: 960,
     marginHorizontal: "auto",

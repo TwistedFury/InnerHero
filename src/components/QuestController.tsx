@@ -1,6 +1,6 @@
 import { View, Text, Button, StyleSheet } from 'react-native';
-import { useProgress } from '../../src/storage/questStorage';
-import { getChain, getCurrentQuest } from '../../src/helper/chainUtils';
+import { useProgress } from '../storage/questStorage';
+import { getChain, getCurrentQuest } from '../helper/chainUtils';
 
 export default function ChainScreen({ chainId }: { chainId: string }) {
   const completed = useProgress((s) => s.completed);
