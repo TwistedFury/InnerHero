@@ -1,15 +1,30 @@
-import { ScrollView } from 'react-native'
-import ShowQuest from '../../src/components/QuestCard'
+import { Fragment } from 'react';
+import { ScrollView } from 'react-native';
+import ShowQuest from '../../src/components/QuestCard';
+import { RetrieveAvailableQuests } from '../../src/helper/questFinder';
+import { getChain } from '../../src/helper/chainUtils'
 
-export default function QC()
+export default function QuestPage()
 {
+    const quests = RetrieveAvailableQuests([]);
+
     return (
         <ScrollView>
-            <>{ShowQuest('cbt-1', '../quests/[questCode]', 1, "no prog")}</>
-            <>{ShowQuest('cbt-2', '../quests/[questCode]', 1, "In Progress 2 of 4")}</>
-            <>{ShowQuest('cbt-3', '../quests/[questCode]', 0, "In Progress 3 of 4")}</>
-            <>{ShowQuest('cbt-4', '../quests/[questCode]', 0, "In Progress 4 of 4")}</>
-            <>{ShowQuest('sample', '../quests/[questCode]', 0, "no prog")}</>
+            {quests.map((quest) => {
+                const chainLength = getChain(quest.chain_id).length;
+                const progressLabel = `Quest ${quest.chain_index + 1} of ${chainLength}`;
+
+                return (
+                    <Fragment key={quest.id}>
+                        {ShowQuest(
+                            quest.id,
+                            '../quests/[questCode]',
+                            `${quest.estimated_minutes} minutes`,
+                            progressLabel,
+                        )}
+                    </Fragment>
+                );
+            })}
         </ScrollView>
     )
 }

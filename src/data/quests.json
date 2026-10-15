@@ -12,7 +12,9 @@
         "icon": "footprints",
         "version": "v1.0",
         "steps": [
-            "text", "slider", "mood-pick"
+            {"id": "thoughts", "type": "text", "prompt": "What is on your mind?", "required": true},
+            {"id": "feeling", "type": "slider", "prompt": "On a scale of 1-10, how did you feel?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
         ],
         "estimated_minutes": 10,
         "repeatable": false
@@ -28,6 +30,11 @@
         "tag": "CBT · Thought record",
         "description": "Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
         "icon": "notebook-pen",
+        "steps": [
+            {"id": "thoughts", "type": "text", "prompt": "Write down the thought that came up.", "required": true},
+            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now?", "required": true}
+        ],
         "version": "v1.0",
         "estimated_minutes": 15,
         "repeatable": true
@@ -45,6 +52,11 @@
         "tag": "CBT · Thought record",
         "description": "Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
         "icon": "notebook-pen",
+        "steps": [
+            {"id": "reflection", "type": "text", "prompt": "What happened, and what did you feel?", "required": true},
+            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
+        ],
         "version":"v1.0",
         "estimated_minutes": 5,
         "repeatable": true
@@ -63,6 +75,11 @@
         "tag":"CBT · Thought record",
         "description":"Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
         "icon": "calendar-check",
+        "steps": [
+            {"id": "reflection", "type": "text", "prompt": "What happened, and what did you feel?", "required": true},
+            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
+        ],
         "version": "v1.0",
         "estimated_minutes": 5,
         "repeatable": true
@@ -82,6 +99,11 @@
         "tag":"Sample Tag",
         "description":"Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
         "icon": "arrow-up-right",
+        "steps": [
+            {"id": "thoughts", "type": "text", "prompt": "Write down the thought that came up.", "required": true},
+            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now?", "required": true}
+        ],
         "version":"v1.0",
         "estimated_minutes": 10,
         "repeatable": true

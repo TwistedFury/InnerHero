@@ -1,8 +1,7 @@
 import { Pressable, Text, StyleSheet, View} from 'react-native';
 import { useRouter, type RelativePathString } from 'expo-router';
 
-import quests from "../data/quests.json";
-import type { Quest } from "../types";
+import FindQuest from '../helper/questFinder'
 import { colors, fonts } from '../styling/theme';
 import { getIcon } from '../helper/icons'
 
@@ -10,12 +9,12 @@ import { getIcon } from '../helper/icons'
 export default function ShowQuest(
     questCode: string, 
     pathToQuests: RelativePathString, 
-    duration: number, 
+    duration: string, 
     progressLabel: string,
 )
 {
     const router = useRouter();
-    const quest = quests.find(({ id }) => id === questCode) as Quest | undefined;
+    const quest = FindQuest(questCode);
 
     /* 
     Icon types:

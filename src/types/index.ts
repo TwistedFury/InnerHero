@@ -1,3 +1,32 @@
+export type QuestStepType = 'mood' | 'text' | 'slider';
+
+export interface QuestStep {
+    id: string;
+    type: QuestStepType;
+    prompt: string;
+    required?: boolean;
+    min?: number;
+    max?: number;
+}
+
+export type QuestAnswer = string | number;
+
+export interface QuestResponse {
+    questId: string;
+    stepId: string;
+    answer: QuestAnswer;
+    createdAt: string;
+    attempt: number;
+}
+
+export interface QuestProgress {
+    status: 'in_progress' | 'completed' | 'skipped';
+    startedAt: string;
+    completedAt?: string;
+    completions: number;
+    questVersion: string;
+}
+
 export interface Quest {
     id: string;
     name: string;
@@ -5,23 +34,12 @@ export interface Quest {
     quest_path: string;
     chain_id: string;
     chain_index: number;
-    prerequisites: string[]; // These are the ids of the other quests
+    prerequisites: string[];
     tag: string;
     description: string;
-    icon: any;
-}
-
-type QuestProgress = {
-    status: 'in_progress' | 'completed' | 'skipped';
-    startedAt: string;      // ISO
-    completedAt?: string;
-    completions: number;    // For repeatable quests
-    questVersion: number;
-}
-
-type ThoughtRecord = {
-    questId: string;
-    stepId: string;
-    answer: any;
-    createdAt: string;      // ISO
+    icon: string;
+    version: string;
+    steps: QuestStep[];
+    estimated_minutes: number;
+    repeatable: boolean;
 }
