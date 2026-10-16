@@ -1,11 +1,10 @@
 import { Pressable, Text, StyleSheet, View} from 'react-native';
 import { useRouter, type RelativePathString } from 'expo-router';
 
-import FindQuest from '../helper/questFinder'
+import findQuest from '../helper/questFinder'
 import { colors, fonts } from '../styling/theme';
 import { getIcon } from '../helper/icons'
 
-// progressLabel will soon be updated dynamically from the Quest System
 export default function ShowQuest(
     questCode: string, 
     pathToQuests: RelativePathString, 
@@ -14,7 +13,7 @@ export default function ShowQuest(
 )
 {
     const router = useRouter();
-    const quest = FindQuest(questCode);
+    const quest = findQuest(questCode);
 
     /* 
     Icon types:

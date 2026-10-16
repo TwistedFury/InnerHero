@@ -11,6 +11,7 @@ type ProgressState = {
   stepIndexes: Record<string, number>;
   saveAnswer: (questId: string, stepId: string, answer: QuestAnswer) => void;
   advanceStep: (questId: string) => void;
+  startQuest: (questId: string, questVersion: string) => void;
   completeQuest: (id: string, questVersion: string) => void;
   undoQuest: (id: string) => void;
   resetChain: (ids: string[]) => void;
@@ -51,20 +52,42 @@ export const useProgress = create<ProgressState>()(
             [questId]: (state.stepIndexes[questId] ?? 0) + 1,
           },
         })),
-
+      
+      startQuest: (id, questVersion) =>
+        set((state) => {
+          if (state.progress[id]?.status === 'in_progress') return state;
+          return {
+            progress: {
+              ...state.progress,
+              [id]: {
+                status: 'in_progress',
+                startedAt: new Date().toISOString(),
+                completions: state.progress[id]?.completions ?? 0,
+                questVersion
+              },
+            },
+          };
+        }),
+      
       completeQuest: (id, questVersion) =>
         set((state) => {
-          const previous = state.progress[id];
-          const nextProgress: QuestProgress = {
-            status: 'completed',
-            startedAt: previous?.startedAt ?? new Date().toISOString(),
-            completedAt: new Date().toISOString(),
-            completions: (previous?.completions ?? 0) + 1,
-            questVersion,
-          };
+          const prev = state.progress[id];
+          const now = new Date().toISOString();
+          const { [id]: _clearedDraft, ...drafts } = state.drafts;
           return {
             completed: state.completed.includes(id) ? state.completed : [...state.completed, id],
-            progress: { ...state.progress, [id]: nextProgress },
+            progress: {
+              ...state.progress,
+              [id]: {
+                status: 'completed',
+                startedAt: prev?.startedAt ?? now,
+                completedAt: now,
+                completions: (prev?.completions ?? 0) + 1,
+                questVersion,
+              },
+            },
+            drafts,
+            stepIndexes: { ...state.stepIndexes, [id]: 0 },
           };
         }),
 

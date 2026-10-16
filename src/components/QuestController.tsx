@@ -3,6 +3,7 @@ import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-nati
 import { getChain, getCurrentQuest } from '../helper/chainUtils';
 import type { Quest, QuestAnswer, QuestStep } from '../types';
 import { useProgress } from '../storage/questStorage';
+import { useRouter } from 'expo-router'
 
 function StepInput({
   step,
@@ -77,11 +78,16 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
   stepIndex: number;
   initialAnswer: QuestAnswer | undefined;
 }) {
-  const { saveAnswer, advanceStep, completeQuest } = useProgress();
+  const { saveAnswer, advanceStep, completeQuest, startQuest } = useProgress();
   const [answer, setAnswer] = useState<QuestAnswer | undefined>(initialAnswer);
   const [error, setError] = useState('');
+  const router = useRouter();
 
   const submit = () => {
+    if (stepIndex === 0) {
+      startQuest(quest.id, quest.version);
+    }
+
     if (step.required !== false && (answer === undefined || answer === '')) {
       setError('Please answer this step before continuing.');
       return;
@@ -90,6 +96,7 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
     saveAnswer(quest.id, step.id, answer ?? '');
     if (stepIndex === quest.steps.length - 1) {
       completeQuest(quest.id, quest.version);
+      router.replace('/quests');
       return;
     }
     advanceStep(quest.id);
