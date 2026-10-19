@@ -1,0 +1,15 @@
+[
+    {
+        "chain_id": "ts-1",
+        "title": "Taking Space",
+        "description": "",
+        "quests": [
+            "cbt-1", "cbt-2",
+            "cbt-3", "cbt-4"
+        ],
+        "prerequisites": [
+            "sample_chain"
+        ],
+        "current_quest_id": null
+    }
+]

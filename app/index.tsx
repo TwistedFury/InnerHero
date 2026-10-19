@@ -1,7 +1,24 @@
 import { useRouter } from 'expo-router'
-import { StyleSheet, Text, View, Pressable, TextInput, Button } from 'react-native';
-import { useState } from 'react'
+import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, Button } from 'react-native';
 import { useForm, Controller } from 'react-hook-form'
+import quests from "../src/data/quests.json";
+import type { Quest } from "../src/types";
+
+import { useEffect, useState } from "react";
+import { useProgress } from "../src/storage/questStorage"
+
+import ChainScreen from '../src/components/QuestController';
+
+function useHydrated() {
+  const [hydrated, setHydrated] = useState(useProgress.persist.hasHydrated());
+  useEffect(() => {
+    const unsub = useProgress.persist.onFinishHydration(() => setHydrated(true));
+    return unsub;
+  }, []);
+  return hydrated;
+}
+
+const sampleQuest = quests[0] as Quest;
 
 export default function Page() {
   // Navigation:
@@ -19,8 +36,15 @@ export default function Page() {
     },
   });
 
+  // Wait for quests to saturate
+  const hydrated = useHydrated();
+  if (!hydrated) return null;
+
+  const cs = <ChainScreen chainId="ts-1" />;
+
   return (
     <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.contentContainer}>
       <View style={styles.main}>
         <Text style={styles.title}>Hello World</Text>
         <Text style={styles.subtitle}>This is the first page of your app.</Text>
@@ -32,11 +56,21 @@ export default function Page() {
           <Text style={styles.questsButtonText}>Go to Quests</Text>
         </Pressable>
 
-        <Pressable style={styles.questPgButton} onPress={() => router.navigate('/quests')}>
+        <Pressable
+          style={styles.sampleQuestButton}
+          onPress={() => router.navigate({
+            pathname: '/quests/[questCode]',
+            params: { questCode: sampleQuest.id },
+          })}
+        >
+          <Text style={styles.sampleQuestButtonText}>Open Sample Quest</Text>
+        </Pressable>
+
+        <Pressable style={styles.questPgButton} onPress={() => router.navigate('/quest-progress')}>
           <Text style={styles.questPgButtonText}>Go to Quest Progress</Text>
         </Pressable>
 
-        <Pressable style={styles.questCompButton} onPress={() => router.navigate('/quests')}>
+        <Pressable style={styles.questCompButton} onPress={() => router.navigate('/quest-complete')}>
           <Text style={styles.questCompButtonText}>Go to Quest Complete</Text>
         </Pressable>
 
@@ -58,6 +92,12 @@ export default function Page() {
 
           <Button title="Submit" onPress={handleSubmit(onSubmit)} />
       </View>
+
+      <View>
+        {cs}
+      </View>
+      
+    </ScrollView>
     </View>
   );
 }
@@ -65,11 +105,14 @@ export default function Page() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+  },
+  contentContainer: {
+    flexGrow: 1,
     alignItems: "center",
     padding: 24,
   },
   main: {
-    flex: 1,
+    width: "100%",
     justifyContent: "center",
     maxWidth: 960,
     marginHorizontal: "auto",
@@ -104,6 +147,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   questsButtonText: {
+    color: "#000",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  sampleQuestButton: {
+    backgroundColor: "#b8f2e6",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    alignItems: "center",
+  },
+  sampleQuestButtonText: {
     color: "#000",
     fontSize: 16,
     fontWeight: "600",

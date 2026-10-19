@@ -1,13 +1,15 @@
-import { View, Text } from 'react-native'
+import { View, Text } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
-export default function QC()
+import findQuest from '../../src/helper/questFinder';
+import { QuestRunner } from "../../src/components/QuestController";
+
+export default function QuestDisplay()
 {
     const { questCode } = useLocalSearchParams<{ questCode: string }>();
+    const quest = findQuest(questCode);
 
-    return (
-        <View>
-            <Text>Hey! You are viewing a quest with the code: {questCode}</Text>
-        </View>
-    )
+    return quest
+        ? <QuestRunner quest={quest} />
+        : <View><Text>No quest found for code: {questCode}</Text></View>;
 }

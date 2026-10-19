@@ -1,10 +1,40 @@
-import { View, Text } from 'react-native'
+import { Fragment } from 'react';
+import { ScrollView, Text } from 'react-native';
+import ShowQuest from '../../src/components/QuestCard';
+import { retrieveAvailableQuests, getQuestStatus } from '../../src/helper/questFinder';
+import { getChain } from '../../src/helper/chainUtils'
+import { useProgress } from '../../src/storage/questStorage'
 
-export default function QC()
+export default function QuestPage()
 {
+    const progress = useProgress((storage) => storage.progress);
+    const quests = retrieveAvailableQuests(progress);
+
     return (
-        <View>
-            <Text>Hey!</Text>
-        </View>
+        <ScrollView>
+            {quests.length === 0 ? (
+                <Text>All caught up!</Text>
+            ) : quests.map((quest) => {
+                const chainLength = getChain(quest.chain_id).length;
+                const status = getQuestStatus(quest, progress);
+                const progressLabel =
+                    status === 'completed'
+                    ? 'Completed'
+                    : `Quest ${quest.chain_index + 1} of ${chainLength}`;
+
+                return (
+                    <Fragment key={quest.id}>
+                        {ShowQuest(
+                            quest.id,
+                            '../quests/[questCode]',
+                            `${quest.estimated_minutes} minutes`,
+                            progress[quest.id]?.completions > 0 ?
+                                `Completed ${progress[quest.id]?.completions} times`
+                                : progressLabel,
+                        )}
+                    </Fragment>
+                );
+            })}
+        </ScrollView>
     )
 }

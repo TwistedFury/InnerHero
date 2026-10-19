@@ -1,0 +1,111 @@
+[
+    {
+        "id": "sample",
+        "name": "Sample Quest",
+        "theory": "Sample Theory et al",
+        "quest_path": "sample_path",
+        "chain_id": "sample_chain",
+        "chain_index": 0,
+        "prerequisites": [],
+        "tag": "Sample Tag",
+        "description": "Sample description",
+        "icon": "footprints",
+        "version": "v1.0",
+        "steps": [
+            {"id": "thoughts", "type": "text", "prompt": "What is on your mind?", "required": true},
+            {"id": "feeling", "type": "slider", "prompt": "On a scale of 1-10, how did you feel?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
+        ],
+        "estimated_minutes": 10,
+        "repeatable": false
+    },
+    {
+        "id": "cbt-1",
+        "name": "Cognitive Behavior Theory - 1",
+        "theory": "CBT-1 et al",
+        "quest_path": "Taking Space",
+        "chain_id": "ts-1",
+        "chain_index": 0,
+        "prerequisites": [],
+        "tag": "CBT · Thought record",
+        "description": "Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
+        "icon": "notebook-pen",
+        "steps": [
+            {"id": "thoughts", "type": "text", "prompt": "Write down the thought that came up.", "required": true},
+            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now?", "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 15,
+        "repeatable": true
+    },
+    {
+        "id": "cbt-2",
+        "name": "Cognitive Behavior Theory - 2",
+        "theory": "CBT-1 et al",
+        "quest_path": "Taking Space",
+        "chain_id": "ts-1",
+        "chain_index": 1,
+        "prerequisites": [
+            "cbt-1"
+        ],
+        "tag": "CBT · Thought record",
+        "description": "Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
+        "icon": "notebook-pen",
+        "steps": [
+            {"id": "reflection", "type": "text", "prompt": "What happened, and what did you feel?", "required": true},
+            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
+        ],
+        "version":"v1.0",
+        "estimated_minutes": 5,
+        "repeatable": true
+    },
+    {
+        "id": "cbt-3",
+        "name": "Cognitive Behavior Theory - 3",
+        "theory": "CBT-1 et al",
+        "quest_path": "Taking Space",
+        "chain_id": "ts-1",
+        "chain_index": 2,
+        "prerequisites": [
+            "cbt-1",
+            "cbt-2"
+        ],
+        "tag":"CBT · Thought record",
+        "description":"Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
+        "icon": "calendar-check",
+        "steps": [
+            {"id": "reflection", "type": "text", "prompt": "What happened, and what did you feel?", "required": true},
+            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 5,
+        "repeatable": true
+    },
+    {
+        "id": "cbt-4",
+        "name": "Cognitive Behavior Theory - 4",
+        "theory": "CBT-1 et al",
+        "quest_path": "Taking Space",
+        "chain_id": "ts-1",
+        "chain_index": 3,
+        "prerequisites": [
+            "cbt-1",
+            "cbt-2",
+            "cbt-3"
+        ],
+        "tag":"Sample Tag",
+        "description":"Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
+        "icon": "arrow-up-right",
+        "steps": [
+            {"id": "thoughts", "type": "text", "prompt": "Write down the thought that came up.", "required": true},
+            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now?", "required": true}
+        ],
+        "version":"v1.0",
+        "estimated_minutes": 10,
+        "repeatable": true
+    }
+]
