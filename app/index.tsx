@@ -7,8 +7,6 @@ import type { Quest } from "../src/types";
 import { useEffect, useState } from "react";
 import { useProgress } from "../src/storage/questStorage"
 
-import ChainScreen from '../src/components/QuestController';
-
 function useHydrated() {
   const [hydrated, setHydrated] = useState(useProgress.persist.hasHydrated());
   useEffect(() => {
@@ -40,8 +38,6 @@ export default function Page() {
   const hydrated = useHydrated();
   if (!hydrated) return null;
 
-  const cs = <ChainScreen chainId="ts-1" />;
-
   return (
     <View style={styles.container}>
     <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -66,7 +62,7 @@ export default function Page() {
           <Text style={styles.sampleQuestButtonText}>Open Sample Quest</Text>
         </Pressable>
 
-        <Pressable style={styles.questPgButton} onPress={() => router.navigate('/quest-progress')}>
+        <Pressable style={styles.questPgButton} onPress={() => router.navigate('/')}>
           <Text style={styles.questPgButtonText}>Go to Quest Progress</Text>
         </Pressable>
 
@@ -91,10 +87,6 @@ export default function Page() {
           {errors.questCode && <Text style={{ color: 'red'}}>{errors.questCode.message}</Text>}
 
           <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-      </View>
-
-      <View>
-        {cs}
       </View>
       
     </ScrollView>

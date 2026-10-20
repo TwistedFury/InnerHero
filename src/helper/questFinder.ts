@@ -26,3 +26,9 @@ export function getQuestStatus(
   if (done(quest.id)) return quest.repeatable ? 'available' : 'completed';
   return quest.prerequisites.every(done) ? 'available' : 'locked';
 }
+
+export function getChain(chainId: string): Quest[] {
+  return (quests as Quest[])
+    .filter((quest) => quest.chain_id === chainId)
+    .sort((a, b) => a.chain_index - b.chain_index);
+}
