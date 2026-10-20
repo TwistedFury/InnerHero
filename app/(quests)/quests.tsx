@@ -1,8 +1,7 @@
 import { Fragment } from 'react';
 import { ScrollView, Text } from 'react-native';
 import ShowQuest from '../../src/components/QuestCard';
-import { retrieveAvailableQuests, getQuestStatus } from '../../src/helper/questFinder';
-import { getChain } from '../../src/helper/chainUtils'
+import { retrieveAvailableQuests, getQuestStatus, getChain } from '../../src/helper/questFinder';
 import { useProgress } from '../../src/storage/questStorage'
 
 export default function QuestPage()

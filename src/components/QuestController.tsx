@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { getChain, getCurrentQuest } from '../helper/chainUtils';
 import type { Quest, QuestAnswer, QuestStep } from '../types';
 import { useProgress } from '../storage/questStorage';
 import { useRouter } from 'expo-router'
@@ -120,27 +119,6 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
         title={stepIndex === quest.steps.length - 1 ? 'Save and complete' : 'Save and continue'}
         onPress={submit}
       />
-    </View>
-  );
-}
-
-export default function ChainScreen({ chainId }: { chainId: string }) {
-  const completed = useProgress((state) => state.completed);
-  const completeQuest = useProgress((state) => state.completeQuest);
-  const undoQuest = useProgress((state) => state.undoQuest);
-  const chain = getChain(chainId);
-  const current = getCurrentQuest(chainId, completed);
-  const doneCount = chain.filter((quest) => completed.includes(quest.id)).length;
-
-  if (!current) return <Text>Chain complete!</Text>;
-
-  const previous = chain.filter((quest) => completed.includes(quest.id)).at(-1);
-  return (
-    <View style={styles.chainScreen}>
-      <Text>Quest {doneCount + 1} of {chain.length}</Text>
-      <Text>{current.name}</Text>
-      <Button title="Complete and continue" onPress={() => completeQuest(current.id, current.version)} />
-      {previous ? <Button title="Go back" onPress={() => undoQuest(previous.id)} /> : null}
     </View>
   );
 }

@@ -33,11 +33,11 @@ const createUserId = () =>
 
 const createInitialUser = () => ({
   userId: createUserId(),
-  displayName: generateDisplayName(),
   createdAt: new Date().toISOString(),
   onboardingCompleted: false,
   profile: {
     selectedGoals: [],
+    displayName: generateDisplayName(),
   },
   notificationsEnabled: false,
 });
