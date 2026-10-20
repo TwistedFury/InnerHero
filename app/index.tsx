@@ -2,7 +2,7 @@ import { useRouter } from 'expo-router'
 import { StyleSheet, Text, View, ScrollView, Pressable, TextInput, Button } from 'react-native';
 import { useForm, Controller } from 'react-hook-form'
 import quests from "../src/data/quests.json";
-import type { Quest } from "../src/types";
+import type { Quest } from "../src/types/quest";
 
 import { useEffect, useState } from "react";
 import { useProgress } from "../src/storage/questStorage"

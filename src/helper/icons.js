@@ -1,5 +1,5 @@
 import { NotebookPen, Footprints, CalendarCheck, CircleHelp, ArrowUpRight, Bookmark, 
-  ChessKnight, UserShield, Shield
+  ChessKnight, UserShield, Shield, Edit
  } from 'lucide-react-native';
 
 const registry = {
@@ -11,6 +11,7 @@ const registry = {
   'chess-knight': ChessKnight,
   'user-shield': UserShield,
   'shield': Shield,
+  'edit': Edit
 };
 
 export function getIcon(name) {

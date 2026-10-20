@@ -1,21 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { QuestAnswer, QuestProgress, QuestResponse } from '../types';
-
-type ProgressState = {
-  completed: string[];
-  progress: Record<string, QuestProgress>;
-  responses: QuestResponse[];
-  drafts: Record<string, Record<string, QuestAnswer>>;
-  stepIndexes: Record<string, number>;
-  saveAnswer: (questId: string, stepId: string, answer: QuestAnswer) => void;
-  advanceStep: (questId: string) => void;
-  startQuest: (questId: string, questVersion: string) => void;
-  completeQuest: (id: string, questVersion: string) => void;
-  undoQuest: (id: string) => void;
-  resetChain: (ids: string[]) => void;
-};
+import type { ProgressState } from '../types/quest';
 
 export const useProgress = create<ProgressState>()(
   persist(

@@ -2,31 +2,7 @@ import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { generateDisplayName } from '../helper/nameGenerator';
-
-type UserProfile = {
-  displayName?: string;
-  avatarUri?: string;
-  selectedGoals: string[];
-};
-
-type UserState = {
-  // fields
-  userId: string;
-  createdAt: string;
-  onboardingCompleted: boolean;
-  profile: UserProfile;
-  notificationsEnabled: boolean;
-  reminderTime?: string;
-
-  // functions
-  completeOnboarding: () => void;
-  updateProfile: (updates: Partial<UserProfile>) => void;
-  updatePreferences: (updates: {
-    notificationsEnabled?: boolean;
-    reminderTime?: string;
-  }) => void;
-  resetUser: () => void;
-};
+import { UserState } from '../types/user'
 
 const createUserId = () =>
   `local-${Date.now()}-${Math.random().toString(36).slice(2)}`;

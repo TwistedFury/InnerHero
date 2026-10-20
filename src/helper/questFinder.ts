@@ -1,5 +1,5 @@
 import quests from "../data/quests.json";
-import type { Quest, QuestProgress } from "../types";
+import type { Quest, QuestProgress } from "../types/quest";
 
 export default function findQuest(questId: string)
 {

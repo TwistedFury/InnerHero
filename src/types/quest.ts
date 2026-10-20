@@ -43,3 +43,17 @@ export interface Quest {
     estimated_minutes: number;
     repeatable: boolean;
 }
+
+export type ProgressState = {
+  completed: string[];
+  progress: Record<string, QuestProgress>;
+  responses: QuestResponse[];
+  drafts: Record<string, Record<string, QuestAnswer>>;
+  stepIndexes: Record<string, number>;
+  saveAnswer: (questId: string, stepId: string, answer: QuestAnswer) => void;
+  advanceStep: (questId: string) => void;
+  startQuest: (questId: string, questVersion: string) => void;
+  completeQuest: (id: string, questVersion: string) => void;
+  undoQuest: (id: string) => void;
+  resetChain: (ids: string[]) => void;
+};
