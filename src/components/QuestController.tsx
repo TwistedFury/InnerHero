@@ -95,7 +95,12 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
     saveAnswer(quest.id, step.id, answer ?? '');
     if (stepIndex === quest.steps.length - 1) {
       completeQuest(quest.id, quest.version);
-      router.replace('/quests');
+      router.replace({
+        pathname: '/quest-complete',
+        params: {
+          questId: quest.id,
+        }
+      });
       return;
     }
     advanceStep(quest.id);
