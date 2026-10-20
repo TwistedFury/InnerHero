@@ -3,12 +3,14 @@ import { ScrollView, StyleSheet, Text, TextInput, View, Pressable } from 'react-
 import { StatusBar } from 'expo-status-bar';
 import { useUser } from '../src/storage/userStorage';
 import { useProgress } from '../src/storage/questStorage';
+import { useMilestones } from '../src/storage/milestoneStorage';
 import { generateDisplayName } from '../src/helper/nameGenerator';
 import { getIcon } from '../src/helper/icons';
 import { colors, fonts } from '../src/styling/theme';
 
 const EditIcon = getIcon('edit');
 const ShieldIcon = getIcon('shield');
+const MilestoneIcon = getIcon('bookmark');
 
 function formatPracticeDate(createdAt: string) {
   const date = new Date(createdAt);
@@ -26,6 +28,8 @@ export default function Profile() {
   const updateProfile = useUser((state) => state.updateProfile);
   const completed = useProgress((state) => state.completed);
   const progress = useProgress((state) => state.progress);
+  const milestones = useMilestones((state) => state.milestones);
+  const milestoneProgress = useMilestones((state) => state.progress);
   const [nameDraft, setNameDraft] = useState(displayName);
   const [error, setError] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -33,6 +37,18 @@ export default function Profile() {
   const techniquesExplored = new Set(
     completed.map((questId) => progress[questId]?.questVersion ?? questId),
   ).size;
+  const earnedMilestones = milestones.filter((milestone) =>
+    milestoneProgress.some(
+      (milestoneState) => milestoneState.milestoneId === milestone.id && milestoneState.completed,
+    ),
+  );
+  const nextMilestone = milestones.find(
+    (milestone) =>
+      !milestoneProgress.some(
+        (milestoneState) =>
+          milestoneState.milestoneId === milestone.id && milestoneState.completed,
+      ),
+  );
 
   const handleSave = () => {
     const trimmedName = nameDraft.trim();
@@ -118,6 +134,39 @@ export default function Profile() {
               <Text style={styles.statValue}>{techniquesExplored}</Text>
               <Text style={styles.statLabel}>Techniques explored</Text>
             </View>
+          </View>
+
+          <View style={styles.milestonesSection}>
+            <Text style={styles.milestonesTitle}>Milestones earned</Text>
+            {earnedMilestones.length > 0 ? (
+              <View style={styles.milestoneRow}>
+                {earnedMilestones.map((milestone) => (
+                  <View key={milestone.id} style={styles.milestoneCard}>
+                    <MilestoneIcon color="#B77722" size={18} strokeWidth={1.8} />
+                    <Text style={styles.milestoneName} numberOfLines={1}>
+                      {milestone.displayName}
+                    </Text>
+                    <Text style={styles.milestoneDescription} numberOfLines={1}>
+                      {milestone.description}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            ) : (
+              <Text style={styles.emptyMilestones}>Your first milestone is still ahead.</Text>
+            )}
+            {nextMilestone ? (
+              <View style={styles.nextMilestone}>
+                <MilestoneIcon color={colors.primary} size={15} strokeWidth={1.8} />
+                <Text style={styles.nextMilestoneText} numberOfLines={1}>
+                  Next: {nextMilestone.displayName}
+                </Text>
+                <Text style={styles.nextMilestoneProgress}>
+                  {completed.filter((questId) => nextMilestone.requiredQuests.includes(questId)).length}{' '}
+                  of {nextMilestone.requiredQuests.length} quests
+                </Text>
+              </View>
+            ) : null}
           </View>
 
           {isEditing ? (
@@ -366,5 +415,64 @@ const styles = StyleSheet.create({
   },
   buttonPressed: {
     opacity: 0.78,
+  },
+  milestonesSection: {
+    marginBottom: 28,
+  },
+  milestonesTitle: {
+    color: colors.primaryDark,
+    fontFamily: fonts.sansMedium,
+    fontSize: 15,
+    marginBottom: 10,
+  },
+  milestoneRow: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  milestoneCard: {
+    backgroundColor: '#F3E6CE',
+    borderRadius: 10,
+    flex: 1,
+    minHeight: 76,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
+  },
+  milestoneName: {
+    color: colors.primaryDark,
+    fontFamily: fonts.sansMedium,
+    fontSize: 10,
+    marginTop: 5,
+  },
+  milestoneDescription: {
+    color: colors.muted,
+    fontFamily: fonts.sans,
+    fontSize: 8,
+    marginTop: 4,
+  },
+  emptyMilestones: {
+    backgroundColor: '#F3E6CE',
+    borderRadius: 10,
+    color: colors.muted,
+    fontFamily: fonts.sans,
+    fontSize: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 14,
+  },
+  nextMilestone: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 9,
+  },
+  nextMilestoneText: {
+    color: colors.muted,
+    flex: 1,
+    fontFamily: fonts.sans,
+    fontSize: 9,
+    marginLeft: 6,
+  },
+  nextMilestoneProgress: {
+    color: colors.muted,
+    fontFamily: fonts.sans,
+    fontSize: 9,
   },
 });
