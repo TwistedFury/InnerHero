@@ -1,26 +1,26 @@
 [
     {
         "id": "first-step",
-        "display-name": "First Step",
+        "display_name": "First Step",
         "description": "Complete your first quest",
-        "required-quests": [
+        "required_quests": [
             "cbt-1"
         ]
     },
     {
         "id": "finding-range",
-        "display-name": "Finding Range",
+        "display_name": "Finding Range",
         "description": "Practiced both techniques",
-        "required-quests": [
+        "required_quests": [
             "cbt-1",
-            "#null"
+            "unknown-1"
         ]
     },
     {
         "id": "making-room",
-        "display-name": "Making Room",
+        "display_name": "Making Room",
         "description": "Complete your first chain",
-        "required-quests": [
+        "required_quests": [
             "cbt-4"
         ]
     }

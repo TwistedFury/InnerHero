@@ -56,4 +56,5 @@ export type ProgressState = {
   completeQuest: (id: string, questVersion: string) => void;
   undoQuest: (id: string) => void;
   resetChain: (ids: string[]) => void;
+  resetProgress: () => void;
 };

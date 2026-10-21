@@ -1,8 +1,8 @@
 export type Milestone = {
     id: string;
-    displayName: string;
+    display_name: string;
     description: string;
-    requiredQuests: string[];
+    required_quests: string[];
 }
 
 export type MilestoneProgress = {

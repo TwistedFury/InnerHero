@@ -90,6 +90,15 @@ export const useProgress = create<ProgressState>()(
             Object.entries(state.stepIndexes).filter(([id]) => !ids.includes(id)),
           ),
         })),
+
+      resetProgress: () =>
+        set({
+          completed: [],
+          progress: {},
+          responses: [],
+          drafts: {},
+          stepIndexes: {},
+        }),
     }),
     {
       name: 'quest-progress',

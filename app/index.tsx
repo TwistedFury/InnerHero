@@ -62,7 +62,7 @@ export default function Page() {
           <Text style={styles.sampleQuestButtonText}>Open Sample Quest</Text>
         </Pressable>
 
-        <Pressable style={styles.questPgButton} onPress={() => router.navigate('/')}>
+        <Pressable style={styles.questPgButton} onPress={() => router.navigate('/quest-progress')}>
           <Text style={styles.questPgButtonText}>Go to Quest Progress</Text>
         </Pressable>
 

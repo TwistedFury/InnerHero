@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import { Text, ScrollView, Pressable, View } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useProgress } from '../../src/storage/questStorage';
-import { getQuestStatus } from '../../src/helper/questFinder';  // match the path your quests.tsx uses
-import quests from '../../src/data/quests.json';              // or however quests.tsx gets the list
+import { getQuestStatus } from '../../src/helper/questFinder';
+import quests from '../../src/data/quests.json';
+import { useMilestones } from '../../src/storage/milestoneStorage';
+import { getMilestonesForQuest } from '../../src/helper/milestones';
 
 // Which steps to compare, and what to call them on screen
 const TRACKED: Record<string, string> = {
@@ -36,6 +39,7 @@ function ChangeRow({
 export default function QuestComplete() {
   const { questId } = useLocalSearchParams<{ questId: string }>();
   const responses = useProgress((s) => s.responses);
+  const completed = useProgress((s) => s.completed);
 
   const mine = responses.filter((r) => r.questId === questId);
 
@@ -56,6 +60,16 @@ export default function QuestComplete() {
     q.prerequisites.includes(questId) &&
     getQuestStatus(q as Parameters<typeof getQuestStatus>[0], progress) === 'available',
   );
+
+  const completeMilestone = useMilestones((s) => s.completeMilestone);
+
+  useEffect(() => {
+    getMilestonesForQuest(questId)
+      .filter((milestone) =>
+        milestone.required_quests.every((requiredQuest) => completed.includes(requiredQuest)),
+      )
+      .forEach((milestone) => completeMilestone(milestone.id));
+  }, [completed, completeMilestone, questId]);
 
   return (
     <ScrollView contentContainerStyle={{ padding: 20 }}>
