@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { ScrollView, Text } from 'react-native';
-import ShowQuest from '../../src/components/QuestCard';
+import ShowQuest from '../../src/components/questCard';
 import { retrieveAvailableQuests, getQuestStatus, getChain } from '../../src/helper/questFinder';
 import { useProgress } from '../../src/storage/questStorage'
 
