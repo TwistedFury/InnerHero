@@ -5,8 +5,11 @@ import {
 	useFonts as useInterFonts,
 } from '@expo-google-fonts/inter';
 import { Lora_500Medium, useFonts as useLoraFonts } from '@expo-google-fonts/lora';
+import * as NavigationBar from 'expo-navigation-bar';
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
+import { Platform } from 'react-native';
 import { useMilestones } from '../src/storage/milestoneStorage';
 import { useProgress } from '../src/storage/questStorage';
 import { useUser } from '../src/storage/userStorage';
@@ -20,6 +23,10 @@ function useStoresHydrated() {
 	);
 
 	useEffect(() => {
+		if (Platform.OS === 'android') {
+			NavigationBar.NavigationBar.setHidden(true);
+		}
+
 		const updateHydration = () => {
 			setHydrated(
 				useUser.persist.hasHydrated() &&
@@ -65,11 +72,14 @@ export default function RootLayout() {
 	}
 
 	return (
-		<Stack
-			screenOptions={{
-				headerShown: false,
-				contentStyle: { backgroundColor: '#FFFFFF' },
-			}}
-		/>
+		<>
+			<StatusBar style="dark" />
+			<Stack
+				screenOptions={{
+					headerShown: false,
+					contentStyle: { backgroundColor: '#F7F4EE' },
+				}}
+			/>
+		</>
 	);
 }

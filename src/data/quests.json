@@ -1,25 +1,5 @@
 [
     {
-        "id": "sample",
-        "name": "Sample Quest",
-        "theory": "Sample Theory et al",
-        "quest_path": "sample_path",
-        "chain_id": "sample_chain",
-        "chain_index": 0,
-        "prerequisites": [],
-        "tag": "Sample Tag",
-        "description": "Sample description",
-        "icon": "footprints",
-        "version": "v1.0",
-        "steps": [
-            {"id": "thoughts", "type": "text", "prompt": "What is on your mind?", "required": true},
-            {"id": "feeling", "type": "slider", "prompt": "On a scale of 1-10, how did you feel?", "min": 1, "max": 10, "required": true},
-            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
-        ],
-        "estimated_minutes": 10,
-        "repeatable": false
-    },
-    {
         "id": "cbt-1",
         "name": "Cognitive Behavior Theory - 1",
         "theory": "CBT-1 et al",

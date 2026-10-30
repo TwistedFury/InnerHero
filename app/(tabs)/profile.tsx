@@ -1,24 +1,24 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { deleteAllSavedData } from '../src/helper/dataDeleter';
-import { useUser } from '../src/storage/userStorage';
-import { useProgress } from '../src/storage/questStorage';
-import { useMilestones } from '../src/storage/milestoneStorage';
-import { generateDisplayName } from '../src/helper/nameGenerator';
-import { colors } from '../src/styling/theme';
+import { deleteAllSavedData } from '../../src/helper/dataDeleter';
+import { useUser } from '../../src/storage/userStorage';
+import { useProgress } from '../../src/storage/questStorage';
+import { useMilestones } from '../../src/storage/milestoneStorage';
+import { generateDisplayName } from '../../src/helper/nameGenerator';
+import { colors } from '../../src/styling/theme';
 
 /* Components */
-import Identity from '../src/components/profile/identity';
-import PrivacyCard from '../src/components/profile/privacyCard';
-import Stats from '../src/components/profile/stats';
-import Milestones from '../src/components/profile/milestones';
-import Edit from '../src/components/profile/edit';
-import HelpLinks from '../src/components/profile/helpLinks';
-import DeleteMessage from '../src/components/profile/deleteMessage';
-import Menu from '../src/components/profile/menu';
-import DeletePrompt from '../src/components/profile/deletePrompt';
-import TitleOptions from '../src/components/profile/titleOptions';
+import Identity from '../../src/components/profile/identity';
+import PrivacyCard from '../../src/components/profile/privacyCard';
+import Stats from '../../src/components/profile/stats';
+import Milestones from '../../src/components/profile/milestones';
+import Edit from '../../src/components/profile/edit';
+import HelpLinks from '../../src/components/profile/helpLinks';
+import DeleteMessage from '../../src/components/profile/deleteMessage';
+import Menu from '../../src/components/profile/menu';
+import DeletePrompt from '../../src/components/profile/deletePrompt';
+import TitleOptions from '../../src/components/profile/titleOptions';
 
 export default function Profile() {
   const displayName = useUser((state) => state.profile.displayName ?? '');
