@@ -4,18 +4,6 @@ import { useForm, Controller } from 'react-hook-form'
 import quests from "../src/data/quests.json";
 import type { Quest } from "../src/types/quest";
 
-import { useEffect, useState } from "react";
-import { useProgress } from "../src/storage/questStorage"
-
-function useHydrated() {
-  const [hydrated, setHydrated] = useState(useProgress.persist.hasHydrated());
-  useEffect(() => {
-    const unsub = useProgress.persist.onFinishHydration(() => setHydrated(true));
-    return unsub;
-  }, []);
-  return hydrated;
-}
-
 const sampleQuest = quests[0] as Quest;
 
 export default function Page() {
@@ -33,10 +21,6 @@ export default function Page() {
       questCode: data.questCode
     },
   });
-
-  // Wait for quests to saturate
-  const hydrated = useHydrated();
-  if (!hydrated) return null;
 
   return (
     <View style={styles.container}>
