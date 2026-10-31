@@ -73,7 +73,7 @@ export default function RootLayout() {
 
 	return (
 		<>
-			<StatusBar style="dark" />
+			<StatusBar hidden />
 			<Stack
 				screenOptions={{
 					headerShown: false,

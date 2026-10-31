@@ -22,6 +22,9 @@ export default function TabsLayout() {
           fontFamily: 'Inter_400Regular',
           fontSize: 12,
         },
+        tabBarItemStyle: {
+          transform: [{ translateY: -6 }],
+        },
       }}
     >
       <Tabs.Screen

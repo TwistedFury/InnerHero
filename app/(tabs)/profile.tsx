@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 import { deleteAllSavedData } from '../../src/helper/dataDeleter';
 import { useUser } from '../../src/storage/userStorage';
 import { useProgress } from '../../src/storage/questStorage';
@@ -84,7 +83,6 @@ export default function Profile() {
 
   return (
     <View style={styles.screen}>
-      <StatusBar style="dark" />
       <View style={styles.panel}>
         <ScrollView
           contentContainerStyle={styles.content}
@@ -151,8 +149,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 10,
     overflow: 'hidden',
-    borderTopLeftRadius: 28,
-    borderTopRightRadius: 28,
     backgroundColor: colors.bg,
   },
   content: {

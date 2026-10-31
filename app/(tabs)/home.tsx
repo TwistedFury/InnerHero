@@ -22,7 +22,7 @@ export default function HomeScreen() {
     <ScrollView
       contentContainerStyle={[
         styles.container,
-        { paddingTop: insets.top + 8, paddingBottom: insets.bottom + 24 },
+        { paddingTop: insets.top, paddingBottom: insets.bottom + 24 },
       ]}
       showsVerticalScrollIndicator={false}
     >

@@ -124,7 +124,6 @@ export const styles = StyleSheet.create({
     width: 22,
     height: 22,
     color: colors.primary,
-    outlineWidth: 22,
   },
   title: {
     flex: 1,
