@@ -30,6 +30,7 @@ export default function MilestoneProgress() {
     <View style={styles.section}>
       <View style={styles.headingRow}>
         <Text style={styles.heading}>Practice, not perfection</Text>
+        <View style={styles.headingDivider} />
         <Text style={styles.link}>Your milestones</Text>
       </View>
       <Pressable
@@ -68,19 +69,26 @@ const styles = StyleSheet.create({
   headingRow: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     marginBottom: 12,
     paddingHorizontal: 2,
   },
   heading: {
     color: colors.primaryDark,
+    flexShrink: 1,
     fontFamily: fonts.sans,
     fontSize: 23,
   },
   link: {
     color: colors.primary,
+    flexShrink: 0,
     fontFamily: fonts.sansMedium,
-    fontSize: 14,
+    fontSize: 13,
+  },
+  headingDivider: {
+    flex: 1,
+    height: 1,
+    marginHorizontal: 10,
+    backgroundColor: colors.border,
   },
   card: {
     alignItems: 'center',

@@ -1,15 +1,18 @@
 import { Pressable, Text, StyleSheet, View} from 'react-native';
 import { useRouter, type RelativePathString } from 'expo-router';
 
-import findQuest from '../helper/questFinder'
-import { colors, fonts } from '../styling/theme';
-import { getIcon } from '../helper/icons'
+import findQuest from '../../helper/questFinder'
+import { colors, fonts } from '../../styling/theme';
+import { getIcon } from '../../helper/icons'
+
+let color = colors.primary;
 
 export default function ShowQuest(
     questCode: string, 
     pathToQuests: RelativePathString, 
     duration: string, 
     progressLabel: string,
+    completed: boolean,
 )
 {
     const router = useRouter();
@@ -25,6 +28,9 @@ export default function ShowQuest(
     const A_up_right = getIcon('arrow-up-right');
     const Bookmark = getIcon('bookmark');
 
+    const cardStyle = completed ? styles.cardInactive : styles.cardActive;
+    color = completed ? colors.muted : colors.primary;
+
     return (
         <Pressable
             onPress={() => router.navigate({
@@ -37,7 +43,7 @@ export default function ShowQuest(
             accessibilityLabel={`${quest?.name}, ${duration}`}
             style={({ pressed }) => [
             styles.card,
-            quest && styles.cardActive,
+            quest && cardStyle,
             pressed && styles.cardPressed,
             ]}
         >
@@ -72,19 +78,23 @@ export const styles = StyleSheet.create({
   card: {
     padding: 16,
     gap: 12,
-    backgroundColor: colors.surface,
+    backgroundColor: color + colors.surface,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: color,
     borderRadius: 16,
+    marginTop: 10,
   },
   cardActive: {
     borderWidth: 1.5,
     borderColor: colors.primary,
   },
+  cardInactive: {
+    borderWidth: 1.5,
+    borderColor: colors.muted,
+  },
   cardPressed: {
     opacity: 0.92,
   },
-
   topRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -94,19 +104,18 @@ export const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 6,
-    backgroundColor: colors.tint,
+    backgroundColor: colors.tint + color,
   },
   tagText: {
     fontFamily: fonts.sansMedium,
     fontSize: 12,
-    color: colors.primary,
+    color: color,
   },
   duration: {
     fontFamily: fonts.sans,
     fontSize: 12,
-    color: colors.muted,
+    color: color,
   },
-
   titleRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -118,24 +127,24 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: colors.tint,
+    backgroundColor: colors.tint + color,
   },
   icon: {
     width: 22,
     height: 22,
-    color: colors.primary,
+    color: color,
   },
   title: {
     flex: 1,
     fontFamily: fonts.sans,
     fontSize: 17,
-    color: colors.text,
+    color: color,
   },
   description: {
     fontFamily: fonts.sans,
     fontSize: 14,
     lineHeight: 21,
-    color: colors.muted,
+    color: color,
   },
   progressRow: {
     flexDirection: 'row',
@@ -145,12 +154,12 @@ export const styles = StyleSheet.create({
   progressText: {
     fontFamily: fonts.sansBold,
     fontSize: 12,
-    color: colors.primary,
+    color: color,
   },
   source: {
     fontFamily: fonts.sans,
     fontSize: 11,
     lineHeight: 16,
-    color: colors.muted,
+    color: color,
   }
 });

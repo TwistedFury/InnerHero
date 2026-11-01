@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { ScrollView, Text } from 'react-native';
-import ShowQuest from '../../src/components/questCard';
+import ShowQuest from '../../src/components/quests/questCard';
 import { retrieveAvailableQuests, getQuestStatus, getChain } from '../../src/helper/questFinder';
 import { useProgress } from '../../src/storage/questStorage'
 
@@ -20,6 +20,7 @@ export default function QuestPage()
                     status === 'completed'
                     ? 'Completed'
                     : `Quest ${quest.chain_index + 1} of ${chainLength}`;
+                const completed = (progress[quest.id]?.completions ?? 0) > 0;
 
                 return (
                     <Fragment key={quest.id}>
@@ -30,6 +31,7 @@ export default function QuestPage()
                             progress[quest.id]?.completions > 0 ?
                                 `Completed ${progress[quest.id]?.completions} times`
                                 : progressLabel,
+                            completed,
                         )}
                     </Fragment>
                 );

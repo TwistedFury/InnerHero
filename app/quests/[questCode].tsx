@@ -2,7 +2,7 @@ import { View, Text } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
 import findQuest from '../../src/helper/questFinder';
-import { QuestRunner } from "../../src/components/questController";
+import { QuestRunner } from "../../src/components/quests/questController";
 
 export default function QuestDisplay()
 {

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import type { Quest, QuestAnswer, QuestStep } from '../types/quest';
-import { useProgress } from '../storage/questStorage';
+import type { Quest, QuestAnswer, QuestStep } from '../../types/quest';
+import { useProgress } from '../../storage/questStorage';
 import { useRouter } from 'expo-router'
 
 function StepInput({

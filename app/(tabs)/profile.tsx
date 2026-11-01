@@ -143,7 +143,7 @@ export default function Profile() {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#20231F',
+    backgroundColor: colors.bg,
   },
   panel: {
     flex: 1,
