@@ -87,5 +87,121 @@
         "version":"v1.0",
         "estimated_minutes": 10,
         "repeatable": true
+    },
+    {
+        "id": "ba-1",
+        "name": "Behavioral Activation - 1",
+        "theory": "Lejuez et al. (2011), BATD-R, Session 1",
+        "quest_path": "Taking Action",
+        "chain_id": "ta-1",
+        "chain_index": 0,
+        "prerequisites": [],
+        "tag": "Behavioral activation · Daily monitoring",
+        "description": "The key idea here is that doing more of what matters changes how you feel, rather than waiting to feel better first. For one day, write down what you do and rate each activity for enjoyment and importance. Do not try to change anything yet.",
+        "icon": "compass",
+        "steps": [
+            {"id": "rationale", "type": "info", "prompt": "Depression tends to follow a pattern of behavior: withdrawing, avoiding, and doing less of what matters. This approach changes behavior first, because energy, motivation, and mood tend to follow action rather than lead it. Today you only notice your patterns."},
+            {"id": "ratings-explained", "type": "info", "prompt": "Rate each activity twice on a 0 to 10 scale. Enjoyment is how much fun or pleasure it gives you. Importance is how much it matters to you in your heart. An activity can be high in one and low in the other."},
+            {"id": "activities", "type": "list", "prompt": "List what you did today, as completely as you can, including small things like sleeping or watching TV.", "fields": ["activity", "enjoyment", "importance"], "required": true},
+            {"id": "day-mood", "type": "slider", "prompt": "Overall, how was your mood today? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 10,
+        "repeatable": true
+    },
+    {
+        "id": "ba-2",
+        "name": "Behavioral Activation - 2",
+        "theory": "Lejuez et al. (2011), BATD-R, Session 2",
+        "quest_path": "Taking Action",
+        "chain_id": "ta-1",
+        "chain_index": 1,
+        "prerequisites": ["ba-1"],
+        "tag": "Behavioral activation · Life areas and values",
+        "description": "Go through five areas of life. In each, say what you value, then list activities that would put that value into practice. Values come first and activities come second.",
+        "icon": "heart",
+        "steps": [
+            {"id": "review-monitoring", "type": "info", "prompt": "Look back at your last daily monitoring. Which activities were enjoyable, which were important, which were both, and which were neither? Don't change anything yet. Just notice."},
+            {"id": "values-explained", "type": "info", "prompt": "A life area is a part of your life. A value is how you want to live in that area, and it should be your own. An activity is something you can actually do that lives out that value. Activities must be observable by others, measurable, and broken into the smallest possible piece. 'Feeling better' is not an activity. 'Eating dinner with my mother twice a week' is."},
+            {"id": "relationships-values", "type": "text", "prompt": "Relationships (family, friends, partner): what do you value here?", "required": true},
+            {"id": "relationships-activities", "type": "list", "prompt": "Relationships: which activities would live out those values?", "required": true},
+            {"id": "education-career-values", "type": "text", "prompt": "Education/career: what do you value here?", "required": true},
+            {"id": "education-career-activities", "type": "list", "prompt": "Education/career: which activities would live out those values?", "required": true},
+            {"id": "recreation-values", "type": "text", "prompt": "Recreation/interests (fun, relaxing, helping others): what do you value here?", "required": true},
+            {"id": "recreation-activities", "type": "list", "prompt": "Recreation/interests: which activities would live out those values?", "required": true},
+            {"id": "mind-body-values", "type": "text", "prompt": "Mind/body/spirituality (physical and mental health, faith): what do you value here?", "required": true},
+            {"id": "mind-body-activities", "type": "list", "prompt": "Mind/body/spirituality: which activities would live out those values?", "required": true},
+            {"id": "responsibilities-values", "type": "text", "prompt": "Daily responsibilities (obligations and belongings): what do you value here?", "required": true},
+            {"id": "responsibilities-activities", "type": "list", "prompt": "Daily responsibilities: which activities would live out those values?", "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 20,
+        "repeatable": true
+    },
+    {
+        "id": "ba-3",
+        "name": "Behavioral Activation - 3",
+        "theory": "Lejuez et al. (2011), BATD-R, Session 3",
+        "quest_path": "Taking Action",
+        "chain_id": "ta-1",
+        "chain_index": 2,
+        "prerequisites": ["ba-1", "ba-2"],
+        "tag": "Behavioral activation · Activity ranking",
+        "description": "Choose 15 activities from your inventory and rank them from easiest to hardest. You won't start any of them in this quest. The point is to have a ladder ready.",
+        "icon": "stairs",
+        "steps": [
+            {"id": "selection-explained", "type": "info", "prompt": "Pick activities across several life areas, because relying on one area narrows your chances of positive experiences. Include some you already do and want to do more, a mix of enjoyable and important ones, and only a few small steps toward big long-term goals."},
+            {"id": "fifteen-activities", "type": "list", "prompt": "Choose 15 activities from your inventory. Each should be observable, measurable, in its smallest piece, and tied to a value.", "count": 15, "required": true},
+            {"id": "ranking", "type": "rank", "prompt": "Rank them from 1 (easiest to accomplish) to 15 (hardest). One way: place the easiest as 1 and the hardest as 15, then fill in the rest.", "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 15,
+        "repeatable": true
+    },
+    {
+        "id": "ba-4",
+        "name": "Behavioral Activation - 4",
+        "theory": "Lejuez et al. (2011), BATD-R, Session 4",
+        "quest_path": "Taking Action",
+        "chain_id": "ta-1",
+        "chain_index": 3,
+        "prerequisites": ["ba-1", "ba-2", "ba-3"],
+        "tag": "Behavioral activation · Activity planning",
+        "description": "Pick one to three of your easiest activities and give each a specific day and time this week. Think through what might get in the way first.",
+        "icon": "calendar-check",
+        "steps": [
+            {"id": "planning-explained", "type": "info", "prompt": "Start with one to three of your easiest activities and challenge yourself without getting overwhelmed. Planning a specific day and time makes it more likely to happen. If an activity feels too big, it may not be in its smallest piece yet."},
+            {"id": "chosen-activities", "type": "list", "prompt": "Which one to three activities from your ranking will you start with?", "min_items": 1, "max_items": 3, "required": true},
+            {"id": "barriers", "type": "text", "prompt": "What could get in the way of each one? If there is a barrier, what smaller step could you take first?", "required": true},
+            {"id": "schedule", "type": "schedule", "prompt": "Choose a specific day and time for each activity this week.", "required": true},
+            {"id": "week-instructions", "type": "info", "prompt": "Through the week, keep logging as in the first quest. Mark each planned activity you complete and rate its enjoyment and importance. If you miss one, replan it for another time that week."}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 10,
+        "repeatable": true
+    },
+    {
+        "id": "ba-5",
+        "name": "Behavioral Activation - 5",
+        "theory": "Lejuez et al. (2011), BATD-R, Session 5",
+        "quest_path": "Taking Action",
+        "chain_id": "ta-1",
+        "chain_index": 4,
+        "prerequisites": ["ba-1", "ba-2", "ba-3", "ba-4"],
+        "tag": "Behavioral activation · Contracts",
+        "description": "Review last week's planned activities, then choose one hard activity and name up to three people who could support you with it, plus exactly how and when each can help.",
+        "icon": "handshake",
+        "steps": [
+            {"id": "completed-count", "type": "slider", "prompt": "How many of last week's planned activities did you complete?", "min": 0, "max": 15, "required": true},
+            {"id": "review-felt", "type": "text", "prompt": "For those you completed, how easy or hard were they, and how did it feel to do them?", "required": true},
+            {"id": "review-missed", "type": "text", "prompt": "For those you missed, what happened? Was it not enjoyable or important to you, too big, or out of time? Decide whether to swap it, shrink it, or reschedule it.", "required": true},
+            {"id": "contract-explained", "type": "info", "prompt": "Sometimes the people around you want to help but don't know how, or they help in ways that don't work for you. A contract is a plan for asking for the specific help you need. Support is meant to make your activities easier, not to replace your own effort. You stay responsible for your activities even if someone doesn't follow through."},
+            {"id": "contract-activity", "type": "text", "prompt": "Which activity from your list is hard to do on your own?", "required": true},
+            {"id": "contract-supporters", "type": "list", "prompt": "Name up to three people who could help, and describe exactly how and when each could help.", "max_items": 3, "fields": ["person", "how", "when"], "required": true},
+            {"id": "contract-next", "type": "info", "prompt": "Next, tell each person what you're trying to do and how they can help. You can show them this plan or just talk it through. Then plan next week's activities, adding one or more new ones."}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 15,
+        "repeatable": true
     }
 ]

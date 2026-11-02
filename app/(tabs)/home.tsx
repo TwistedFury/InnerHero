@@ -14,7 +14,11 @@ export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const progress = useProgress((state) => state.progress);
   const availableQuests = retrieveAvailableQuests(progress);
+  const uncompletedQuests = availableQuests.filter(
+    (item) => (progress[item.id]?.completions ?? 0) === 0,
+  );
   const quest = availableQuests.find((item) => progress[item.id]?.status === 'in_progress')
+    ?? availableQuests.find((item) => (progress[item.id]?.completions ?? 0) === 0)
     ?? availableQuests[0]
     ?? (quests[0] as Quest);
 
@@ -29,7 +33,7 @@ export default function HomeScreen() {
       <HomeHeader />
       <NextQuest quest={quest} progress={progress[quest.id]} />
       <MilestoneProgress />
-      <QuestOptions quests={availableQuests.slice(0, 4)} />
+      <QuestOptions quests={uncompletedQuests.slice(0, 4)} />
       <HelpLinks />
     </ScrollView>
   );

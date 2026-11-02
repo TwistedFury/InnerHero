@@ -13,7 +13,7 @@
         "description": "Practiced both techniques",
         "required_quests": [
             "cbt-1",
-            "unknown-1"
+            "ta-1"
         ]
     },
     {
@@ -21,6 +21,9 @@
         "display_name": "Making Room",
         "description": "Complete your first chain",
         "required_quests": [
+            "cbt-1",
+            "cbt-2",
+            "cbt-3",
             "cbt-4"
         ]
     }

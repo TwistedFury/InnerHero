@@ -1,8 +1,13 @@
 import { useState } from 'react';
-import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import type { Quest, QuestAnswer, QuestStep } from '../../types/quest';
 import { useProgress } from '../../storage/questStorage';
 import { useRouter } from 'expo-router'
+
+/* Components */
+import QuestText from '../quest-parts/Quest_Text';
+import QuestSlider from '../quest-parts/Quest_Slider';
+import QuestMood from '../quest-parts/Quest_Mood';
 
 function StepInput({
   step,
@@ -14,53 +19,18 @@ function StepInput({
   onChange: (answer: QuestAnswer) => void;
 }) {
   if (step.type === 'text') {
-    return (
-      <TextInput
-        multiline
-        value={typeof value === 'string' ? value : ''}
-        onChangeText={onChange}
-        placeholder="Write your thoughts here"
-        style={styles.textInput}
-        textAlignVertical="top"
-      />
-    );
+    return <QuestText value={typeof value === 'string' ? value : ''} onChange={(answer) => onChange(answer)} />;
   }
 
   if (step.type === 'slider') {
-    const min = step.min ?? 1;
-    const max = step.max ?? 10;
-    return (
-      <View style={styles.choiceRow}>
-        {Array.from({ length: max - min + 1 }, (_, index) => min + index).map((number) => (
-          <Pressable
-            key={number}
-            onPress={() => onChange(number)}
-            accessibilityRole="radio"
-            accessibilityState={{ selected: value === number }}
-            style={[styles.choice, value === number && styles.choiceSelected]}
-          >
-            <Text style={value === number ? styles.choiceTextSelected : styles.choiceText}>{number}</Text>
-          </Pressable>
-        ))}
-      </View>
-    );
+    return <QuestSlider step={step} value={typeof value === 'number' ? value : undefined} onChange={(answer) => onChange(answer)} />;
   }
 
-  return (
-    <View style={styles.moodList}>
-      {['Very low', 'Low', 'Okay', 'Good', 'Great'].map((mood) => (
-        <Pressable
-          key={mood}
-          onPress={() => onChange(mood)}
-          accessibilityRole="radio"
-          accessibilityState={{ selected: value === mood }}
-          style={[styles.moodChoice, value === mood && styles.choiceSelected]}
-        >
-          <Text style={value === mood ? styles.choiceTextSelected : styles.choiceText}>{mood}</Text>
-        </Pressable>
-      ))}
-    </View>
-  );
+  if (step.type === 'mood') {
+    return <QuestMood value={typeof value === 'string' ? value : undefined} onChange={(answer) => onChange(answer)} />;
+  }
+
+  
 }
 
 export function QuestRunner({ quest }: { quest: Quest }) {
@@ -133,21 +103,6 @@ const styles = StyleSheet.create({
   progress: { color: '#687076', fontSize: 14 },
   title: { fontSize: 28, fontWeight: '700' },
   prompt: { fontSize: 18, lineHeight: 26 },
-  textInput: {
-    minHeight: 160,
-    borderColor: '#CBD5E1',
-    borderWidth: 1,
-    borderRadius: 12,
-    padding: 14,
-    fontSize: 16,
-  },
-  choiceRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 6 },
-  choice: { alignItems: 'center', borderColor: '#CBD5E1', borderRadius: 8, borderWidth: 1, minWidth: 28, padding: 8 },
-  choiceSelected: { backgroundColor: '#1D4ED8', borderColor: '#1D4ED8' },
-  choiceText: { color: '#17202A' },
-  choiceTextSelected: { color: '#FFFFFF', fontWeight: '700' },
-  moodList: { gap: 8 },
-  moodChoice: { borderColor: '#CBD5E1', borderRadius: 10, borderWidth: 1, padding: 14 },
   error: { color: '#B42318' },
   completeTitle: { fontSize: 28, fontWeight: '700' },
   chainScreen: { padding: 20, marginTop: 100, backgroundColor: '#bebdbd87' },
