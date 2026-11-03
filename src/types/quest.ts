@@ -1,4 +1,6 @@
-export type QuestStepType = 'mood' | 'text' | 'slider';
+export type QuestStepType = 'mood' | 'text' | 'slider' | 'list' | 'info';
+
+export type QuestListItem = Record<string, string>;
 
 export interface QuestStep {
     id: string;
@@ -7,9 +9,13 @@ export interface QuestStep {
     required?: boolean;
     min?: number;
     max?: number;
+    fields?: string[];
+    count?: number;
+    min_items?: number;
+    max_items?: number;
 }
 
-export type QuestAnswer = string | number;
+export type QuestAnswer = string | number | QuestListItem[];
 
 export interface QuestResponse {
     questId: string;

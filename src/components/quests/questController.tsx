@@ -8,6 +8,7 @@ import { useRouter } from 'expo-router'
 import QuestText from '../quest-parts/Quest_Text';
 import QuestSlider from '../quest-parts/Quest_Slider';
 import QuestMood from '../quest-parts/Quest_Mood';
+import QuestList from '../quest-parts/Quest_List';
 
 function StepInput({
   step,
@@ -30,7 +31,16 @@ function StepInput({
     return <QuestMood value={typeof value === 'string' ? value : undefined} onChange={(answer) => onChange(answer)} />;
   }
 
-  
+  if (step.type === 'list') {
+    return (
+      <QuestList
+        step={step}
+        value={Array.isArray(value) ? value : undefined}
+        onChange={(answer) => onChange(answer)}
+      />
+    );
+  }
+
 }
 
 export function QuestRunner({ quest }: { quest: Quest }) {
@@ -57,7 +67,10 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
       startQuest(quest.id, quest.version);
     }
 
-    if (step.required !== false && (answer === undefined || answer === '')) {
+    const isEmptyList =
+      Array.isArray(answer) &&
+      answer.every((item) => Object.values(item).every((value) => value.trim() === ''));
+    if (step.required !== false && (answer === undefined || answer === '' || isEmptyList)) {
       setError('Please answer this step before continuing.');
       return;
     }
@@ -81,6 +94,7 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
       <Text style={styles.progress}>Step {stepIndex + 1} of {quest.steps.length}</Text>
       <Text style={styles.title}>{quest.name}</Text>
       <Text style={styles.prompt}>{step.prompt}</Text>
+      {step.type !== 'info' ?
       <StepInput
         step={step}
         value={answer}
@@ -89,6 +103,7 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
           setError('');
         }}
       />
+      : null}
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <Button
         title={stepIndex === quest.steps.length - 1 ? 'Save and complete' : 'Save and continue'}

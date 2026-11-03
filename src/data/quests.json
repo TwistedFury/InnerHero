@@ -100,10 +100,10 @@
         "description": "The key idea here is that doing more of what matters changes how you feel, rather than waiting to feel better first. For one day, write down what you do and rate each activity for enjoyment and importance. Do not try to change anything yet.",
         "icon": "compass",
         "steps": [
-            {"id": "rationale", "type": "info", "prompt": "Depression tends to follow a pattern of behavior: withdrawing, avoiding, and doing less of what matters. This approach changes behavior first, because energy, motivation, and mood tend to follow action rather than lead it. Today you only notice your patterns."},
-            {"id": "ratings-explained", "type": "info", "prompt": "Rate each activity twice on a 0 to 10 scale. Enjoyment is how much fun or pleasure it gives you. Importance is how much it matters to you in your heart. An activity can be high in one and low in the other."},
+            {"id": "rationale", "type": "info", "prompt": "Depression tends to follow a pattern of behavior: withdrawing, avoiding, and doing less of what matters. This approach changes behavior first, because energy, motivation, and mood tend to follow action rather than lead it. Today you only notice your patterns.", "required": false},
+            {"id": "ratings-explained", "type": "info", "prompt": "Rate each activity twice on a 0 to 10 scale. Enjoyment is how much fun or pleasure it gives you. Importance is how much it matters to you in your heart. An activity can be high in one and low in the other.", "required": false},
             {"id": "activities", "type": "list", "prompt": "List what you did today, as completely as you can, including small things like sleeping or watching TV.", "fields": ["activity", "enjoyment", "importance"], "required": true},
-            {"id": "day-mood", "type": "slider", "prompt": "Overall, how was your mood today? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+            {"id": "mood", "type": "slider", "prompt": "Overall, how was your mood today? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
         ],
         "version": "v1.0",
         "estimated_minutes": 10,
@@ -121,8 +121,8 @@
         "description": "Go through five areas of life. In each, say what you value, then list activities that would put that value into practice. Values come first and activities come second.",
         "icon": "heart",
         "steps": [
-            {"id": "review-monitoring", "type": "info", "prompt": "Look back at your last daily monitoring. Which activities were enjoyable, which were important, which were both, and which were neither? Don't change anything yet. Just notice."},
-            {"id": "values-explained", "type": "info", "prompt": "A life area is a part of your life. A value is how you want to live in that area, and it should be your own. An activity is something you can actually do that lives out that value. Activities must be observable by others, measurable, and broken into the smallest possible piece. 'Feeling better' is not an activity. 'Eating dinner with my mother twice a week' is."},
+            {"id": "review-monitoring", "type": "info", "prompt": "Look back at your last daily monitoring. Which activities were enjoyable, which were important, which were both, and which were neither? Don't change anything yet. Just notice.", "required": false},
+            {"id": "values-explained", "type": "info", "prompt": "A life area is a part of your life. A value is how you want to live in that area, and it should be your own. An activity is something you can actually do that lives out that value. Activities must be observable by others, measurable, and broken into the smallest possible piece. 'Feeling better' is not an activity. 'Eating dinner with my mother twice a week' is.", "required": false},
             {"id": "relationships-values", "type": "text", "prompt": "Relationships (family, friends, partner): what do you value here?", "required": true},
             {"id": "relationships-activities", "type": "list", "prompt": "Relationships: which activities would live out those values?", "required": true},
             {"id": "education-career-values", "type": "text", "prompt": "Education/career: what do you value here?", "required": true},

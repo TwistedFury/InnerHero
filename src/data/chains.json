@@ -11,5 +11,18 @@
             "sample_chain"
         ],
         "current_quest_id": null
+    },
+    {
+        "chain_id": "ba-1",
+        "title": "Behavioral Activation",
+        "description": "",
+        "quests": [
+            "ba-1", "ba-2",
+            "ba-3", "ba-4"
+        ],
+        "prerequisites": [
+            "sample_chain"
+        ],
+        "current_quest_id": null
     }
 ]

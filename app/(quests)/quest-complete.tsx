@@ -6,6 +6,7 @@ import { getQuestStatus } from '../../src/helper/questFinder';
 import quests from '../../src/data/quests.json';
 import { useMilestones } from '../../src/storage/milestoneStorage';
 import { getMilestonesForQuest } from '../../src/helper/milestones';
+import type { QuestAnswer } from '../../src/types/quest';
 
 // Which steps to compare, and what to call them on screen
 const TRACKED: Record<string, string> = {
@@ -19,8 +20,8 @@ function ChangeRow({
   after,
 }: {
   label: string;
-  before?: string | number;
-  after: string | number;
+  before?: QuestAnswer;
+  after: QuestAnswer;
 }) {
   // No earlier run to compare against
   if (before === undefined) {
