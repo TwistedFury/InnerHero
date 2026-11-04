@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, ScrollView, View } from 'react-native';
 import type { QuestListItem, QuestStep } from '../../types/quest';
 
 type QuestListProps = {
@@ -23,7 +23,7 @@ export default function QuestList({ step, value, onChange }: QuestListProps) {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       {items.map((item, index) => (
         <View key={index} style={styles.item}>
           <Text style={styles.itemLabel}>Item {index + 1}</Text>
@@ -49,7 +49,7 @@ export default function QuestList({ step, value, onChange }: QuestListProps) {
           <Text style={styles.addButtonText}>+ Add item</Text>
         </Pressable>
       ) : null}
-    </View>
+    </ScrollView>
   );
 }
 

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import type { QuestAnswer, QuestListItem, QuestStep } from '../../types/quest';
 
 type QuestProps = {
@@ -21,7 +21,7 @@ export default function QuestSchedule({ value, onChange, list_answer }: QuestPro
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.instructions}>
         Choose a specific day and time for each activity.
       </Text>
@@ -52,7 +52,7 @@ export default function QuestSchedule({ value, onChange, list_answer }: QuestPro
           </View>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 

@@ -1,4 +1,11 @@
-export type QuestStepType = 'mood' | 'text' | 'slider' | 'list' | 'info';
+export type QuestStepType =
+    'mood' |
+    'text' |
+    'slider' |
+    'list' |
+    'info' |
+    'rank' |
+    'schedule';
 
 export type QuestListItem = Record<string, string>;
 

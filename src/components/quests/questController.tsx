@@ -9,14 +9,25 @@ import QuestText from '../quest-parts/Quest_Text';
 import QuestSlider from '../quest-parts/Quest_Slider';
 import QuestMood from '../quest-parts/Quest_Mood';
 import QuestList from '../quest-parts/Quest_List';
+import QuestRank from '../quest-parts/Quest_Rank';
+import QuestSchedule from '../quest-parts/Quest_Schedule';
+
+const getListItems = (answer: QuestAnswer | undefined): string[] =>
+  Array.isArray(answer)
+    ? answer
+        .map((item) => item.item)
+        .filter((item): item is string => Boolean(item))
+    : [];
 
 function StepInput({
   step,
   value,
+  previousListAnswer,
   onChange,
 }: {
   step: QuestStep;
   value: QuestAnswer | undefined;
+  previousListAnswer: QuestAnswer | undefined;
   onChange: (answer: QuestAnswer) => void;
 }) {
   if (step.type === 'text') {
@@ -41,6 +52,28 @@ function StepInput({
     );
   }
 
+  if (step.type === 'rank') {
+    return (
+      <QuestRank
+        step={step}
+        value={Array.isArray(value) ? value : undefined}
+        onChange={(answer) => onChange(answer)}
+        list_answer={getListItems(previousListAnswer)}
+      />
+    );
+  }
+
+  if (step.type === 'schedule') {
+    return (
+      <QuestSchedule
+        step={step}
+        value={Array.isArray(value) ? value : undefined}
+        onChange={(answer) => onChange(answer)}
+        list_answer={getListItems(previousListAnswer)}
+      />
+    );
+  }
+
 }
 
 export function QuestRunner({ quest }: { quest: Quest }) {
@@ -57,10 +90,14 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
   stepIndex: number;
   initialAnswer: QuestAnswer | undefined;
 }) {
-  const { saveAnswer, advanceStep, completeQuest, startQuest } = useProgress();
+  const { drafts, saveAnswer, advanceStep, completeQuest, startQuest } = useProgress();
   const [answer, setAnswer] = useState<QuestAnswer | undefined>(initialAnswer);
   const [error, setError] = useState('');
   const router = useRouter();
+  const previousListStep = quest.steps
+    .slice(0, stepIndex)
+    .reverse()
+    .find((candidate) => candidate.type === 'list');
 
   const submit = () => {
     if (stepIndex === 0) {
@@ -72,6 +109,11 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
       answer.every((item) => Object.values(item).every((value) => value.trim() === ''));
     if (step.required !== false && (answer === undefined || answer === '' || isEmptyList)) {
       setError('Please answer this step before continuing.');
+      return;
+    }
+
+    if (step.min_items !== undefined && Array.isArray(answer) && answer.length < step.min_items) {
+      setError(`Please provide at least ${step.min_items} items before continuing.`);
       return;
     }
 
@@ -98,6 +140,7 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
       <StepInput
         step={step}
         value={answer}
+        previousListAnswer={previousListStep ? drafts[quest.id]?.[previousListStep.id] : undefined}
         onChange={(nextAnswer) => {
           setAnswer(nextAnswer);
           setError('');

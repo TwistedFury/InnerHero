@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View, ScrollView } from 'react-native';
 import type { QuestAnswer, QuestListItem, QuestStep } from '../../types/quest';
 
 type QuestProps = {
@@ -29,7 +29,7 @@ export default function QuestRank({ value, onChange, list_answer }: QuestProps) 
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text style={styles.instructions}>Move each activity into your preferred order.</Text>
       {items.map((item, index) => (
         <View key={`${item.item}-${index}`} style={styles.item}>
@@ -59,7 +59,7 @@ export default function QuestRank({ value, onChange, list_answer }: QuestProps) 
           </View>
         </View>
       ))}
-    </View>
+    </ScrollView>
   );
 }
 
