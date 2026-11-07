@@ -62,23 +62,25 @@ export default function Menu(
 }
 
 const styles = StyleSheet.create({
-    menuModal: {
+  menuModal: {
     flex: 1,
     flexDirection: 'row',
   },
   menuBackdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+    backgroundColor: 'rgba(30, 18, 10, 0.5)',
     flex: 1,
   },
   sideMenu: {
     backgroundColor: colors.bg,
+    borderLeftColor: colors.border,
+    borderLeftWidth: 2,
     elevation: 8,
     maxWidth: 320,
     paddingHorizontal: 20,
     paddingTop: 56,
     shadowColor: '#000',
     shadowOffset: { height: 0, width: -3 },
-    shadowOpacity: 0.18,
+    shadowOpacity: 0.25,
     shadowRadius: 12,
     width: '82%',
   },
@@ -89,15 +91,15 @@ const styles = StyleSheet.create({
     marginBottom: 28,
   },
   sideMenuTitle: {
-    color: colors.primaryDark,
-    fontFamily: fonts.serif,
-    fontSize: 22,
+    color: colors.text,
+    fontFamily: fonts.heading,
+    fontSize: 24,
   },
   closeMenuButton: {
     alignItems: 'center',
-    height: 36,
+    height: 44,
     justifyContent: 'center',
-    width: 36,
+    width: 44,
   },
   closeMenuText: {
     color: colors.muted,
@@ -106,22 +108,24 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   menuDeleteButton: {
-    backgroundColor: '#F8E9E5',
-    borderRadius: 10,
+    backgroundColor: colors.dangerSoft,
+    borderColor: colors.seal,
+    borderWidth: 1,
+    borderRadius: 6,
     paddingHorizontal: 14,
     paddingVertical: 14,
   },
   menuDeleteTitle: {
-    color: '#7A2E2E',
-    fontFamily: fonts.sansMedium,
-    fontSize: 12,
+    color: colors.seal,
+    fontFamily: fonts.sansBold,
+    fontSize: 15,
     marginBottom: 5,
   },
   menuDeleteDescription: {
-    color: '#8B5550',
+    color: colors.muted,
     fontFamily: fonts.sans,
-    fontSize: 10,
-    lineHeight: 14,
+    fontSize: 13,
+    lineHeight: 18,
   },
   deleteButtonDisabled: {
     opacity: 0.6,

@@ -27,6 +27,10 @@ export default function HelpLinks() {
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,
+    paddingTop: 14,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    gap: 4,
   },
   crisisRow: {
     alignItems: 'baseline',
@@ -36,11 +40,13 @@ const styles = StyleSheet.create({
   getHelpText: {
     color: colors.muted,
     fontFamily: fonts.sans,
-    fontSize: 10,
+    fontSize: 12,
+    lineHeight: 18,
   },
   link: {
     color: colors.primary,
+    fontFamily: fonts.sansMedium,
     textDecorationLine: 'underline',
-    fontSize: 10,
+    fontSize: 12,
   },
 });

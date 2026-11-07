@@ -10,6 +10,8 @@ import { useProgress } from '../../src/storage/questStorage';
 import type { Quest } from '../../src/types/quest';
 import HelpLinks from '../../src/components/profile/helpLinks';
 
+import { colors } from '../../src/styling/theme';
+
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const progress = useProgress((state) => state.progress);
@@ -43,6 +45,6 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#F7F4EE',
+    backgroundColor: colors.bg,
   },
 });

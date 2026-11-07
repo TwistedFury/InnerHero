@@ -21,11 +21,14 @@ export default function PrivacyCard() {
 
 const styles = StyleSheet.create({
   privacyCard: {
-    backgroundColor: '#E8EEE7',
-    borderRadius: 10,
+    backgroundColor: colors.tint,
+    borderColor: colors.moss,
+    borderStyle: 'dashed',
+    borderWidth: 1,
+    borderRadius: 6,
     marginBottom: 20,
     paddingHorizontal: 14,
-    paddingVertical: 13,
+    paddingVertical: 14,
   },
   privacyHeading: {
     alignItems: 'center',
@@ -33,15 +36,15 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   privacyTitle: {
-    color: colors.primary,
-    fontFamily: fonts.sansMedium,
-    fontSize: 12,
+    color: colors.moss,
+    fontFamily: fonts.sansBold,
+    fontSize: 14,
     marginLeft: 7,
   },
   privacyCopy: {
-    color: '#3D5A53',
+    color: colors.text,
     fontFamily: fonts.sans,
-    fontSize: 10,
-    lineHeight: 14,
+    fontSize: 13,
+    lineHeight: 19,
   },
 });

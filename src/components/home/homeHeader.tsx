@@ -1,8 +1,18 @@
 import { Compass, ShieldCheck } from 'lucide-react-native';
 import { StyleSheet, Text, View } from 'react-native';
 import { colors, fonts } from '../../styling/theme';
+import { useUser } from '../../storage/userStorage';
 
 export default function HomeHeader() {
+  const displayName = useUser((state) => state.profile.displayName ?? '');
+  const hour = new Date().getHours();
+  const timeOfDay = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
+  const greeting = displayName ? `${timeOfDay}, ${displayName}.` : `${timeOfDay}.`;
+  const today = new Date().toLocaleDateString(undefined, {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  });
   return (
     <View style={styles.container}>
       <View style={styles.topRow}>
@@ -15,12 +25,9 @@ export default function HomeHeader() {
           <Text style={styles.deviceStatusText}>Only on this device</Text>
         </View>
       </View>
-
-      <Text style={styles.eyebrow}>YOUR SPACE, AT YOUR PACE</Text>
-      <Text style={styles.title}>
-        A small step.{'\n'}A little more room.
-      </Text>
-      <Text style={styles.subtitle}>{"You don't have to work it all out today."}</Text>
+      <Text style={styles.dateStamp}>{today.toUpperCase()}</Text>
+      <Text style={styles.greeting}>{greeting}</Text>
+      <Text style={styles.title}>Your story, one page at a time.</Text>
     </View>
   );
 }
@@ -41,37 +48,45 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   brandText: {
-    color: colors.primaryDark,
-    fontFamily: fonts.sans,
-    fontSize: 16,
+    color: colors.text,
+    fontFamily: fonts.heading,
+    fontSize: 20,
   },
+  // looks like a small stamped label
   deviceStatus: {
     alignItems: 'center',
     flexDirection: 'row',
-    gap: 4,
+    gap: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: colors.border,
+    borderRadius: 6,
   },
   deviceStatusText: {
     color: colors.muted,
     fontFamily: fonts.sans,
-    fontSize: 10,
-  },
-  eyebrow: {
-    color: colors.primary,
-    fontFamily: fonts.sansMedium,
-    fontSize: 10,
-    letterSpacing: 0.4,
-    marginBottom: 8,
+    fontSize: 12,
   },
   title: {
-    color: colors.primaryDark,
-    fontFamily: fonts.serif,
-    fontSize: 29,
-    lineHeight: 34,
+    color: colors.text,
+    fontFamily: fonts.heading,
+    fontSize: 32,
+    lineHeight: 38,
     marginBottom: 10,
   },
-  subtitle: {
+  dateStamp: {
     color: colors.muted,
-    fontFamily: fonts.sans,
-    fontSize: 14,
+    fontFamily: fonts.sansMedium,
+    fontSize: 12,
+    letterSpacing: 1.2,
+    marginBottom: 6,
+  },
+  greeting: {
+    color: colors.primary,
+    fontFamily: fonts.handwriting,
+    fontSize: 26,
+    marginBottom: 4,
   },
 });

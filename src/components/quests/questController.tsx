@@ -39,7 +39,7 @@ function StepInput({
   }
 
   if (step.type === 'mood') {
-    return <QuestMood value={typeof value === 'string' ? value : undefined} onChange={(answer) => onChange(answer)} />;
+    return <QuestMood value={typeof value === 'number' ? value : undefined} onChange={(answer) => onChange(answer)} />;
   }
 
   if (step.type === 'list') {

@@ -31,7 +31,7 @@ export default function Milestones() {
         <View style={styles.milestoneRow}>
           {earnedMilestones.map((milestone) => (
             <View key={milestone.id} style={styles.milestoneCard}>
-              <MilestoneIcon color="#B77722" size={18} strokeWidth={1.8} />
+              <MilestoneIcon color={colors.gold} size={18} strokeWidth={1.8} />
               <Text style={styles.milestoneName} numberOfLines={1}>
                 {milestone.display_name}
               </Text>
@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
     marginBottom: 28,
   },
   milestonesTitle: {
-    color: colors.primaryDark,
-    fontFamily: fonts.sansMedium,
-    fontSize: 15,
+    color: colors.text,
+    fontFamily: fonts.heading,
+    fontSize: 20,
     marginBottom: 10,
   },
   milestoneRow: {
@@ -75,49 +75,55 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   milestoneCard: {
-    backgroundColor: '#F3E6CE',
-    borderRadius: 10,
+    backgroundColor: colors.sand,
+    borderColor: colors.gold,
+    borderWidth: 1,
+    borderRadius: 6,
     flex: 1,
-    minHeight: 76,
-    paddingHorizontal: 11,
-    paddingVertical: 11,
+    minHeight: 90,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
   },
   milestoneName: {
-    color: colors.primaryDark,
+    color: colors.text,
     fontFamily: fonts.sansMedium,
-    fontSize: 10,
-    marginTop: 5,
+    fontSize: 13,
+    marginTop: 6,
   },
   milestoneDescription: {
     color: colors.muted,
     fontFamily: fonts.sans,
-    fontSize: 8,
+    fontSize: 11,
     marginTop: 4,
   },
+  // shown before any milestone is earned, like a note written to yourself
   emptyMilestones: {
-    backgroundColor: '#F3E6CE',
-    borderRadius: 10,
+    backgroundColor: colors.sand,
+    borderColor: colors.gold,
+    borderStyle: 'dashed',
+    borderWidth: 1,
+    borderRadius: 6,
     color: colors.muted,
-    fontFamily: fonts.sans,
-    fontSize: 10,
-    paddingHorizontal: 12,
+    fontFamily: fonts.handwriting,
+    fontSize: 20,
+    paddingHorizontal: 14,
     paddingVertical: 14,
   },
   nextMilestone: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginTop: 9,
+    marginTop: 10,
   },
   nextMilestoneText: {
     color: colors.muted,
     flex: 1,
     fontFamily: fonts.sans,
-    fontSize: 9,
+    fontSize: 12,
     marginLeft: 6,
   },
   nextMilestoneProgress: {
     color: colors.muted,
     fontFamily: fonts.sans,
-    fontSize: 9,
+    fontSize: 12,
   },
 });

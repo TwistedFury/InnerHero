@@ -74,6 +74,7 @@ export default function NextQuest({ quest, progress, imageSource }: NextQuestPro
       ) : (
         cardContent
       )}
+      <View pointerEvents="none" style={styles.stitch} />
     </Pressable>
   );
 }
@@ -81,32 +82,47 @@ export default function NextQuest({ quest, progress, imageSource }: NextQuestPro
 const styles = StyleSheet.create({
   card: {
     overflow: 'hidden',
-    borderRadius: 28,
+    borderRadius: 14,
     backgroundColor: colors.primaryDark,
   },
   cardBackground: {
     backgroundColor: colors.primaryDark,
   },
   cardPressed: {
-    opacity: 0.9,
+    opacity: 0.92,
+  },
+  // dashed "stitching" drawn over the whole card
+  stitch: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    right: 8,
+    bottom: 8,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: colors.onDarkMuted,
+    borderRadius: 8,
+    opacity: 0.55,
   },
   hero: {
-    height: 126,
+    height: 110,
     justifyContent: 'flex-start',
     padding: 22,
-    backgroundColor: '#163B35',
+    backgroundColor: colors.primary,
   },
+  // a paper label stuck on the cover, slightly crooked
   heroLabel: {
     alignSelf: 'flex-start',
     paddingHorizontal: 14,
-    paddingVertical: 9,
-    borderRadius: 18,
+    paddingVertical: 8,
+    borderRadius: 4,
     overflow: 'hidden',
-    backgroundColor: colors.onDark,
-    color: colors.primaryDark,
+    backgroundColor: colors.surface,
+    color: colors.text,
     fontFamily: fonts.sansBold,
     fontSize: 12,
-    letterSpacing: 0.2,
+    letterSpacing: 1,
+    transform: [{ rotate: '-2deg' }],
   },
   body: {
     padding: 24,
@@ -121,6 +137,7 @@ const styles = StyleSheet.create({
     color: colors.onDarkMuted,
     fontFamily: fonts.sansMedium,
     fontSize: 13,
+    letterSpacing: 1,
     textTransform: 'uppercase',
   },
   duration: {
@@ -130,9 +147,9 @@ const styles = StyleSheet.create({
   },
   title: {
     color: colors.onDark,
-    fontFamily: fonts.serif,
-    fontSize: 30,
-    lineHeight: 37,
+    fontFamily: fonts.heading,
+    fontSize: 32,
+    lineHeight: 38,
   },
   description: {
     color: colors.onDarkMuted,
@@ -141,12 +158,14 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   action: {
-    minHeight: 68,
+    minHeight: 64,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 24,
-    borderRadius: 18,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: colors.gold,
     backgroundColor: colors.primary,
   },
   actionText: {
@@ -157,6 +176,6 @@ const styles = StyleSheet.create({
   source: {
     color: colors.onDarkMuted,
     fontFamily: fonts.sans,
-    fontSize: 11,
+    fontSize: 12,
   },
 });

@@ -1,99 +1,126 @@
-import { Pressable, Text, StyleSheet, View} from 'react-native';
+import { Pressable, Text, StyleSheet, View } from 'react-native';
+import { createElement } from 'react';
 import { useRouter, type RelativePathString } from 'expo-router';
 
-import findQuest from '../../helper/questFinder'
+import findQuest from '../../helper/questFinder';
 import { colors, fonts } from '../../styling/theme';
-import { getIcon } from '../../helper/icons'
+import { getIcon } from '../../helper/icons';
 
-let color = colors.primary;
+type QuestCardProps = {
+  questCode: string;
+  pathToQuests: RelativePathString;
+  duration: string;
+  progressLabel?: string;
+  completed: boolean;
+  index: number; // position in the list, used to pick a tilt
+};
 
-export default function ShowQuest(
-    questCode: string, 
-    pathToQuests: RelativePathString, 
-    duration: string, 
-    progressLabel: string,
-    completed: boolean,
-)
-{
-    const router = useRouter();
-    const quest = findQuest(questCode);
+// Each card takes the next tilt in this list, then it starts over
+const TILTS = ['-1.2deg', '0.8deg', '-0.5deg', '1.1deg'];
 
-    /* 
-    Icon types:
-        · Icon = Quest Icon (footprints, notebook-pen, etc)
-        · A_up_right = An arrow up and to the right, symbolizes that it redirects
-        · Bookmark = Bookmark to symbolize that it is currently in progress
-    */
-    const Icon = getIcon(quest?.icon);
-    const A_up_right = getIcon('arrow-up-right');
-    const Bookmark = getIcon('bookmark');
+export default function QuestCard({
+  questCode,
+  pathToQuests,
+  duration,
+  progressLabel,
+  completed,
+  index,
+}: QuestCardProps) {
+  const router = useRouter();
+  const quest = findQuest(questCode);
 
-    const cardStyle = completed ? styles.cardInactive : styles.cardActive;
-    color = completed ? colors.muted : colors.primary;
+  const Icon = getIcon(quest?.icon);
+  const Bookmark = getIcon('bookmark');
 
-    return (
-        <Pressable
-            onPress={() => router.navigate({
-                pathname: pathToQuests,
-                params: {
-                    questCode: questCode
-                }
-            })}
-            accessibilityRole="button"
-            accessibilityLabel={`${quest?.name}, ${duration}`}
-            style={({ pressed }) => [
-            styles.card,
-            quest && cardStyle,
-            pressed && styles.cardPressed,
-            ]}
-        >
-            <View style={styles.topRow}>
-                <View style={styles.tag}><Text style={styles.tagText}>{quest?.tag}</Text></View>
-                <Text style={styles.duration}>{duration}</Text>
-            </View>
+  const ink = completed ? colors.muted : colors.text;
+  const accent = completed ? colors.muted : colors.primary;
 
-            <View style={styles.titleRow}>
-                <View style={styles.iconTile}>
-                  <Icon style={styles.icon}></Icon>
-                </View>
-                <Text style={styles.title}>{quest?.name}</Text>
-                <A_up_right style={styles.icon}></A_up_right>
-            </View>
+  return (
+    <Pressable
+      onPress={() =>
+        router.navigate({ pathname: pathToQuests, params: { questCode } })
+      }
+      accessibilityRole="button"
+      accessibilityLabel={`${quest?.name}, ${duration}`}
+      style={({ pressed }) => [
+        styles.card,
+        { opacity: completed ? 0.85 : 1 },
+        {
+          transform: [
+            { rotate: pressed ? '0deg' : TILTS[index % TILTS.length] },
+            { scale: pressed ? 1.02 : 1 },
+          ],
+        },
+      ]}
+    >
+      <View style={styles.pin} />
 
-            <Text style={styles.description}>{quest?.description}</Text>
+      <View style={styles.topRow}>
+        <View style={[styles.tag, { borderColor: accent }]}>
+          <Text style={[styles.tagText, { color: accent }]}>{quest?.tag}</Text>
+        </View>
+        <Text style={[styles.duration, { color: colors.muted }]}>{duration}</Text>
+      </View>
 
-            {progressLabel && (
-            <View style={styles.progressRow}>
-                <Bookmark style={styles.icon}></Bookmark>
-                <Text style={styles.progressText}>{progressLabel}</Text>
-            </View>
-            )}
+      <View style={styles.titleRow}>
+        <View style={styles.iconTile}>
+          {createElement(Icon, { style: { width: 22, height: 22, color: accent } })}
+        </View>
+        <Text style={[styles.title, { color: ink }]}>{quest?.name}</Text>
+      </View>
 
-            <Text style={styles.source}>{quest?.theory}</Text>
-        </Pressable>
-    )
+      <Text style={[styles.description, { color: ink }]}>{quest?.description}</Text>
+
+      {!!progressLabel && (
+        <View style={styles.progressRow}>
+          {createElement(Bookmark, { style: { width: 18, height: 18, color: accent } })}
+          <Text style={[styles.progressText, { color: accent }]}>{progressLabel}</Text>
+        </View>
+      )}
+
+      <Text style={styles.source}>{quest?.theory}</Text>
+
+      {completed && (
+        <View style={styles.seal}>
+          <Text style={styles.sealText}>✓</Text>
+        </View>
+      )}
+    </Pressable>
+  );
 }
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   card: {
-    padding: 16,
+    padding: 18,
+    paddingTop: 22,
     gap: 12,
-    backgroundColor: color + colors.surface,
+    backgroundColor: colors.surface,
     borderWidth: 1,
-    borderColor: color,
-    borderRadius: 16,
-    marginTop: 10,
+    borderColor: colors.border,
+    // different radius per corner = looks hand-cut
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 5,
+    borderBottomLeftRadius: 9,
+    marginBottom: 20,
+    // shadow (iOS and web use these four, Android uses elevation)
+    shadowColor: '#000000',
+    shadowOpacity: 0.35,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 5,
   },
-  cardActive: {
-    borderWidth: 1.5,
-    borderColor: colors.primary,
-  },
-  cardInactive: {
-    borderWidth: 1.5,
-    borderColor: colors.muted,
-  },
-  cardPressed: {
-    opacity: 0.92,
+  pin: {
+    position: 'absolute',
+    top: -7,
+    left: '50%',
+    marginLeft: -7,
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    backgroundColor: colors.seal,
+    borderWidth: 2,
+    borderColor: '#5A1D1A',
   },
   topRow: {
     flexDirection: 'row',
@@ -101,65 +128,43 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tag: {
-    paddingVertical: 4,
+    paddingVertical: 3,
     paddingHorizontal: 10,
-    borderRadius: 6,
-    backgroundColor: colors.tint + color,
+    borderRadius: 4,
+    borderWidth: 1,
   },
-  tagText: {
-    fontFamily: fonts.sansMedium,
-    fontSize: 12,
-    color: color,
-  },
-  duration: {
-    fontFamily: fonts.sans,
-    fontSize: 12,
-    color: color,
-  },
-  titleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
+  tagText: { fontFamily: fonts.sansMedium, fontSize: 12 },
+  duration: { fontFamily: fonts.sans, fontSize: 12 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   iconTile: {
     width: 40,
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: colors.tint + color,
+    backgroundColor: colors.tint,
   },
-  icon: {
-    width: 22,
-    height: 22,
-    color: color,
-  },
-  title: {
-    flex: 1,
-    fontFamily: fonts.sans,
-    fontSize: 17,
-    color: color,
-  },
-  description: {
-    fontFamily: fonts.sans,
-    fontSize: 14,
-    lineHeight: 21,
-    color: color,
-  },
-  progressRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  progressText: {
-    fontFamily: fonts.sansBold,
-    fontSize: 12,
-    color: color,
-  },
+  title: { flex: 1, fontFamily: fonts.serif, fontSize: 19 },
+  description: { fontFamily: fonts.sans, fontSize: 14, lineHeight: 21 },
+  progressRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  progressText: { fontFamily: fonts.sansBold, fontSize: 12 },
   source: {
     fontFamily: fonts.sans,
     fontSize: 11,
     lineHeight: 16,
-    color: color,
-  }
+    color: colors.muted,
+  },
+  seal: {
+    position: 'absolute',
+    right: 14,
+    bottom: 14,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.seal,
+    transform: [{ rotate: '-12deg' }],
+  },
+  sealText: { color: colors.onDark, fontSize: 20, fontWeight: '700' },
 });

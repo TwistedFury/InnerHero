@@ -10,21 +10,20 @@ export default function DeleteMessage({ deleteMessage }: { deleteMessage: string
 }
 
 const styles = StyleSheet.create({
-  
   deleteMessage: {
     backgroundColor: colors.primaryDark,
-    borderRadius: 10,
+    borderRadius: 6,
     bottom: 20,
     left: 20,
     paddingHorizontal: 14,
-    paddingVertical: 11,
+    paddingVertical: 12,
     position: 'absolute',
     right: 20,
   },
   deleteMessageText: {
     color: colors.onDark,
     fontFamily: fonts.sans,
-    fontSize: 11,
+    fontSize: 13,
     textAlign: 'center',
   },
 });

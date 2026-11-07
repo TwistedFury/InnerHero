@@ -58,7 +58,7 @@ export default function QuestComplete() {
 
   const upNext = quests.filter(
     (q) =>
-    q.prerequisites.includes(questId) &&
+    (q.prerequisites as string[]).includes(questId) &&
     getQuestStatus(q as Parameters<typeof getQuestStatus>[0], progress) === 'available',
   );
 
@@ -88,7 +88,7 @@ export default function QuestComplete() {
           />
         );
       })}
-      {progress.questId?.completions === 1 && upNext.length > 0 && (
+      {progress[questId]?.completions === 1 && upNext.length > 0 && (
         <View style={{ marginTop: 20 }}>
           <Text>Unlocked</Text>
           {upNext.map((q) => (

@@ -33,7 +33,6 @@ export default function Identity({ isEditing, onToggleEditing }: IdentityProps) 
       </View>
       <View style={styles.identityCopy}>
         <Text style={styles.name}>{displayName || 'Quiet Cedar'}</Text>
-        <Text style={styles.alias}>Generated alias · no real name needed</Text>
         <Text style={styles.practiceDate}>{formatPracticeDate(createdAt)}</Text>
       </View>
       <Pressable
@@ -63,15 +62,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 24,
   },
+  // leather badge with a gold ring
   avatar: {
     alignItems: 'center',
-    backgroundColor: '#123A32',
-    borderRadius: 40,
-    height: 60,
+    backgroundColor: colors.primaryDark,
+    borderColor: colors.gold,
+    borderWidth: 2,
+    borderRadius: 32,
+    height: 64,
     justifyContent: 'center',
     marginRight: 14,
     overflow: 'hidden',
-    width: 60,
+    width: 64,
   },
   avatarTree: {
     color: colors.onDark,
@@ -98,31 +100,34 @@ const styles = StyleSheet.create({
   editButton: {
     alignItems: 'center',
     backgroundColor: colors.tint,
-    borderRadius: 20,
-    height: 40,
+    borderColor: colors.border,
+    borderWidth: 1,
+    borderRadius: 8,
+    height: 44,
     justifyContent: 'center',
     marginLeft: 8,
-    width: 40,
+    width: 44,
   },
   editButtonActive: {
     backgroundColor: colors.primary,
+    borderColor: colors.primary,
   },
   name: {
-    color: colors.primaryDark,
-    fontFamily: fonts.serif,
-    fontSize: 21,
+    color: colors.text,
+    fontFamily: fonts.heading,
+    fontSize: 24,
     marginBottom: 3,
   },
   alias: {
     color: colors.muted,
     fontFamily: fonts.sans,
-    fontSize: 9,
+    fontSize: 12,
     marginBottom: 3,
   },
   practiceDate: {
     color: colors.muted,
-    fontFamily: fonts.sans,
-    fontSize: 9,
+    fontFamily: fonts.handwriting,
+    fontSize: 18,
   },
   buttonPressed: {
     opacity: 0.78,

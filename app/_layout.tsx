@@ -5,6 +5,8 @@ import {
 	useFonts as useInterFonts,
 } from '@expo-google-fonts/inter';
 import { Lora_500Medium, useFonts as useLoraFonts } from '@expo-google-fonts/lora';
+import { IMFellEnglish_400Regular, useFonts as useFellFonts } from '@expo-google-fonts/im-fell-english';
+import { Caveat_400Regular, useFonts as useCaveatFonts } from '@expo-google-fonts/caveat';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -13,6 +15,8 @@ import { Platform } from 'react-native';
 import { useMilestones } from '../src/storage/milestoneStorage';
 import { useProgress } from '../src/storage/questStorage';
 import { useUser } from '../src/storage/userStorage';
+
+import { colors } from '../src/styling/theme';
 
 function useStoresHydrated() {
 	const [hydrated, setHydrated] = useState(
@@ -57,6 +61,12 @@ export default function RootLayout() {
 	const [loraLoaded, loraError] = useLoraFonts({
 		Lora_500Medium,
 	});
+	const [imFellLoaded, fellError] = useFellFonts({
+		IMFellEnglish_400Regular,
+	});
+	const [caveatLoaded, caveatError] = useCaveatFonts({
+		Caveat_400Regular,
+	});
 	const storesHydrated = useStoresHydrated();
 
 	if (interError) {
@@ -66,8 +76,16 @@ export default function RootLayout() {
 	if (loraError) {
 		throw loraError;
 	}
+	
+	if (fellError) {
+		throw fellError;
+	}
 
-	if (!interLoaded || !loraLoaded || !storesHydrated) {
+	if (caveatError) {
+		throw caveatError;
+	}
+
+	if (!interLoaded || !loraLoaded || !imFellLoaded || !caveatLoaded || !storesHydrated) {
 		return null;
 	}
 
@@ -77,7 +95,7 @@ export default function RootLayout() {
 			<Stack
 				screenOptions={{
 					headerShown: false,
-					contentStyle: { backgroundColor: '#F7F4EE' },
+					contentStyle: { backgroundColor: colors.bg },
 				}}
 			/>
 		</>

@@ -39,7 +39,7 @@ export default function MilestoneProgress() {
         style={styles.card}
       >
         <View style={styles.iconCircle}>
-          <Sprout color="#B77722" size={28} strokeWidth={1.8} />
+          <Sprout color={colors.gold} size={28} strokeWidth={1.8} />
         </View>
         <View style={styles.details}>
           <View style={styles.nameRow}>
@@ -73,16 +73,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
   },
   heading: {
-    color: colors.primaryDark,
+    color: colors.text,
     flexShrink: 1,
-    fontFamily: fonts.sans,
-    fontSize: 23,
+    fontFamily: fonts.heading,
+    fontSize: 24,
   },
   link: {
     color: colors.primary,
     flexShrink: 0,
     fontFamily: fonts.sansMedium,
-    fontSize: 13,
+    fontSize: 14,
   },
   headingDivider: {
     flex: 1,
@@ -93,7 +93,10 @@ const styles = StyleSheet.create({
   card: {
     alignItems: 'center',
     backgroundColor: colors.sand,
-    borderRadius: 18,
+    borderColor: colors.gold,
+    borderStyle: 'dashed',
+    borderWidth: 1.5,
+    borderRadius: 6,
     flexDirection: 'row',
     gap: 16,
     minHeight: 104,
@@ -103,6 +106,8 @@ const styles = StyleSheet.create({
   iconCircle: {
     alignItems: 'center',
     backgroundColor: colors.surface,
+    borderColor: colors.gold,
+    borderWidth: 2,
     borderRadius: 32,
     height: 64,
     justifyContent: 'center',
@@ -118,25 +123,25 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   name: {
-    color: colors.primaryDark,
+    color: colors.text,
     flex: 1,
-    fontFamily: fonts.sansMedium,
-    fontSize: 18,
+    fontFamily: fonts.serif,
+    fontSize: 19,
   },
   count: {
-    color: colors.primaryDark,
-    fontFamily: fonts.sans,
+    color: colors.text,
+    fontFamily: fonts.sansMedium,
     fontSize: 14,
     marginLeft: 8,
   },
   progressTrack: {
-    backgroundColor: '#D8CCB2',
+    backgroundColor: colors.track,
     borderRadius: 4,
-    height: 6,
+    height: 8,
     overflow: 'hidden',
   },
   progressFill: {
-    backgroundColor: '#B77722',
+    backgroundColor: colors.gold,
     borderRadius: 4,
     height: '100%',
   },
