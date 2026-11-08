@@ -7,7 +7,6 @@ export default function HomeHeader() {
   const displayName = useUser((state) => state.profile.displayName ?? '');
   const hour = new Date().getHours();
   const timeOfDay = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
-  const greeting = displayName ? `${timeOfDay}, ${displayName}.` : `${timeOfDay}.`;
   const today = new Date().toLocaleDateString(undefined, {
     weekday: 'long',
     month: 'long',
@@ -26,7 +25,16 @@ export default function HomeHeader() {
         </View>
       </View>
       <Text style={styles.dateStamp}>{today.toUpperCase()}</Text>
-      <Text style={styles.greeting}>{greeting}</Text>
+      <Text style={styles.greeting}>
+        {timeOfDay}
+        {displayName ? (
+          <>
+            {', '}
+            <Text style={styles.greetingName}>{displayName}</Text>
+          </>
+        ) : null}
+        {'.'}
+      </Text>
       <Text style={styles.title}>Your story, one page at a time.</Text>
     </View>
   );
@@ -88,5 +96,8 @@ const styles = StyleSheet.create({
     fontFamily: fonts.handwriting,
     fontSize: 26,
     marginBottom: 4,
+  },
+  greetingName: {
+    fontFamily: fonts.handwritingBold,
   },
 });

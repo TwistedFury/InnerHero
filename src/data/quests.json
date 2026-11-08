@@ -12,7 +12,7 @@
         "icon": "chess-knight",
         "steps": [
             {"id": "thoughts", "type": "text", "prompt": "Write down the thought that came up.", "required": true},
-            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "required": true},
+            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "min_label": "Not at all", "max_label": "Completely", "required": true},
             {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now?", "required": true}
         ],
         "version": "v1.0",
@@ -34,7 +34,7 @@
         "icon": "user-shield",
         "steps": [
             {"id": "reflection", "type": "text", "prompt": "What happened, and what did you feel?", "required": true},
-            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "required": true},
+            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "min_label": "Barely there", "max_label": "Overwhelming", "required": true},
             {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
         ],
         "version":"v1.0",
@@ -57,7 +57,7 @@
         "icon": "shield",
         "steps": [
             {"id": "reflection", "type": "text", "prompt": "What happened, and what did you feel?", "required": true},
-            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "required": true},
+            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "min_label": "Barely there", "max_label": "Overwhelming", "required": true},
             {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
         ],
         "version": "v1.0",
@@ -81,7 +81,7 @@
         "icon": "arrow-up-right",
         "steps": [
             {"id": "thoughts", "type": "text", "prompt": "Write down the thought that came up.", "required": true},
-            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "required": true},
+            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "min_label": "Not at all", "max_label": "Completely", "required": true},
             {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now?", "required": true}
         ],
         "version":"v1.0",
@@ -103,7 +103,7 @@
             {"id": "rationale", "type": "info", "prompt": "Depression tends to follow a pattern of behavior: withdrawing, avoiding, and doing less of what matters. This approach changes behavior first, because energy, motivation, and mood tend to follow action rather than lead it. Today you only notice your patterns.", "required": false},
             {"id": "ratings-explained", "type": "info", "prompt": "Rate each activity twice on a 0 to 10 scale. Enjoyment is how much fun or pleasure it gives you. Importance is how much it matters to you in your heart. An activity can be high in one and low in the other.", "required": false},
             {"id": "activities", "type": "list", "prompt": "List what you did today, as completely as you can, including small things like sleeping or watching TV.", "fields": ["activity", "enjoyment", "importance"], "required": true},
-            {"id": "mood", "type": "slider", "prompt": "Overall, how was your mood today? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+            {"id": "mood", "type": "mood", "prompt": "Overall, how was your mood today? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
         ],
         "version": "v1.0",
         "estimated_minutes": 10,
@@ -152,7 +152,7 @@
         "steps": [
             {"id": "selection-explained", "type": "info", "prompt": "Pick activities across several life areas, because relying on one area narrows your chances of positive experiences. Include some you already do and want to do more, a mix of enjoyable and important ones, and only a few small steps toward big long-term goals.", "required": false},
             {"id": "fifteen-activities", "type": "list", "prompt": "Choose 15 activities from your inventory. Each should be observable, measurable, in its smallest piece, and tied to a value.", "min_items": 15, "required": true},
-            {"id": "ranking", "type": "rank", "prompt": "Rank them from 1 (easiest to accomplish) to 15 (hardest). One way: place the easiest as 1 and the hardest as 15, then fill in the rest.", "required": true}
+            {"id": "ranking", "type": "rank", "prompt": "Rank them from 1 (easiest to accomplish) to 15 (hardest). One way: place the easiest as 1 and the hardest as 15, then fill in the rest.", "min_label": "Easiest", "max_label": "Hardest", "required": true}
         ],
         "version": "v1.0",
         "estimated_minutes": 15,

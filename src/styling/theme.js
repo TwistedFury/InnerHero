@@ -17,6 +17,7 @@ export const colors = {
   gold: '#B8862B',        // stitching, icons, progress fill
   track: '#D9C7A0',       // empty part of a progress bar
   dangerSoft: '#F0D9D0',  // soft red background for delete buttons
+  onDarkFaint: '#A8946F', // inactive tab labels and icons on dark leather
 };
 
 // Mood 0 to 10: dusk blue → lantern gold. Use moodColors[number].
@@ -34,4 +35,5 @@ export const fonts = {
   // New: only work once you add and load them (steps below)
   heading: 'IMFellEnglish_400Regular',
   handwriting: 'Caveat_400Regular',
+  handwritingBold: 'Caveat_700Bold',
 };

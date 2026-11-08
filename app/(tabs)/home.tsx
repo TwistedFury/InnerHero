@@ -9,6 +9,7 @@ import { retrieveAvailableQuests } from '../../src/helper/questFinder';
 import { useProgress } from '../../src/storage/questStorage';
 import type { Quest } from '../../src/types/quest';
 import HelpLinks from '../../src/components/profile/helpLinks';
+import PageBackground from '../../src/components/pageBackground';
 
 import { colors } from '../../src/styling/theme';
 
@@ -25,19 +26,21 @@ export default function HomeScreen() {
     ?? (quests[0] as Quest);
 
   return (
-    <ScrollView
-      contentContainerStyle={[
-        styles.container,
-        { paddingTop: insets.top, paddingBottom: insets.bottom + 24 },
-      ]}
-      showsVerticalScrollIndicator={false}
-    >
-      <HomeHeader />
-      <NextQuest quest={quest} progress={progress[quest.id]} />
-      <MilestoneProgress />
-      <QuestOptions quests={uncompletedQuests.slice(0, 4)} />
-      <HelpLinks />
-    </ScrollView>
+    <PageBackground>
+      <ScrollView
+        contentContainerStyle={[
+          styles.container,
+          { paddingTop: insets.top, paddingBottom: insets.bottom + 24 },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
+        <HomeHeader />
+        <NextQuest quest={quest} progress={progress[quest.id]} />
+        <MilestoneProgress />
+        <QuestOptions quests={uncompletedQuests.slice(0, 4)} />
+        <HelpLinks />
+      </ScrollView>
+    </PageBackground>
   );
 }
 
@@ -45,6 +48,5 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     paddingHorizontal: 20,
-    backgroundColor: colors.bg,
   },
 });

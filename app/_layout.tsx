@@ -6,7 +6,8 @@ import {
 } from '@expo-google-fonts/inter';
 import { Lora_500Medium, useFonts as useLoraFonts } from '@expo-google-fonts/lora';
 import { IMFellEnglish_400Regular, useFonts as useFellFonts } from '@expo-google-fonts/im-fell-english';
-import { Caveat_400Regular, useFonts as useCaveatFonts } from '@expo-google-fonts/caveat';
+import { Caveat_400Regular, Caveat_700Bold,
+	useFonts as useCaveatFonts } from '@expo-google-fonts/caveat';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
@@ -66,6 +67,7 @@ export default function RootLayout() {
 	});
 	const [caveatLoaded, caveatError] = useCaveatFonts({
 		Caveat_400Regular,
+		Caveat_700Bold,
 	});
 	const storesHydrated = useStoresHydrated();
 

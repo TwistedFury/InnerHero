@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router';
-import { House, SlidersHorizontal, UserRound } from 'lucide-react-native';
+import { BookOpen, House, ScrollText } from 'lucide-react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { colors, fonts } from '../../src/styling/theme';
 
 export default function TabsLayout() {
   const insets = useSafeAreaInsets();
@@ -9,18 +10,20 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: '#2F6B5A',
-        tabBarInactiveTintColor: '#6F7872',
+        tabBarActiveTintColor: colors.onDark,
+        tabBarInactiveTintColor: colors.onDarkFaint,
         tabBarStyle: {
           height: 62 + insets.bottom,
           paddingTop: 10,
           paddingBottom: Math.max(insets.bottom, 10),
-          backgroundColor: '#FFFDF8',
-          borderTopWidth: 0,
+          backgroundColor: colors.primaryDark,
+          borderTopWidth: 2,
+          borderTopColor: colors.gold,
         },
         tabBarLabelStyle: {
-          fontFamily: 'Inter_400Regular',
+          fontFamily: fonts.sansMedium,
           fontSize: 12,
+          letterSpacing: 0.4,
         },
         tabBarItemStyle: {
           transform: [{ translateY: -6 }],
@@ -32,7 +35,7 @@ export default function TabsLayout() {
         options={{
           title: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <House color={color} size={size} />
+            <House color={color} size={size} strokeWidth={1.8} />
           ),
         }}
       />
@@ -40,9 +43,9 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="quests"
         options={{
-          title: 'Quests',
+          title: 'Quest Board',
           tabBarIcon: ({ color, size }) => (
-            <SlidersHorizontal color={color} size={size} />
+            <ScrollText color={color} size={size} strokeWidth={1.8} />
           ),
         }}
       />
@@ -50,9 +53,9 @@ export default function TabsLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: 'Profile',
+          title: 'Field Notes',
           tabBarIcon: ({ color, size }) => (
-            <UserRound color={color} size={size} />
+            <BookOpen color={color} size={size} strokeWidth={1.8} />
           ),
         }}
       />

@@ -20,6 +20,8 @@ export interface QuestStep {
     count?: number;
     min_items?: number;
     max_items?: number;
+    min_label?: string;
+    max_label?: string;
 }
 
 export type QuestAnswer = string | number | QuestListItem[];

@@ -18,6 +18,7 @@ import DeleteMessage from '../../src/components/profile/deleteMessage';
 import Menu from '../../src/components/profile/menu';
 import DeletePrompt from '../../src/components/profile/deletePrompt';
 import TitleOptions from '../../src/components/profile/titleOptions';
+import PageBackground from '../../src/components/pageBackground';
 
 export default function Profile() {
   const displayName = useUser((state) => state.profile.displayName ?? '');
@@ -82,7 +83,7 @@ export default function Profile() {
   };
 
   return (
-    <View style={styles.screen}>
+    <PageBackground>
       <View style={styles.panel}>
         <ScrollView
           contentContainerStyle={styles.content}
@@ -93,18 +94,13 @@ export default function Profile() {
             isMenuVisible={isMenuVisible}
             setIsMenuVisible={setIsMenuVisible}
           />
-
           <Identity 
             isEditing={isEditing}
             onToggleEditing={handleToggleEditing}
           />
-
           <PrivacyCard />
-
           <Stats />
-
           <Milestones />
-
           <Edit
             isEditing={isEditing}
             nameDraft={nameDraft}
@@ -116,9 +112,7 @@ export default function Profile() {
             onSave={handleSave}
             onGenerateName={handleGenerateName}
           />
-
           <HelpLinks />
-
         </ScrollView>
       </View>
       {deleteMessage ? (
@@ -136,20 +130,15 @@ export default function Profile() {
         isDeleting={isDeleting}
         DeleteData={DeleteData}
       />
-    </View>
+    </PageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
   panel: {
     flex: 1,
     marginTop: 10,
     overflow: 'hidden',
-    backgroundColor: colors.bg,
   },
   content: {
     paddingHorizontal: 20,

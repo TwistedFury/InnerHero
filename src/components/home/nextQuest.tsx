@@ -18,6 +18,8 @@ type NextQuestProps = {
   imageSource?: ImageSourcePropType;
 };
 
+const leather = require('../../../assets/pages/leather.jpg');
+
 export default function NextQuest({ quest, progress, imageSource }: NextQuestProps) {
   const router = useRouter();
   const chainLength = getChain(quest.chain_id).length;
@@ -32,11 +34,12 @@ export default function NextQuest({ quest, progress, imageSource }: NextQuestPro
 
   const cardContent = (
     <>
-      <View style={styles.hero}>
+      <ImageBackground source={leather} resizeMode="cover" style={styles.hero}>
+        <View pointerEvents="none" style={styles.heroTint} />
         <Text style={styles.heroLabel}>
           {isInProgress ? 'PICK UP WHERE YOU LEFT OFF' : 'YOUR NEXT QUEST'}
         </Text>
-      </View>
+      </ImageBackground>
       <View style={styles.body}>
         <View style={styles.metaRow}>
           <Text style={styles.tag}>{quest.tag}</Text>
@@ -123,6 +126,11 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1,
     transform: [{ rotate: '-2deg' }],
+  },
+  // warms the taupe photo toward your leather brown
+  heroTint: {
+    ...StyleSheet.absoluteFill,
+    backgroundColor: 'rgba(122, 74, 43, 0.45)',
   },
   body: {
     padding: 24,
