@@ -458,7 +458,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1.2,
   },
-
   section: { gap: 12 },
   heading: {
     color: colors.text,
@@ -475,7 +474,6 @@ const styles = StyleSheet.create({
     fontSize: 26,
     lineHeight: 32,
   },
-
   smallLabel: {
     color: colors.muted,
     fontFamily: fonts.sansMedium,

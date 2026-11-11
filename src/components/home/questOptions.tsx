@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getIcon } from '../../helper/icons';
 import type { Quest } from '../../types/quest';
 import { colors, fonts } from '../../styling/theme';
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
   },
   pin: {
     position: 'absolute',
-    top: -6,
+    top: 4,
     left: '50%',
     marginLeft: -6,
     width: 12,
