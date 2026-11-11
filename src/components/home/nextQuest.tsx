@@ -18,7 +18,7 @@ type NextQuestProps = {
   imageSource?: ImageSourcePropType;
 };
 
-const leather = require('../../../assets/pages/leather.jpg');
+const leather = require('../../../assets/pages/leather2.jpg');
 
 export default function NextQuest({ quest, progress, imageSource }: NextQuestProps) {
   const router = useRouter();

@@ -177,17 +177,19 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
       <Text style={styles.title}>{quest.name}</Text>
       <View style={styles.divider} />
       <Text style={styles.prompt}>{step.prompt}</Text>
-      {step.type !== 'info' ?
-      <StepInput
-        step={step}
-        value={answer}
-        previousListAnswer={previousListStep ? drafts[quest.id]?.[previousListStep.id] : undefined}
-        onChange={(nextAnswer) => {
-          setAnswer(nextAnswer);
-          setError('');
-        }}
-      />
-      : null}
+      {step.type !== 'info' ? (
+        <View style={styles.stepArea}>
+          <StepInput
+            step={step}
+            value={answer}
+            previousListAnswer={previousListStep ? drafts[quest.id]?.[previousListStep.id] : undefined}
+            onChange={(nextAnswer) => {
+              setAnswer(nextAnswer);
+              setError('');
+            }}
+          />
+        </View>
+      ) : null}
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <Pressable
         accessibilityRole="button"
@@ -262,5 +264,10 @@ const styles = StyleSheet.create({
     color: colors.onDark,
     fontFamily: fonts.sansBold,
     fontSize: 17,
+  },
+  // takes all the space between the prompt and the button, and no more
+  stepArea: {
+    flex: 1,
+    minHeight: 0,
   },
 });

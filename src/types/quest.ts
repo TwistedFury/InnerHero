@@ -57,6 +57,8 @@ export interface Quest {
     steps: QuestStep[];
     estimated_minutes: number;
     repeatable: boolean;
+    closing_note?: string;
+    next_note?: string;
 }
 
 export type ProgressState = {

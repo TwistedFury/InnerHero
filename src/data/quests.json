@@ -107,7 +107,9 @@
         ],
         "version": "v1.0",
         "estimated_minutes": 10,
-        "repeatable": false
+        "repeatable": false,
+        "closing_note": "Today was only about noticing. There was nothing to fix and no right answers, just a clearer look at an ordinary day.",
+        "next_note": "Nothing to do until you're ready. The next page is about what matters to you."
     },
     {
         "id": "ba-2",
@@ -136,7 +138,9 @@
         ],
         "version": "v1.0",
         "estimated_minutes": 20,
-        "repeatable": false
+        "repeatable": false,
+        "closing_note": "You put words to what matters to you in five parts of your life. None of it has to be perfect or final, and it can change as you do.",
+        "next_note": "The next page picks from this list, so it's worth coming back when you have a little time."
     },
     {
         "id": "ba-3",
@@ -156,7 +160,9 @@
         ],
         "version": "v1.0",
         "estimated_minutes": 15,
-        "repeatable": false
+        "repeatable": false,
+        "closing_note": "You sorted fifteen activities from easiest to hardest. You don't have to do any of them yet. The ladder is just ready when you are.",
+        "next_note": "The next page takes the first rung and gives it a day and a time."
     },
     {
         "id": "ba-4",
@@ -178,7 +184,9 @@
         ],
         "version": "v1.0",
         "estimated_minutes": 10,
-        "repeatable": false
+        "repeatable": false,
+        "closing_note": "You turned an idea into a plan: a day, a time, and what might get in the way. If a plan slips, you can move it. A missed time is information, not a failure.",
+        "next_note": "Through the week, keep logging what you do, the way you did on the first page. Come back for the next page when the week is up."
     },
     {
         "id": "ba-5",
@@ -202,6 +210,8 @@
         ],
         "version": "v1.0",
         "estimated_minutes": 15,
-        "repeatable": false
+        "repeatable": false,
+        "closing_note": "You looked back on your week and asked for help in a specific way. Asking for support is part of the plan, not a sign the plan is falling short.",
+        "next_note": "When you're ready, plan next week and add one or two new activities."
     }
 ]

@@ -3,7 +3,7 @@ export const colors = {
   surface: '#FBF5E6',     // card / entry paper (was pure white)
   border: '#CDB891',      // aged paper edge
   text: '#2B2118',        // ink
-  muted: '#6B5B4A',       // faded ink
+  muted: '#4d3a2ad2',       // faded ink
   primary: '#7A4A2B',     // leather (buttons, highlights, active borders)
   primaryDark: '#3E2616', // dark leather (dark cards)
   tint: '#EADCBB',        // icon tile + tag background

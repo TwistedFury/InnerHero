@@ -1,8 +1,10 @@
 import { router } from 'expo-router';
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getIcon } from '../../helper/icons';
 import type { Quest } from '../../types/quest';
 import { colors, fonts } from '../../styling/theme';
+
+import PaperSheet from '../paperSheet';
 
 type QuestOptionsProps = {
   quests: Quest[];
@@ -53,14 +55,18 @@ export default function QuestOptions({ quests }: QuestOptionsProps) {
                 },
               ]}
             >
+              <PaperSheet seed={`next-${quest.id}`} style={styles.paper}>
+                <Icon color={colors.primary} size={25} strokeWidth={1.8} />
+                <Text style={styles.name} numberOfLines={1}>
+                  {quest.name}
+                </Text>
+                <Text style={styles.meta} numberOfLines={1}>
+                  {quest.tag.split(' · ')[0]} · {quest.estimated_minutes} min
+                </Text>
+              </PaperSheet>
+
+              {/* outside the paper so the clipping doesn't cut it off */}
               <View style={styles.pin} />
-              <Icon color={colors.primary} size={25} strokeWidth={1.8} />
-              <Text style={styles.name} numberOfLines={1}>
-                {quest.name}
-              </Text>
-              <Text style={styles.meta} numberOfLines={1}>
-                {quest.tag.split(' · ')[0]} · {quest.estimated_minutes} min
-              </Text>
             </Pressable>
           );
         })}
@@ -96,24 +102,21 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     paddingRight: 20,
   },
+  // outer layer: shadow, tilt, size (no clipping here, or the shadow vanishes)
   card: {
     width: 228,
+  },
+  // inner layer: the paper itself, clipped to the corners
+  paper: {
+    overflow: 'hidden',
     minHeight: 112,
     justifyContent: 'center',
     padding: 18,
     paddingTop: 22,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 9,
-    borderBottomRightRadius: 5,
-    borderBottomLeftRadius: 8,
-    backgroundColor: colors.surface,
-    shadowColor: '#000000',
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    shadowOffset: { width: 0, height: 3 },
-    elevation: 3,
+  },
+  // blown up slightly so the photo's pale edges fall outside the clip
+  paperImage: {
+    transform: [{ scale: 1.08 }],
   },
   pin: {
     position: 'absolute',

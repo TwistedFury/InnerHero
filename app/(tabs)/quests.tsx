@@ -4,52 +4,56 @@ import { retrieveAvailableQuests, getQuestStatus, getChain } from '../../src/hel
 import { useProgress } from '../../src/storage/questStorage';
 import { colors, fonts } from '../../src/styling/theme';
 
+import PageBackground from '../../src/components/pageBackground';
+
 export default function QuestPage() {
   const progress = useProgress((storage) => storage.progress);
   const quests = retrieveAvailableQuests(progress);
 
   return (
-    <ScrollView style={styles.board} contentContainerStyle={styles.boardContent}>
-      <View style={styles.sign}>
-        <Text style={styles.signText}>Quest Board</Text>
-      </View>
+    <PageBackground variant="wood">
+      <ScrollView style={styles.board} contentContainerStyle={styles.boardContent}>
+        <View style={styles.sign}>
+          <Text style={styles.signText}>Quest Board</Text>
+        </View>
 
-      {quests.length === 0 ? (
-        <Text style={styles.empty}>{"The board is bare. You're all caught up!"}</Text>
-      ) : (
-        quests.map((quest, index) => {
-          const chainLength = getChain(quest.chain_id).length;
-          const status = getQuestStatus(quest, progress);
-          const completions = progress[quest.id]?.completions ?? 0;
+        {quests.length === 0 ? (
+          <Text style={styles.empty}>{"The board is bare. You're all caught up!"}</Text>
+        ) : (
+          quests.map((quest, index) => {
+            const chainLength = getChain(quest.chain_id).length;
+            const status = getQuestStatus(quest, progress);
+            const completions = progress[quest.id]?.completions ?? 0;
 
-          const progressLabel =
-            status === 'completed'
-              ? 'Completed'
-              : `Quest ${quest.chain_index + 1} of ${chainLength}`;
+            const progressLabel =
+              status === 'completed'
+                ? 'Completed'
+                : `Quest ${quest.chain_index + 1} of ${chainLength}`;
 
-          return (
-            <QuestCard
-              key={quest.id}
-              index={index}
-              questCode={quest.id}
-              pathToQuests="../quests/[questCode]"
-              duration={`${quest.estimated_minutes} minutes`}
-              progressLabel={
-                completions > 0
-                  ? `Completed ${completions} ${completions === 1 ? 'time' : 'times'}`
-                  : progressLabel
-              }
-              completed={completions > 0}
-            />
-          );
-        })
-      )}
-    </ScrollView>
+            return (
+              <QuestCard
+                key={quest.id}
+                index={index}
+                questCode={quest.id}
+                pathToQuests="../quests/[questCode]"
+                duration={`${quest.estimated_minutes} minutes`}
+                progressLabel={
+                  completions > 0
+                    ? `Completed ${completions} ${completions === 1 ? 'time' : 'times'}`
+                    : progressLabel
+                }
+                completed={completions > 0}
+              />
+            );
+          })
+        )}
+      </ScrollView>
+    </PageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  board: { flex: 1, backgroundColor: colors.primaryDark },
+  board: { flex: 1 },
   boardContent: { padding: 20, paddingTop: 28, paddingBottom: 40 },
   sign: {
     alignSelf: 'center',

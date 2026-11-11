@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import type { QuestListItem, QuestStep } from '../../types/quest';
 import { colors, fonts } from '../../styling/theme';
@@ -18,8 +19,15 @@ export default function QuestList({ step, value, onChange }: QuestListProps) {
   const fields = step.fields?.length ? step.fields : ['item'];
   const textFields = fields.filter((field) => !RATING_FIELDS.includes(field));
   const ratingFields = fields.filter((field) => RATING_FIELDS.includes(field));
+  const firstField = textFields[0] ?? fields[0];
   const items = value?.length ? value : [{}];
   const canAdd = step.max_items === undefined || items.length < step.max_items;
+
+  // The scroll area, and every text box by position ("2-activity" = row 3, field "activity")
+  const scrollRef = useRef<ScrollView>(null);
+  const inputRefs = useRef<Record<string, TextInput | null>>({});
+  // Which new row we're waiting to scroll to and focus (null = none)
+  const pendingFocus = useRef<number | null>(null);
 
   // How many rows have something written in them
   const filledCount = items.filter((item) =>
@@ -44,9 +52,33 @@ export default function QuestList({ step, value, onChange }: QuestListProps) {
     onChange(items.filter((_, itemIndex) => itemIndex !== index));
   };
 
+  const addItem = () => {
+    // remember which row is new, then add it
+    pendingFocus.current = items.length;
+    onChange([...items, {}]);
+  };
+
+  // Runs whenever the list gets taller. If we just added a row, scroll to it and focus it.
+  const handleContentSizeChange = () => {
+    if (pendingFocus.current === null) return;
+    const target = inputRefs.current[`${pendingFocus.current}-${firstField}`];
+    pendingFocus.current = null;
+
+    target?.focus();
+
+    // focusing makes the browser scroll the box into view on its own, so wait
+    // for that to settle, then go to the very bottom (add button included)
+    setTimeout(() => {
+      scrollRef.current?.scrollToEnd({ animated: true });
+    }, 100);
+  };
+
   const renderInput = (item: QuestListItem, index: number, field: string, isRating: boolean) => (
     <TextInput
       key={field}
+      ref={(node) => {
+        inputRefs.current[`${index}-${field}`] = node;
+      }}
       value={item[field] ?? ''}
       onChangeText={(text) => updateItem(index, field, text)}
       placeholder={isRating ? `${formatLabel(field)} (0–10)` : formatLabel(field)}
@@ -60,6 +92,9 @@ export default function QuestList({ step, value, onChange }: QuestListProps) {
 
   return (
     <ScrollView
+      ref={scrollRef}
+      style={styles.scroll}
+      onContentSizeChange={handleContentSizeChange}
       contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="handled"
     >
@@ -97,7 +132,7 @@ export default function QuestList({ step, value, onChange }: QuestListProps) {
         <Pressable
           accessibilityRole="button"
           accessibilityLabel="Add another item"
-          onPress={() => onChange([...items, {}])}
+          onPress={addItem}
           style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}
         >
           <Text style={styles.addButtonText}>+ Add another</Text>
@@ -108,8 +143,8 @@ export default function QuestList({ step, value, onChange }: QuestListProps) {
 }
 
 const styles = StyleSheet.create({
-  // gap belongs here, not on the ScrollView's own style
-  content: { gap: 14, paddingBottom: 8 },
+  scroll: { flex: 1 },
+  content: { gap: 14, paddingBottom: 24 },
   count: {
     color: colors.muted,
     fontFamily: fonts.handwriting,
