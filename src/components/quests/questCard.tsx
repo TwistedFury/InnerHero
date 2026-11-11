@@ -125,15 +125,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    flexWrap: 'wrap', // If there isn't room, the duration drops to a second line
+    gap: 8,
   },
   tag: {
+    flexShrink: 1, // Lets the pill shrink instead of pushing things off-screen
     paddingVertical: 3,
     paddingHorizontal: 10,
     borderRadius: 4,
     borderWidth: 1,
   },
   tagText: { fontFamily: fonts.sansMedium, fontSize: 12 },
-  duration: { fontFamily: fonts.sans, fontSize: 12 },
+  duration: { 
+    fontFamily: fonts.sans, 
+    fontSize: 12,
+    flexShrink: 0, // Never squish the duration
+  },
   titleRow: { flexDirection: 'row', alignItems: 'center', gap: 12 },
   // see-through brown, so the paper texture shows instead of a flat box
   iconTile: {

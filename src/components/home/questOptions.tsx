@@ -102,13 +102,11 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     paddingRight: 20,
   },
-  // outer layer: shadow, tilt, size (no clipping here, or the shadow vanishes)
   card: {
     width: 228,
   },
   // inner layer: the paper itself, clipped to the corners
   paper: {
-    overflow: 'hidden',
     minHeight: 112,
     justifyContent: 'center',
     padding: 18,

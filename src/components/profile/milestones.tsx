@@ -32,10 +32,10 @@ export default function Milestones() {
           {earnedMilestones.map((milestone) => (
             <View key={milestone.id} style={styles.milestoneCard}>
               <MilestoneIcon color={colors.gold} size={18} strokeWidth={1.8} />
-              <Text style={styles.milestoneName} numberOfLines={1}>
+              <Text style={styles.milestoneName} numberOfLines={2}>
                 {milestone.display_name}
               </Text>
-              <Text style={styles.milestoneDescription} numberOfLines={1}>
+              <Text style={styles.milestoneDescription} numberOfLines={2}>
                 {milestone.description}
               </Text>
             </View>

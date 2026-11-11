@@ -12,9 +12,6 @@ import {
 // Maybe I can make a single paper image and then randomly add some stains and tears to it.
 const SHEETS = [
     require('../../assets/pages/quest-paper.png'),
-    require('../../assets/pages/quest-paper2.png'),
-    require('../../assets/pages/quest-paper3.png'),
-    require('../../assets/pages/quest-paper4.png'),
 ];
 
 // Turns text into a steady number: same text, same number, every time
