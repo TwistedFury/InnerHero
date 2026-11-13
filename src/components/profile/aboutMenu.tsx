@@ -43,6 +43,7 @@ const SECTIONS: Section[] = [
     body: [
       "I didn't want Inner Hero to look like a clinic or a scoreboard. Parchment, ink, and handwriting are meant to feel like a personal journal—somewhere you can write honestly.",
       "It also fits my degree. When I decided to pull elements from game development, I realized I could make the app an adventurer's notebook. As you journey through Inner Hero in search of your inner hero, each quest becomes an entry in your journal.",
+      "These choices came from research, but I didn't invent them from nothing. Studies have found that people tend to judge attractive designs as easier to use, and that appealing visual design is linked to whether young people keep using mental health apps. Writing about your thoughts and feelings has small but real benefits in research, and handwriting-style type tends to feel more personal than machine type. I haven't found a study that tests this exact notebook look, so treat it as a reasoned choice, not a proven one.",
     ],
   },
 ];
@@ -51,6 +52,12 @@ const SOURCES: string[] = [
   'Deci, E. L., & Ryan, R. M. (2000). The "what" and "why" of goal pursuits: Human needs and the self-determination of behavior. Psychological Inquiry, 11(4), 227-268.',
   'Deci, E. L., Koestner, R., & Ryan, R. M. (1999). A meta-analytic review of experiments examining the effects of extrinsic rewards on intrinsic motivation. Psychological Bulletin, 125(6), 627-668.',
   'Lejuez, C. W., Hopko, D. R., Acierno, R., Daughters, S. B., & Pagoto, S. L. (2011). Ten year revision of the brief behavioral activation treatment for depression: Revised treatment manual. Behavior Modification, 35(2), 111-161.',
+  'Frattaroli, J. (2006). Experimental disclosure and its moderators: A meta-analysis. Psychological Bulletin, 132(6), 823-865.',
+  'Tractinsky, N., Katz, A. S., & Ikar, D. (2000). What is beautiful is usable. Interacting with Computers, 13(2), 127-145.',
+  'Garrido, S., Doran, B., Oliver, E., & Boydell, K. (2024). Desirable design: What aesthetics are important to young people when designing a mental health app? Health Informatics Journal, 30(4).',
+  'Schroll, R., Schnurr, B., & Grewal, D. (2018). Humanizing products with handwritten typefaces. Journal of Consumer Research, 45(3), 648-672.',
+  'Cheng, V. W. S., Davenport, T., Johnson, D., Vella, K., & Hickie, I. B. (2019). Gamification in apps and technologies for improving mental health and well-being: Systematic review. JMIR Mental Health, 6(6), e13717.',
+  'Ryan, R. M., Rigby, C. S., & Przybylski, A. (2006). The motivational pull of video games: A self-determination theory approach. Motivation and Emotion, 30(4), 347-363.',
 ];
 
 export default function AboutModal({

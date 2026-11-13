@@ -106,7 +106,6 @@ export default function QuestComplete() {
   const responses = useProgress((s) => s.responses);
   const completed = useProgress((s) => s.completed);
   const progress = useProgress((s) => s.progress);
-  const completeMilestone = useMilestones((s) => s.completeMilestone);
 
   // Milestones already earned BEFORE this page opened. Anything earned after that is new.
   const [alreadyEarned] = useState(

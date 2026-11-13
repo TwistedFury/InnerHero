@@ -5,7 +5,6 @@ import { useUser } from '../../src/storage/userStorage';
 import { useProgress } from '../../src/storage/questStorage';
 import { useMilestones } from '../../src/storage/milestoneStorage';
 import { generateDisplayName } from '../../src/helper/nameGenerator';
-import { colors } from '../../src/styling/theme';
 
 /* Components */
 import Identity from '../../src/components/profile/identity';
