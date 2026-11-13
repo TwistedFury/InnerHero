@@ -5,21 +5,17 @@ import MilestoneProgress from '../../src/components/home/milestoneProgress';
 import NextQuest from '../../src/components/home/nextQuest';
 import QuestOptions from '../../src/components/home/questOptions';
 import quests from '../../src/data/quests.json';
-import { retrieveAvailableQuests } from '../../src/helper/questFinder';
+import { retrieveAvailableQuests, isDone } from '../../src/helper/questFinder';
 import { useProgress } from '../../src/storage/questStorage';
 import type { Quest } from '../../src/types/quest';
 import HelpLinks from '../../src/components/profile/helpLinks';
 import PageBackground from '../../src/components/pageBackground';
 
-import { colors } from '../../src/styling/theme';
-
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
   const progress = useProgress((state) => state.progress);
   const availableQuests = retrieveAvailableQuests(progress);
-  const uncompletedQuests = availableQuests.filter(
-    (item) => (progress[item.id]?.completions ?? 0) === 0,
-  );
+  const uncompletedQuests = availableQuests.filter((item) => !isDone(item, progress));
   const quest = availableQuests.find((item) => progress[item.id]?.status === 'in_progress')
     ?? availableQuests.find((item) => (progress[item.id]?.completions ?? 0) === 0)
     ?? availableQuests[0]

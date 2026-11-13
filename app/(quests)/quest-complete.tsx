@@ -212,13 +212,10 @@ export default function QuestComplete() {
   const showUnlocked = progress[questId]?.completions === 1 && upNext.length > 0;
   const showNext = showUnlocked || !!quest?.next_note;
 
+  const syncMilestones = useMilestones((s) => s.syncMilestones);
   useEffect(() => {
-    getMilestonesForQuest(questId)
-      .filter((milestone) =>
-        milestone.required_quests.every((requiredQuest) => completed.includes(requiredQuest)),
-      )
-      .forEach((milestone) => completeMilestone(milestone.id));
-  }, [completed, completeMilestone, questId]);
+    syncMilestones(progress);
+  }, [progress, syncMilestones]);
 
   return (
     <PageBackground>

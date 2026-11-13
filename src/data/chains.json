@@ -1,28 +1,39 @@
 [
     {
-        "chain_id": "ts-1",
-        "title": "Taking Space",
-        "description": "",
+        "chain_id": "ta-1",
+        "title": "Behavioral Activation",
+        "description": "Notice how your days are going, work out what matters to you, and build small steps toward it.",
+        "repeatable": true,
         "quests": [
-            "cbt-1", "cbt-2",
-            "cbt-3", "cbt-4"
+            "ba-1", "ba-2",
+            "ba-3", "ba-4",
+            "ba-5"
         ],
-        "prerequisites": [
-            "sample_chain"
-        ],
+        "prerequisites": [],
         "current_quest_id": null
     },
     {
-        "chain_id": "ba-1",
-        "title": "Behavioral Activation",
-        "description": "",
+        "chain_id": "sg-1",
+        "title": "Steady Ground",
+        "description": "Skills for staying steady when things get intense: finding your wise mind, noticing, pausing, accepting, and acting differently.",
+        "repeatable": true,
         "quests": [
-            "ba-1", "ba-2",
-            "ba-3", "ba-4"
+            "dbt-1", "dbt-2",
+            "dbt-3", "dbt-4",
+            "dbt-5"
         ],
-        "prerequisites": [
-            "sample_chain"
+        "prerequisites": [],
+        "current_quest_id": null
+    },
+    {
+        "chain_id": "ts-1",
+        "title": "Breathing Space",
+        "description": "A three-minute pause you can come back to any time.",
+        "repeatable": true,
+        "quests": [
+            "mbct-1"
         ],
+        "prerequisites": [],
         "current_quest_id": null
     }
 ]

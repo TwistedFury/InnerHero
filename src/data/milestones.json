@@ -3,28 +3,37 @@
         "id": "first-step",
         "display_name": "First Step",
         "description": "Complete your first quest",
-        "required_quests": [
-            "cbt-1"
-        ]
+        "required_quests": [],
+        "required_total": 1
     },
     {
         "id": "finding-range",
         "display_name": "Finding Range",
-        "description": "Practiced both techniques",
+        "description": "Tried quests from three different approaches",
         "required_quests": [
-            "cbt-1",
-            "ba-1"
+            "ba-1",
+            "dbt-1",
+            "mbct-1"
         ]
     },
     {
-        "id": "making-room",
-        "display_name": "Making Room",
-        "description": "Complete your first chain",
+        "id": "holding-steady",
+        "display_name": "Holding Steady",
+        "description": "Finish the Steady Ground chain",
         "required_quests": [
-            "cbt-1",
-            "cbt-2",
-            "cbt-3",
-            "cbt-4"
+            "dbt-1",
+            "dbt-2",
+            "dbt-3",
+            "dbt-4",
+            "dbt-5"
+        ]
+    },
+    {
+        "id": "catching-breath",
+        "display_name": "Catching Breath",
+        "description": "Take your first breathing space",
+        "required_quests": [
+            "mbct-1"
         ]
     }
 ]

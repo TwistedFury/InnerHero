@@ -17,6 +17,7 @@ import HelpLinks from '../../src/components/profile/helpLinks';
 import DeleteMessage from '../../src/components/profile/deleteMessage';
 import Menu from '../../src/components/profile/menu';
 import DeletePrompt from '../../src/components/profile/deletePrompt';
+import AboutModal from '../../src/components/profile/aboutMenu';
 import TitleOptions from '../../src/components/profile/titleOptions';
 import PageBackground from '../../src/components/pageBackground';
 
@@ -30,6 +31,7 @@ export default function Profile() {
   const [error, setError] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
+  const [isAboutVisible, setIsAboutVisible] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isDeletePromptVisible, setIsDeletePromptVisible] = useState(false);
   const [deleteMessage, setDeleteMessage] = useState('');
@@ -56,6 +58,13 @@ export default function Profile() {
     setIsMenuVisible(false);
     setDeleteMessage('');
     setIsDeletePromptVisible(true);
+  };
+
+  const openAbout = () => {
+    setIsMenuVisible(false);
+    // iPhones can ignore a pop-up that opens while another is still closing,
+    // so we wait a moment before showing the About page.
+    setTimeout(() => setIsAboutVisible(true), 350);
   };
 
   const handleToggleEditing = () => {
@@ -123,6 +132,11 @@ export default function Profile() {
         setIsMenuVisible={setIsMenuVisible}
         isDeleting={isDeleting}
         confirmDeleteData={confirmDeleteData}
+        openAbout={openAbout}
+      />
+      <AboutModal
+        isAboutVisible={isAboutVisible}
+        setIsAboutVisible={setIsAboutVisible}
       />
       <DeletePrompt
         isDeletePromptVisible={isDeletePromptVisible}

@@ -5,6 +5,7 @@ import type { Quest } from '../../types/quest';
 import { colors, fonts } from '../../styling/theme';
 
 import PaperSheet from '../paperSheet';
+import EmptyQuestOptions from './emptyQuestOptions';
 
 type QuestOptionsProps = {
   quests: Quest[];
@@ -26,12 +27,15 @@ export default function QuestOptions({ quests }: QuestOptionsProps) {
           <Text style={styles.allQuests}>All quests →</Text>
         </Pressable>
       </View>
-      <ScrollView
-        horizontal
-        contentContainerStyle={styles.cards}
-        showsHorizontalScrollIndicator={false}
-      >
-        {quests.map((quest, index) => {
+      {quests.length === 0 ? (
+        <EmptyQuestOptions />
+      ) : (
+        <ScrollView
+          horizontal
+          contentContainerStyle={styles.cards}
+          showsHorizontalScrollIndicator={false}
+        >
+          {quests.map((quest, index) => {
           const Icon = getIcon(quest.icon);
 
           return (
@@ -70,7 +74,8 @@ export default function QuestOptions({ quests }: QuestOptionsProps) {
             </Pressable>
           );
         })}
-      </ScrollView>
+        </ScrollView>
+      )}
     </View>
   );
 }

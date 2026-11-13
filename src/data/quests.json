@@ -1,94 +1,5 @@
 [
     {
-        "id": "cbt-1",
-        "name": "Cognitive Behavior Theory - 1",
-        "theory": "CBT-1 et al",
-        "quest_path": "Taking Space",
-        "chain_id": "ts-1",
-        "chain_index": 0,
-        "prerequisites": [],
-        "tag": "CBT · Thought record",
-        "description": "Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
-        "icon": "chess-knight",
-        "steps": [
-            {"id": "thoughts", "type": "text", "prompt": "Write down the thought that came up.", "required": true},
-            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "min_label": "Not at all", "max_label": "Completely", "required": true},
-            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now?", "required": true}
-        ],
-        "version": "v1.0",
-        "estimated_minutes": 15,
-        "repeatable": false
-    },
-    {
-        "id": "cbt-2",
-        "name": "Cognitive Behavior Theory - 2",
-        "theory": "CBT-1 et al",
-        "quest_path": "Taking Space",
-        "chain_id": "ts-1",
-        "chain_index": 1,
-        "prerequisites": [
-            "cbt-1"
-        ],
-        "tag": "CBT · Thought record",
-        "description": "Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
-        "icon": "user-shield",
-        "steps": [
-            {"id": "reflection", "type": "text", "prompt": "What happened, and what did you feel?", "required": true},
-            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "min_label": "Barely there", "max_label": "Overwhelming", "required": true},
-            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
-        ],
-        "version":"v1.0",
-        "estimated_minutes": 5,
-        "repeatable": false
-    },
-    {
-        "id": "cbt-3",
-        "name": "Cognitive Behavior Theory - 3",
-        "theory": "CBT-1 et al",
-        "quest_path": "Taking Space",
-        "chain_id": "ts-1",
-        "chain_index": 2,
-        "prerequisites": [
-            "cbt-1",
-            "cbt-2"
-        ],
-        "tag":"CBT · Thought record",
-        "description":"Name the feeling (5 min): Write down what happened, what you felt, and how strong it was. No analysis needed yet.",
-        "icon": "shield",
-        "steps": [
-            {"id": "reflection", "type": "text", "prompt": "What happened, and what did you feel?", "required": true},
-            {"id": "intensity", "type": "slider", "prompt": "How strong was the feeling?", "min": 1, "max": 10, "min_label": "Barely there", "max_label": "Overwhelming", "required": true},
-            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood?", "required": true}
-        ],
-        "version": "v1.0",
-        "estimated_minutes": 5,
-        "repeatable": false
-    },
-    {
-        "id": "cbt-4",
-        "name": "Cognitive Behavior Theory - 4",
-        "theory": "CBT-1 et al",
-        "quest_path": "Taking Space",
-        "chain_id": "ts-1",
-        "chain_index": 3,
-        "prerequisites": [
-            "cbt-1",
-            "cbt-2",
-            "cbt-3"
-        ],
-        "tag":"Sample Tag",
-        "description":"Choose one situation from this week that still feels unresolved. Write down the first thought that came up, rate how much you believed it, and then look for evidence on both sides before writing a more balanced version. Take as long as you need.",
-        "icon": "arrow-up-right",
-        "steps": [
-            {"id": "thoughts", "type": "text", "prompt": "Write down the thought that came up.", "required": true},
-            {"id": "belief", "type": "slider", "prompt": "How strongly did you believe that thought?", "min": 1, "max": 10, "min_label": "Not at all", "max_label": "Completely", "required": true},
-            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now?", "required": true}
-        ],
-        "version":"v1.0",
-        "estimated_minutes": 10,
-        "repeatable": false
-    },
-    {
         "id": "ba-1",
         "name": "Behavioral Activation - 1",
         "theory": "Lejuez et al. (2011), BATD-R, Session 1",
@@ -213,5 +124,155 @@
         "repeatable": false,
         "closing_note": "You looked back on your week and asked for help in a specific way. Asking for support is part of the plan, not a sign the plan is falling short.",
         "next_note": "When you're ready, plan next week and add one or two new activities."
+    },
+    {
+        "id": "dbt-1",
+        "name": "Steady Ground - 1",
+        "theory": "Linehan (2015), DBT Skills Training Handouts and Worksheets, 2nd ed., Mindfulness: Wise Mind (Handout 3)",
+        "quest_path": "Steady Ground",
+        "chain_id": "sg-1",
+        "chain_index": 0,
+        "prerequisites": [],
+        "tag": "DBT · Mindfulness · Wise mind",
+        "description": "Look at one recent moment through three states of mind: reasonable, emotional, and wise. You're not trying to fix anything, just noticing which one was in charge.",
+        "icon": "compass",
+        "steps": [
+            {"id": "states-explained", "type": "info", "prompt": "Your mind moves between three states. Reasonable mind runs on facts and logic. Emotion mind is led by feelings and urges, and often doesn't stop to think about consequences. Wise mind is the balance of the two, a calm, centered place that looks out for your long-term wellbeing. Everyone has a wise mind, even people who haven't found it yet.", "required": false},
+            {"id": "situation", "type": "text", "prompt": "Think of a recent moment when you reacted strongly or felt pulled in two directions. What was happening?", "required": true},
+            {"id": "mind-state", "type": "slider", "prompt": "In that moment, which state was running things? The middle is wise mind.", "min": 0, "max": 10, "min_label": "Mostly reasonable mind", "max_label": "Mostly emotion mind", "required": true},
+            {"id": "wise-mind", "type": "text", "prompt": "If your wise mind had a say, what would it tell you about that moment?", "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 10,
+        "repeatable": false,
+        "closing_note": "You looked at a real moment and asked which part of you was driving. No state is wrong. Each one just has a different job.",
+        "next_note": "The next page practices two skills for noticing what's happening inside you."
+    },
+    {
+        "id": "dbt-2",
+        "name": "Steady Ground - 2",
+        "theory": "Linehan (2015), DBT Skills Training Handouts and Worksheets, 2nd ed., Mindfulness module: 'what' skills (observe, describe)",
+        "quest_path": "Steady Ground",
+        "chain_id": "sg-1",
+        "chain_index": 1,
+        "prerequisites": ["dbt-1"],
+        "tag": "DBT · Mindfulness · Observe and describe",
+        "description": "Practice two skills: noticing without reacting, then putting plain words to what you notice. Stick to facts, not guesses.",
+        "icon": "chess-knight",
+        "steps": [
+            {"id": "skills-explained", "type": "info", "prompt": "Observe means noticing what's here, inside and outside you, without reacting or trying to change it. Describe means putting words to it using only the facts. A description doesn't add worst-case guesses or leave out what's uncomfortable. A thought is just a thought, and a feeling is just a feeling.", "required": false},
+            {"id": "observe", "type": "text", "prompt": "Take one minute just to notice. What do you see, hear, and feel in your body right now? Write it down without judging it.", "required": true},
+            {"id": "describe", "type": "text", "prompt": "Pick one feeling you noticed. Describe it using facts only, like 'I notice a tightness in my chest' or 'I notice the thought that I'm behind.' Where is it, and what thought is attached to it?", "required": true},
+            {"id": "intensity", "type": "slider", "prompt": "How strong is that feeling right now?", "min": 0, "max": 10, "min_label": "Barely there", "max_label": "Overwhelming", "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 10,
+        "repeatable": false,
+        "closing_note": "You noticed what was here and named it without arguing with it. That small gap between feeling something and reacting to it is what the next page builds on.",
+        "next_note": "The next page uses that gap in a moment when you feel like reacting."
+    },
+    {
+        "id": "dbt-3",
+        "name": "Steady Ground - 3",
+        "theory": "Linehan (2015), DBT Skills Training Handouts and Worksheets, 2nd ed., Distress Tolerance: The STOP Skill (Handout 4)",
+        "quest_path": "Steady Ground",
+        "chain_id": "sg-1",
+        "chain_index": 2,
+        "prerequisites": ["dbt-1", "dbt-2"],
+        "tag": "DBT · Distress tolerance · STOP",
+        "description": "Replay a moment when you reacted fast and wished you hadn't, this time with four steps: Stop, Take a step back, Observe, Proceed mindfully.",
+        "icon": "shield",
+        "steps": [
+            {"id": "stop-explained", "type": "info", "prompt": "STOP is a pause button for moments when you feel like reacting right away. S: Stop. Freeze instead of acting. T: Take a step back, take a break, and take a breath. O: Observe what's happening inside you (thoughts, feelings) and around you. P: Proceed mindfully, and ask whether what you're about to do will make things better or worse. This quest is practice for everyday moments. If you're in crisis, use the help links in your profile.", "required": false},
+            {"id": "trigger", "type": "text", "prompt": "Think of a recent time you reacted fast and wished you hadn't, like snapping at someone, sending a message, or giving up on something. What happened?", "required": true},
+            {"id": "stop-replay", "type": "text", "prompt": "Replay it with STOP. Where could you have paused? What would you have noticed in your thoughts, your feelings, and the room around you?", "required": true},
+            {"id": "proceed", "type": "text", "prompt": "What would proceeding mindfully have looked like? Which choice would have made things better instead of worse?", "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 10,
+        "repeatable": false,
+        "closing_note": "You rehearsed a pause. It doesn't have to work every time, and each practice makes the pause a little easier to find.",
+        "next_note": "The next page is about a different kind of pause: accepting something you can't change."
+    },
+    {
+        "id": "dbt-4",
+        "name": "Steady Ground - 4",
+        "theory": "Linehan (2015), DBT Skills Training Handouts and Worksheets, 2nd ed., Distress Tolerance: Radical Acceptance, Turning the Mind, Willingness (Handouts 11-13)",
+        "quest_path": "Steady Ground",
+        "chain_id": "sg-1",
+        "chain_index": 3,
+        "prerequisites": ["dbt-1", "dbt-2", "dbt-3"],
+        "tag": "DBT · Distress tolerance · Acceptance",
+        "description": "Pick one small thing you've been fighting that you can't change right now. Separate what's out of your control from what's in it, and choose one willing step.",
+        "icon": "handshake",
+        "steps": [
+            {"id": "acceptance-explained", "type": "info", "prompt": "Radical acceptance means acknowledging what is, as it is, even when you don't like it. It isn't approval, and it isn't giving up. Pain is part of life, but fighting reality can add suffering on top of it. Accepting is a choice you may need to make again and again. Pick something small and everyday for this quest, not your hardest memory.", "required": false},
+            {"id": "reality", "type": "text", "prompt": "What's something small you've been fighting that you can't change right now?", "required": true},
+            {"id": "outside-control", "type": "text", "prompt": "What about it is outside your control?", "required": true},
+            {"id": "inside-control", "type": "text", "prompt": "What is inside your control, like your thoughts, your actions, or how you respond?", "required": true},
+            {"id": "turning-mind", "type": "text", "prompt": "Write one sentence you could say to yourself to turn toward acceptance. You may need to say it more than once.", "required": true},
+            {"id": "willing-step", "type": "text", "prompt": "What's one willing step you could take, just what the situation needs and nothing more?", "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 15,
+        "repeatable": false,
+        "closing_note": "Accepting something doesn't mean you like it. It means you've stopped spending energy on arguing with it, so you have more for what you can do.",
+        "next_note": "The last page is about changing how you feel by changing what you do."
+    },
+    {
+        "id": "dbt-5",
+        "name": "Steady Ground - 5",
+        "theory": "Linehan (2015), DBT Skills Training Handouts and Worksheets, 2nd ed., Emotion Regulation module: Opposite Action",
+        "quest_path": "Steady Ground",
+        "chain_id": "sg-1",
+        "chain_index": 4,
+        "prerequisites": ["dbt-1", "dbt-2", "dbt-3", "dbt-4"],
+        "tag": "DBT · Emotion regulation · Opposite action",
+        "description": "Every emotion comes with an urge. Pick one emotion that's been pulling at you, name its urge, and plan one small action in the opposite direction.",
+        "icon": "stairs",
+        "steps": [
+            {"id": "opposite-explained", "type": "info", "prompt": "Emotions push you to act, and acting on the push can strengthen the emotion. Opposite action means doing the reverse. When you feel fear and want to avoid, approach the thing you're afraid of in a small step. When you feel sad and want to withdraw, get active and connect with someone. When you feel angry and want to attack, gently step away, slow down, breathe, and do something kind.", "required": false},
+            {"id": "emotion", "type": "text", "prompt": "Which emotion has been pulling at you lately, and what does it urge you to do?", "required": true},
+            {"id": "intensity", "type": "slider", "prompt": "How strong is that emotion right now?", "min": 0, "max": 10, "min_label": "Barely there", "max_label": "Overwhelming", "required": true},
+            {"id": "opposite-action", "type": "text", "prompt": "What's one small action that goes the opposite way from that urge?", "required": true},
+            {"id": "when", "type": "text", "prompt": "When and where could you do it in the next day or two?", "required": true},
+            {"id": "mood", "type": "mood", "prompt": "How would you describe your mood now? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 10,
+        "repeatable": true,
+        "closing_note": "You named an urge and planned one small step in the other direction. After you try it, notice whether the feeling shifts at all, even a little.",
+        "next_note": "Come back to this one any time an emotion is pushing you around."
+    },
+    {
+        "id": "mbct-1",
+        "name": "Breathing Space",
+        "theory": "Segal, Williams & Teasdale (2013), Mindfulness-Based Cognitive Therapy for Depression, 2nd ed., three-minute breathing space",
+        "quest_path": "Taking Space",
+        "chain_id": "ts-1",
+        "chain_index": 0,
+        "prerequisites": [],
+        "tag": "MBCT · Three-minute breathing space",
+        "description": "A short pause with three steps: notice what's here, gather your attention on your breath, then widen your awareness to your whole body. Use it any time you notice you're on autopilot or something feels hard.",
+        "icon": "heart",
+        "steps": [
+            {"id": "mood-before", "type": "mood", "prompt": "Before you start, how would you describe your mood? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true},
+            {"id": "intro", "type": "info", "prompt": "This takes about three minutes, roughly one minute per step. The three steps spell AGE: Awareness, Gathering, Expanding. It doesn't fix anything. It makes a little room around whatever is going on.", "required": false},
+            {"id": "awareness", "type": "info", "prompt": "Step 1, Awareness (about one minute). Sit or stand upright, and close your eyes if that's comfortable. Ask yourself, 'What is my experience right now?' Notice any thoughts, treating them as passing events. Notice any feelings, including uncomfortable ones. Notice any sensations in your body, like tightness or bracing. You don't need to change anything.", "required": false},
+            {"id": "awareness-notes", "type": "text", "prompt": "What did you notice? (optional)", "required": false},
+            {"id": "gathering", "type": "info", "prompt": "Step 2, Gathering (about one minute). Gently bring all your attention to your breath. Feel your belly rise as you breathe in and fall as you breathe out. If your mind wanders, bring it back without criticizing yourself.", "required": false},
+            {"id": "expanding", "type": "info", "prompt": "Step 3, Expanding (about one minute). Widen your attention from your breath to your whole body, your posture, and your face. Let whatever is here be here. When you're ready, carry this wider awareness into the next moments of your day.", "required": false},
+            {"id": "mood-after", "type": "mood", "prompt": "How would you describe your mood now? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
+        ],
+        "version": "v1.0",
+        "estimated_minutes": 5,
+        "repeatable": true,
+        "priority": 1,
+        "closing_note": "You paused and noticed what was here. Nothing needed to change for that to count.",
+        "next_note": "Come back any time. It works best when you use it often, not only when things are hard."
     }
 ]

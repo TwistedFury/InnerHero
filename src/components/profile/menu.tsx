@@ -6,15 +6,17 @@ export default function Menu(
         isMenuVisible, 
         setIsMenuVisible, 
         isDeleting, 
-        confirmDeleteData 
+        confirmDeleteData,
+        openAbout
     }: { 
         isMenuVisible: boolean; 
         setIsMenuVisible: (visible: boolean) => void; 
         isDeleting: boolean; 
-        confirmDeleteData: () => void 
+        confirmDeleteData: () => void;
+        openAbout: () => void;
     }) {
     return (
-        <Modal
+      <Modal
         visible={isMenuVisible}
         transparent
         animationType="slide"
@@ -39,6 +41,17 @@ export default function Menu(
                 <Text style={styles.closeMenuText}>×</Text>
               </Pressable>
             </View>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="About Inner Hero"
+              onPress={openAbout}
+              style={({ pressed }) => [styles.menuAboutButton, pressed && styles.buttonPressed]}
+            >
+              <Text style={styles.menuAboutTitle}>About Inner Hero</Text>
+              <Text style={styles.menuAboutDescription}>
+                Why it was made and the research behind it.
+              </Text>
+            </Pressable>
             <Pressable
               accessibilityRole="button"
               accessibilityLabel="Delete my data"
@@ -132,5 +145,25 @@ const styles = StyleSheet.create({
   },
   buttonPressed: {
     opacity: 0.78,
+  },
+  menuAboutButton: {
+    borderColor: colors.border,
+    borderWidth: 1,
+    borderRadius: 6,
+    marginBottom: 14,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+  },
+  menuAboutTitle: {
+    color: colors.text,
+    fontFamily: fonts.sansBold,
+    fontSize: 15,
+    marginBottom: 5,
+  },
+  menuAboutDescription: {
+    color: colors.muted,
+    fontFamily: fonts.sans,
+    fontSize: 13,
+    lineHeight: 18,
   },
 });

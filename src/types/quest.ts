@@ -59,6 +59,7 @@ export interface Quest {
     repeatable: boolean;
     closing_note?: string;
     next_note?: string;
+    priority?: number;
 }
 
 export type ProgressState = {

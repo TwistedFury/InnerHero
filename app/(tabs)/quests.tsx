@@ -3,12 +3,16 @@ import QuestCard from '../../src/components/quests/questCard';
 import { retrieveAvailableQuests, getQuestStatus, getChain } from '../../src/helper/questFinder';
 import { useProgress } from '../../src/storage/questStorage';
 import { colors, fonts } from '../../src/styling/theme';
+import { Fragment, useState } from 'react';
+import SortBar from '../../src/components/quests/sortBar';
+import { sortQuests, type SortMode } from '../../src/helper/questSorter';
 
 import PageBackground from '../../src/components/pageBackground';
 
 export default function QuestPage() {
   const progress = useProgress((storage) => storage.progress);
-  const quests = retrieveAvailableQuests(progress);
+  const [sortMode, setSortMode] = useState<SortMode>('suggested');
+  const quests = sortQuests(retrieveAvailableQuests(progress), progress, sortMode);
 
   return (
     <PageBackground variant="wood">
@@ -16,6 +20,8 @@ export default function QuestPage() {
         <View style={styles.sign}>
           <Text style={styles.signText}>Quest Board</Text>
         </View>
+
+        {quests.length > 1 && <SortBar sortMode={sortMode} setSortMode={setSortMode} />}
 
         {quests.length === 0 ? (
           <Text style={styles.empty}>{"The board is bare. You're all caught up!"}</Text>
@@ -30,20 +36,26 @@ export default function QuestPage() {
                 ? 'Completed'
                 : `Quest ${quest.chain_index + 1} of ${chainLength}`;
 
+            const previous = quests[index - 1];
+            const startsNewPath =
+              sortMode === 'path' && (!previous || previous.quest_path !== quest.quest_path);
+
             return (
-              <QuestCard
-                key={quest.id}
-                index={index}
-                questCode={quest.id}
-                pathToQuests="../quests/[questCode]"
-                duration={`${quest.estimated_minutes} minutes`}
-                progressLabel={
-                  completions > 0
-                    ? `Completed ${completions} ${completions === 1 ? 'time' : 'times'}`
-                    : progressLabel
-                }
-                completed={completions > 0}
-              />
+              <Fragment key={quest.id}>
+                {startsNewPath && <Text style={styles.pathLabel}>{quest.quest_path}</Text>}
+                <QuestCard
+                  index={index}
+                  questCode={quest.id}
+                  pathToQuests="../quests/[questCode]"
+                  duration={`${quest.estimated_minutes} minutes`}
+                  progressLabel={
+                    completions > 0
+                      ? `Completed ${completions} ${completions === 1 ? 'time' : 'times'}`
+                      : progressLabel
+                  }
+                  completed={completions > 0}
+                />
+              </Fragment>
             );
           })
         )}
@@ -71,5 +83,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: 'center',
     color: colors.onDarkMuted,
+  },
+  pathLabel: {
+    fontFamily: fonts.serif,
+    fontSize: 16,
+    color: colors.onDarkMuted,
+    marginTop: 8,
+    marginBottom: 12,
+    textAlign: 'center',
   },
 });
