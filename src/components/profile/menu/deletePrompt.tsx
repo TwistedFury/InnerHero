@@ -1,5 +1,5 @@
 import { Modal, View, Text, Pressable, StyleSheet } from 'react-native';
-import { colors, fonts } from '../../styling/theme';
+import { colors, fonts } from '../../../styling/theme';
 
 export default function DeletePrompt({
   isDeletePromptVisible,

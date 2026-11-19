@@ -1,7 +1,7 @@
 import { Modal, View, Pressable, Text, ScrollView, StyleSheet } from 'react-native';
-import { fonts, colors } from '../../styling/theme';
+import { fonts, colors } from '../../../styling/theme';
 
-import HelpLinks from './helpLinks';
+import HelpLinks from '../helpLinks';
 
 type Section = { title: string; body: string[] };
 

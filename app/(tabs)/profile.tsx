@@ -13,10 +13,11 @@ import Stats from '../../src/components/profile/stats';
 import Milestones from '../../src/components/profile/milestones';
 import Edit from '../../src/components/profile/edit';
 import HelpLinks from '../../src/components/profile/helpLinks';
-import DeleteMessage from '../../src/components/profile/deleteMessage';
-import Menu from '../../src/components/profile/menu';
-import DeletePrompt from '../../src/components/profile/deletePrompt';
-import AboutModal from '../../src/components/profile/aboutMenu';
+import DeleteMessage from '../../src/components/profile/menu/deleteMessage';
+import Menu from '../../src/components/profile/menu/menu';
+import DeletePrompt from '../../src/components/profile/menu/deletePrompt';
+import AboutModal from '../../src/components/profile/menu/aboutMenu';
+import OtherResourcesModal from '../../src/components/profile/menu/otherResources';
 import TitleOptions from '../../src/components/profile/titleOptions';
 import PageBackground from '../../src/components/pageBackground';
 
@@ -31,6 +32,7 @@ export default function Profile() {
   const [isEditing, setIsEditing] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isAboutVisible, setIsAboutVisible] = useState(false);
+  const [isOTRVisible, setIsOTRVisible] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isDeletePromptVisible, setIsDeletePromptVisible] = useState(false);
   const [deleteMessage, setDeleteMessage] = useState('');
@@ -65,6 +67,12 @@ export default function Profile() {
     // so we wait a moment before showing the About page.
     setTimeout(() => setIsAboutVisible(true), 350);
   };
+
+  const openOTR = () => {
+    setIsMenuVisible(false);
+    // Same reasoning as `openAbout`
+    setTimeout(() => setIsOTRVisible(true), 350);
+  }
 
   const handleToggleEditing = () => {
     setIsEditing((editing) => !editing);
@@ -132,10 +140,15 @@ export default function Profile() {
         isDeleting={isDeleting}
         confirmDeleteData={confirmDeleteData}
         openAbout={openAbout}
+        openOTR={openOTR}
       />
       <AboutModal
         isAboutVisible={isAboutVisible}
         setIsAboutVisible={setIsAboutVisible}
+      />
+      <OtherResourcesModal
+        isOTRVisible={isOTRVisible}
+        setIsOTRVisible={setIsOTRVisible}
       />
       <DeletePrompt
         isDeletePromptVisible={isDeletePromptVisible}

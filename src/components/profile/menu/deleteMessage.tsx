@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { colors, fonts } from '../../styling/theme';
+import { colors, fonts } from '../../../styling/theme';
 
 export default function DeleteMessage({ deleteMessage }: { deleteMessage: string }) {
     return (

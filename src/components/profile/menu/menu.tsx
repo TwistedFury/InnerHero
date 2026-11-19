@@ -1,5 +1,5 @@
 import { Modal, View, Pressable, Text, StyleSheet } from 'react-native';
-import { fonts, colors } from '../../styling/theme'
+import { fonts, colors } from '../../../styling/theme'
 
 export default function Menu(
     { 
@@ -7,13 +7,15 @@ export default function Menu(
         setIsMenuVisible, 
         isDeleting, 
         confirmDeleteData,
-        openAbout
+        openAbout,
+        openOTR,
     }: { 
         isMenuVisible: boolean; 
         setIsMenuVisible: (visible: boolean) => void; 
         isDeleting: boolean; 
         confirmDeleteData: () => void;
         openAbout: () => void;
+        openOTR: () => void;
     }) {
     return (
       <Modal
@@ -50,6 +52,17 @@ export default function Menu(
               <Text style={styles.menuAboutTitle}>About Inner Hero</Text>
               <Text style={styles.menuAboutDescription}>
                 Why it was made and the research behind it.
+              </Text>
+            </Pressable>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Other Resources"
+              onPress={openOTR}
+              style={({ pressed }) => [styles.menuAboutButton, pressed && styles.buttonPressed]}
+            >
+              <Text style={styles.menuAboutTitle}>Other Resources</Text>
+              <Text style={styles.menuAboutDescription}>
+                Other resources you can use to get through the day.
               </Text>
             </Pressable>
             <Pressable

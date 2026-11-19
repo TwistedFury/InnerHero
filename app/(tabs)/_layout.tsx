@@ -10,6 +10,7 @@ export default function TabsLayout() {
     <Tabs
       screenOptions={{
         headerShown: false,
+        animation: 'fade',
         tabBarActiveTintColor: colors.onDark,
         tabBarInactiveTintColor: colors.onDarkFaint,
         tabBarStyle: {

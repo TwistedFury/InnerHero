@@ -7,6 +7,14 @@ import { colors, fonts } from '../../styling/theme';
 import { getIcon } from '../../helper/icons';
 import PaperSheet from '../paperSheet';
 
+import * as Haptics from 'expo-haptics';
+import Animated, {
+  FadeInDown,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+
 const Bookmark = getIcon('bookmark');
 
 type QuestCardProps = {
@@ -35,62 +43,78 @@ export default function QuestCard({
   const ink = completed ? colors.muted : colors.text;
   const accent = completed ? colors.muted : colors.primary;
 
+  const tilt = parseFloat(TILTS[index % TILTS.length]);
+
+  // 0 = resting, 1 = fully pressed
+  const pressed = useSharedValue(0);
+
+  const pressStyle = useAnimatedStyle(() => ({
+    transform: [
+      { rotate: `${tilt * (1 - pressed.value)}deg` },
+      { scale: 1 + 0.03 * pressed.value },
+    ],
+  }));
+
   return (
-    <Pressable
-      onPress={() =>
-        router.navigate({ pathname: pathToQuests, params: { questCode } })
-      }
-      accessibilityRole="button"
-      accessibilityLabel={`${quest?.name}, ${duration}`}
-      style={({ pressed }) => [
-        styles.card,
-        { opacity: completed ? 0.85 : 1 },
-        {
-          transform: [
-            { rotate: pressed ? '0deg' : TILTS[index % TILTS.length] },
-            { scale: pressed ? 1.02 : 1 },
-          ],
-        },
-      ]}
+    <Animated.View
+      entering={FadeInDown.delay(Math.min(index, 8) * 70).duration(300)}
+      style={styles.card}
     >
-      <PaperSheet seed={questCode} style={styles.paper}>
-        <View style={styles.topRow}>
-          <View style={[styles.tag, { borderColor: accent }]}>
-            <Text style={[styles.tagText, { color: accent }]}>{quest?.tag}</Text>
-          </View>
-          <Text style={[styles.duration, { color: colors.muted }]}>{duration}</Text>
-        </View>
+      <Pressable
+        onPress={() =>
+          router.navigate({ pathname: pathToQuests, params: { questCode } })
+        }
+        onPressIn={() => {
+          pressed.value = withSpring(1, { damping: 15, stiffness: 300 });
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        }}
+        onPressOut={() => {
+          pressed.value = withSpring(0, { damping: 12, stiffness: 250 });
+        }}
+        accessibilityRole="button"
+        accessibilityLabel={`${quest?.name}, ${duration}`}
+      >
+        <Animated.View style={[{ opacity: completed ? 0.85 : 1 }, pressStyle]}>
+          <PaperSheet seed={questCode} style={styles.paper}>
+            <View style={styles.topRow}>
+              <View style={[styles.tag, { borderColor: accent }]}>
+                <Text style={[styles.tagText, { color: accent }]}>{quest?.tag}</Text>
+              </View>
+              <Text style={[styles.duration, { color: colors.muted }]}>{duration}</Text>
+            </View>
 
-        <View style={styles.titleRow}>
-          <View style={styles.iconTile}>
-            {createElement(getIcon(quest?.icon), {
-              style: { width: 22, height: 22, color: accent },
-            })}
-          </View>
-          <Text style={[styles.title, { color: ink }]}>{quest?.name}</Text>
-        </View>
+            <View style={styles.titleRow}>
+              <View style={styles.iconTile}>
+                {createElement(getIcon(quest?.icon), {
+                  style: { width: 22, height: 22, color: accent },
+                })}
+              </View>
+              <Text style={[styles.title, { color: ink }]}>{quest?.name}</Text>
+            </View>
 
-        <Text style={[styles.description, { color: ink }]}>{quest?.description}</Text>
+            <Text style={[styles.description, { color: ink }]}>{quest?.description}</Text>
 
-        {!!progressLabel && (
-          <View style={styles.progressRow}>
-            <Bookmark style={{ width: 18, height: 18, color: accent }} />
-            <Text style={[styles.progressText, { color: accent }]}>{progressLabel}</Text>
-          </View>
-        )}
+            {!!progressLabel && (
+              <View style={styles.progressRow}>
+                <Bookmark style={{ width: 18, height: 18, color: accent }} />
+                <Text style={[styles.progressText, { color: accent }]}>{progressLabel}</Text>
+              </View>
+            )}
 
-        <Text style={styles.source}>{quest?.theory}</Text>
+            <Text style={styles.source}>{quest?.theory}</Text>
 
-        {completed && (
-          <View style={styles.seal}>
-            <Text style={styles.sealText}>✓</Text>
-          </View>
-        )}
-      </PaperSheet>
+            {completed && (
+              <View style={styles.seal}>
+                <Text style={styles.sealText}>✓</Text>
+              </View>
+            )}
+          </PaperSheet>
 
-      {/* outside the paper so the clipping doesn't cut it off */}
-      <View style={styles.pin} />
-    </Pressable>
+          {/* outside the paper so the clipping doesn't cut it off */}
+          <View style={styles.pin} />
+        </Animated.View>
+      </Pressable>
+    </Animated.View>
   );
 }
 
