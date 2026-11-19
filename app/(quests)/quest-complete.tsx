@@ -15,6 +15,7 @@ import HelpLinks from '../../src/components/profile/helpLinks';
 import { colors, fonts } from '../../src/styling/theme';
 
 import PaperSheet from '../../src/components/paperSheet';
+import CalmComplete from '../../src/components/quests/calmComplete';
 
 // Which steps to compare with an earlier run, and what to call them
 const TRACKED: Record<string, string> = {
@@ -215,6 +216,21 @@ export default function QuestComplete() {
   useEffect(() => {
     syncMilestones(progress);
   }, [progress, syncMilestones]);
+
+  if (quest?.theme === 'calm') {
+    return (
+      <CalmComplete
+        quest={quest}
+        answers={answers}
+        milestones={newMilestones}
+        unlocked={showUnlocked ? upNext.map((q) => ({ id: q.id, name: q.name })) : []}
+        onBack={() => router.replace('/quests')}
+        onOpenQuest={(id) =>
+          router.replace({ pathname: '/quests/[questCode]', params: { questCode: id } })
+        }
+      />
+    );
+  }
 
   return (
     <PageBackground>

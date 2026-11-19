@@ -259,13 +259,14 @@
         "tag": "MBCT · Three-minute breathing space",
         "description": "A short pause with three steps: notice what's here, gather your attention on your breath, then widen your awareness to your whole body. Use it any time you notice you're on autopilot or something feels hard.",
         "icon": "heart",
+        "theme": "calm",
         "steps": [
             {"id": "mood-before", "type": "mood", "prompt": "Before you start, how would you describe your mood? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true},
             {"id": "intro", "type": "info", "prompt": "This takes about three minutes, roughly one minute per step. The three steps spell AGE: Awareness, Gathering, Expanding. It doesn't fix anything. It makes a little room around whatever is going on.", "required": false},
             {"id": "awareness", "type": "info", "prompt": "Step 1, Awareness (about one minute). Sit or stand upright, and close your eyes if that's comfortable. Ask yourself, 'What is my experience right now?' Notice any thoughts, treating them as passing events. Notice any feelings, including uncomfortable ones. Notice any sensations in your body, like tightness or bracing. You don't need to change anything.", "required": false},
             {"id": "awareness-notes", "type": "text", "prompt": "What did you notice? (optional)", "required": false},
-            {"id": "gathering", "type": "info", "prompt": "Step 2, Gathering (about one minute). Gently bring all your attention to your breath. Feel your belly rise as you breathe in and fall as you breathe out. If your mind wanders, bring it back without criticizing yourself.", "required": false},
-            {"id": "expanding", "type": "info", "prompt": "Step 3, Expanding (about one minute). Widen your attention from your breath to your whole body, your posture, and your face. Let whatever is here be here. When you're ready, carry this wider awareness into the next moments of your day.", "required": false},
+            {"id": "gathering", "type": "info", "prompt": "Step 2, Gathering (about one minute). Gently bring all your attention to your breath. Feel your belly rise as you breathe in and fall as you breathe out. If your mind wanders, bring it back without criticizing yourself. Follow the circle, or just breathe at your own pace and use it as something to rest your eyes on.", "required": false, "breathing": { "inhale_seconds": 4, "exhale_seconds": 4, "cycles": 7 }},
+            {"id": "expanding", "type": "info", "prompt": "Step 3, Expanding (about one minute). Widen your attention from your breath to your whole body, your posture, and your face. Let whatever is here be here. When you're ready, carry this wider awareness into the next moments of your day.", "required": false, "scene": "expand"},
             {"id": "mood-after", "type": "mood", "prompt": "How would you describe your mood now? (0 is most negative, 10 is most positive)", "min": 0, "max": 10, "required": true}
         ],
         "version": "v1.0",

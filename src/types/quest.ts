@@ -9,6 +9,12 @@ export type QuestStepType =
 
 export type QuestListItem = Record<string, string>;
 
+export interface BreathingSettings {
+    inhale_seconds: number;
+    exhale_seconds: number;
+    cycles: number;
+}
+
 export interface QuestStep {
     id: string;
     type: QuestStepType;
@@ -22,6 +28,8 @@ export interface QuestStep {
     max_items?: number;
     min_label?: string;
     max_label?: string;
+    breathing?: BreathingSettings;
+    scene?: 'rest' | 'expand';
 }
 
 export type QuestAnswer = string | number | QuestListItem[];
@@ -60,6 +68,7 @@ export interface Quest {
     closing_note?: string;
     next_note?: string;
     priority?: number;
+    theme?: 'calm';
 }
 
 export type ProgressState = {

@@ -13,6 +13,10 @@ import QuestList from '../quest-modules/Quest_List';
 import QuestRank from '../quest-modules/Quest_Rank';
 import QuestSchedule from '../quest-modules/Quest_Schedule';
 
+import BreathingScene from './breathingScene'
+import CalmFrame from './calmFrame';
+import CalmStep from './calmStep';
+
 const getListItems = (answer: QuestAnswer | undefined): string[] =>
   Array.isArray(answer)
     ? answer
@@ -28,14 +32,16 @@ function StepInput({
   value,
   previousListAnswer,
   onChange,
+  calm,
 }: {
   step: QuestStep;
   value: QuestAnswer | undefined;
   previousListAnswer: QuestAnswer | undefined;
   onChange: (answer: QuestAnswer) => void;
+  calm?: boolean;
 }) {
   if (step.type === 'text') {
-    return <QuestText value={typeof value === 'string' ? value : ''} onChange={(answer) => onChange(answer)} />;
+    return <QuestText calm={calm} value={typeof value === 'string' ? value : ''} onChange={(answer) => onChange(answer)} />;
   }
 
   if (step.type === 'slider') {
@@ -43,7 +49,7 @@ function StepInput({
   }
 
   if (step.type === 'mood') {
-    return <QuestMood value={typeof value === 'number' ? value : undefined} onChange={(answer) => onChange(answer)} />;
+    return <QuestMood calm={calm} value={typeof value === 'number' ? value : undefined} onChange={(answer) => onChange(answer)} />;
   }
 
   if (step.type === 'list') {
@@ -85,15 +91,26 @@ export function QuestRunner({ quest }: { quest: Quest }) {
   const { drafts, stepIndexes } = useProgress();
   const stepIndex = stepIndexes[quest.id] ?? 0;
   const step = quest.steps[stepIndex];
-  if (!step) {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.title}>Quest complete</Text>
-        <Text style={styles.prompt}>Your responses have been saved on this device.</Text>
-      </View>
-    );
-  }
-  return <QuestStepRunner key={step.id} quest={quest} step={step} stepIndex={stepIndex} initialAnswer={drafts[quest.id]?.[step.id]} />;
+
+  const content = step ? (
+    <QuestStepRunner
+      key={step.id}
+      quest={quest}
+      step={step}
+      stepIndex={stepIndex}
+      initialAnswer={drafts[quest.id]?.[step.id]}
+    />
+  ) : quest.theme === 'calm' ? (
+    <View style={{ flex: 1 }} />
+  ) : (
+    <View style={styles.container}>
+      <Text style={styles.title}>Quest complete</Text>
+      <Text style={styles.prompt}>Your responses have been saved on this device.</Text>
+    </View>
+  );
+
+  // Calm quests keep one dark space on screen while the pages change inside it
+  return quest.theme === 'calm' ? <CalmFrame scene={step?.scene}>{content}</CalmFrame> : content;
 }
 
 function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
@@ -111,6 +128,9 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
     .slice(0, stepIndex)
     .reverse()
     .find((candidate) => candidate.type === 'list');
+  const previousListAnswer = previousListStep
+    ? drafts[quest.id]?.[previousListStep.id]
+    : undefined;
 
   const submit = () => {
     if (stepIndex === 0) {
@@ -171,6 +191,45 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
     advanceStep(quest.id);
   };
 
+  if (step.breathing) {
+    return (
+      <BreathingScene
+        prompt={step.prompt}
+        inhaleSeconds={step.breathing.inhale_seconds}
+        exhaleSeconds={step.breathing.exhale_seconds}
+        cycles={step.breathing.cycles}
+        onContinue={submit}
+      />
+    );
+  }
+
+  if (quest.theme === 'calm') {
+    return (
+      <CalmStep
+        prompt={step.prompt}
+        stepIndex={stepIndex}
+        stepCount={quest.steps.length}
+        isLastStep={isLastStep}
+        error={error}
+        onContinue={submit}
+        framed={step.type !== 'mood' && step.type !== 'text'}
+      >
+        {step.type !== 'info' ? (
+          <StepInput
+            calm
+            step={step}
+            value={answer}
+            previousListAnswer={previousListStep ? drafts[quest.id]?.[previousListStep.id] : undefined}
+            onChange={(nextAnswer) => {
+              setAnswer(nextAnswer);
+              setError('');
+            }}
+          />
+        ) : null}
+      </CalmStep>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.progress}>PAGE {stepIndex + 1} OF {quest.steps.length}</Text>
@@ -182,7 +241,7 @@ function QuestStepRunner({ quest, step, stepIndex, initialAnswer }: {
           <StepInput
             step={step}
             value={answer}
-            previousListAnswer={previousListStep ? drafts[quest.id]?.[previousListStep.id] : undefined}
+            previousListAnswer={previousListAnswer}
             onChange={(nextAnswer) => {
               setAnswer(nextAnswer);
               setError('');
