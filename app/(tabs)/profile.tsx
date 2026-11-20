@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { useCallback, useRef, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
+import Reveal from '../../src/components/profile/reveal';
+import { ScrollView, StyleSheet, View, type LayoutChangeEvent } from 'react-native';
 import { deleteAllSavedData } from '../../src/helper/dataDeleter';
 import { useUser } from '../../src/storage/userStorage';
 import { useProgress } from '../../src/storage/questStorage';
@@ -36,6 +38,25 @@ export default function Profile() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isDeletePromptVisible, setIsDeletePromptVisible] = useState(false);
   const [deleteMessage, setDeleteMessage] = useState('');
+
+  // Bumping this number makes the page rebuild itself, so the entrance plays on every visit
+  const [visit, setVisit] = useState(0);
+  const firstFocus = useRef(true);
+
+  // For scrolling down to the name editor when it opens
+  const scrollRef = useRef<ScrollView>(null);
+  const viewportHeight = useRef(0); // how tall the visible part of the page is
+  const wantsScroll = useRef(false); // true between tapping edit and the panel appearing
+
+  useFocusEffect(
+    useCallback(() => {
+      if (firstFocus.current) {
+        firstFocus.current = false; // the first visit already animates by itself
+        return;
+      }
+      setVisit((v) => v + 1);
+    }, []),
+  );
 
   const DeleteData = async () => {
     setIsDeleting(true);
@@ -75,8 +96,25 @@ export default function Profile() {
   }
 
   const handleToggleEditing = () => {
+    if (!isEditing) wantsScroll.current = true; // opening: scroll once the panel exists
     setIsEditing((editing) => !editing);
     setError('');
+  };
+
+  // Runs when the editor's space on the page changes size, which happens when it opens
+  const handleEditLayout = (event: LayoutChangeEvent) => {
+    if (!wantsScroll.current) return;
+    const { y, height } = event.nativeEvent.layout;
+    if (height === 0) return; // the panel hasn't appeared yet
+    wantsScroll.current = false;
+
+    // Scroll so the bottom of the panel sits just above the bottom of the screen
+    const target = Math.max(0, y + height - viewportHeight.current + 24);
+
+    // wait a moment for the layout to settle, same as the list pages
+    setTimeout(() => {
+      scrollRef.current?.scrollTo({ y: target, animated: true });
+    }, 100);
   };
 
   const handleSave = () => {
@@ -91,6 +129,11 @@ export default function Profile() {
     setNameDraft(trimmedName);
     setError('');
     setIsEditing(false);
+
+    // wait for the panel to finish fading out and the page to shrink, then go back to the top
+    setTimeout(() => {
+      scrollRef.current?.scrollTo({ y: 0, animated: true });
+    }, 350);
   };
 
   const handleGenerateName = () => {
@@ -102,6 +145,11 @@ export default function Profile() {
     <PageBackground>
       <View style={styles.panel}>
         <ScrollView
+          ref={scrollRef}
+          key={visit}
+          onLayout={(event) => {
+            viewportHeight.current = event.nativeEvent.layout.height;
+          }}
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
@@ -110,25 +158,37 @@ export default function Profile() {
             isMenuVisible={isMenuVisible}
             setIsMenuVisible={setIsMenuVisible}
           />
-          <Identity 
-            isEditing={isEditing}
-            onToggleEditing={handleToggleEditing}
-          />
-          <PrivacyCard />
-          <Stats />
-          <Milestones />
-          <Edit
-            isEditing={isEditing}
-            nameDraft={nameDraft}
-            error={error}
-            onNameChange={(value) => {
-              setNameDraft(value);
-              setError('');
-            }}
-            onSave={handleSave}
-            onGenerateName={handleGenerateName}
-          />
-          <HelpLinks />
+          <Reveal index={0}>
+            <Identity
+              isEditing={isEditing}
+              onToggleEditing={handleToggleEditing}
+            />
+          </Reveal>
+          <Reveal index={1}>
+            <PrivacyCard />
+          </Reveal>
+          <Reveal index={2}>
+            <Stats />
+          </Reveal>
+          <Reveal index={3}>
+            <Milestones />
+          </Reveal>
+          <View onLayout={handleEditLayout}>
+            <Edit
+              isEditing={isEditing}
+              nameDraft={nameDraft}
+              error={error}
+              onNameChange={(value) => {
+                setNameDraft(value);
+                setError('');
+              }}
+              onSave={handleSave}
+              onGenerateName={handleGenerateName}
+            />
+          </View>
+          <Reveal index={4}>
+            <HelpLinks />
+          </Reveal>
         </ScrollView>
       </View>
       {deleteMessage ? (
