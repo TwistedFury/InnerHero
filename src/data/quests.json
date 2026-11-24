@@ -252,6 +252,7 @@
         "id": "mbct-1",
         "name": "Breathing Space",
         "theory": "Segal, Williams & Teasdale (2013), Mindfulness-Based Cognitive Therapy for Depression, 2nd ed., three-minute breathing space",
+        "source_url": "https://books.google.com/books/about/Mindfulness_Based_Cognitive_Therapy_for.html?id=QHRVDwAAQBAJ",
         "quest_path": "Taking Space",
         "chain_id": "ts-1",
         "chain_index": 0,

@@ -1,4 +1,4 @@
-import { Pressable, Text, StyleSheet, View } from 'react-native';
+import { Pressable, Text, StyleSheet, View, Linking } from 'react-native';
 import { createElement } from 'react';
 import { useRouter, type RelativePathString } from 'expo-router';
 
@@ -101,7 +101,19 @@ export default function QuestCard({
               </View>
             )}
 
-            <Text style={styles.source}>{quest?.theory}</Text>
+            {quest?.source_url ? (
+              <Pressable
+                onPress={() => Linking.openURL(quest.source_url!).catch(() => {})}
+                accessibilityRole="link"
+                accessibilityLabel={`Open source: ${quest.theory}`}
+                hitSlop={8}
+                style={styles.sourceLink}
+              >
+                <Text style={[styles.source, styles.sourceLinkText]}>{quest.theory}</Text>
+              </Pressable>
+            ) : (
+              <Text style={styles.source}>{quest?.theory}</Text>
+            )}
 
             {completed && (
               <View style={styles.seal}>
@@ -184,6 +196,11 @@ const styles = StyleSheet.create({
     fontSize: 11,
     lineHeight: 16,
     color: colors.muted,
+  },
+  sourceLink: { alignSelf: 'flex-start' },
+  sourceLinkText: {
+    color: colors.primary,
+    textDecorationLine: 'underline',
   },
   seal: {
     position: 'absolute',

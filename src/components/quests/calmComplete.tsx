@@ -197,9 +197,9 @@ export default function CalmComplete({
           <CalmButton label="Back to the Quest Board" onPress={onBack} />
         </Animated.View>
 
-        {/* Kept readable on purpose: this is the page people may need it on */}
+        {/* Dark version so it blends into the calm page, and stays readable */}
         <Animated.View entering={FadeIn.duration(1000).delay(buttonDelay + 600)} style={styles.help}>
-          <HelpLinks />
+          <HelpLinks dark />
         </Animated.View>
       </ScrollView>
     </CalmFrame>
@@ -290,5 +290,5 @@ const styles = StyleSheet.create({
   unlockedArrow: { fontFamily: fonts.sansBold, fontSize: 20, color: colors.gold },
 
   footer: { marginTop: 4 },
-  help: { alignSelf: 'stretch', backgroundColor: colors.bg, borderRadius: 16, padding: 16 },
+  help: { alignSelf: 'stretch' },
 });

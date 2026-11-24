@@ -4,12 +4,14 @@ import { colors, fonts } from '../../styling/theme';
 export default function HelpLinks({
   showDivider = true,
   large = false,
+  dark = false,
 }: {
   showDivider?: boolean;
   large?: boolean;
+  dark?: boolean;
 }) {
-  const textStyle = [styles.getHelpText, large && styles.getHelpTextLarge];
-  const linkStyle = [styles.link, large && styles.linkLarge];
+  const textStyle = [styles.getHelpText, large && styles.getHelpTextLarge, dark && styles.getHelpTextDark];
+  const linkStyle = [styles.link, large && styles.linkLarge, dark && styles.linkDark];
 
   return (
     <View
@@ -17,6 +19,7 @@ export default function HelpLinks({
         styles.container,
         !showDivider && styles.noDivider,
         large && styles.containerLarge,
+        dark && styles.containerDark,
       ]}
     >
       <Text style={textStyle}>
@@ -79,5 +82,15 @@ const styles = StyleSheet.create({
   },
   linkLarge: {
     fontSize: 15,
+  },
+  containerDark: {
+    marginTop: 0,
+    borderTopColor: 'rgba(255,255,255,0.18)',
+  },
+  getHelpTextDark: {
+    color: colors.onDarkMuted,
+  },
+  linkDark: {
+    color: colors.gold,
   },
 });
